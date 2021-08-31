@@ -1,0 +1,56 @@
+head
+    style.
+        h1 {
+            color: DarkCyan
+        }
+        div {
+            margin-bottom: 10px;
+        }
+        p {
+            color: Maroon;
+        }
+        #linesDiv {
+            padding-top: 20px;
+            width: 300px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            grid-template-rows: 20px 0;
+            grid-gap: 20px;
+        }
+        #linesDiv:after, #linesDiv:before {
+            height: 13px;
+            content: " ";
+            display: block;
+            border-bottom: 0.1px solid grey;
+        }
+    title= login
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+
+body(style="text-align:center;")
+    h1 Login Page
+
+    a(href='/test/home') Home
+
+    hr
+
+    - if(messages.success_msg)
+        p= messages.success_msg
+    - if(messages.error)
+        p= messages.error
+        
+    div#parentDiv
+        form(action='/test/login' method='POST')
+            div
+                input(type='email' id='email' name='email' placeholder='Email')
+            div
+                input(type='password' id='password' name='password' placeholder='Password')
+            div
+                input(type='submit' value='Login')
+
+    div#linesDiv
+        i Not registered yet?
+        
+    div
+        a(href='/test/register') Register

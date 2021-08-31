@@ -1,0 +1,35 @@
+head
+    style.
+        h1 {
+            color: DarkCyan
+        }
+        div {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 50pt;
+            margin-right: 50pt;
+        }
+        ul {
+            list-style-type: none;
+            text-align: left;
+        }
+    title= home
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+
+body(style="text-align:center;")
+    h1 Home Page
+
+    div
+        a(href='/test/login') Log in
+
+    hr
+
+    each val in main
+        div
+            a(href=`/test/category/${val.id}` class="btn" style="font-size:20px") #{val.name}
+            hr
+            ul
+                each el in subs
+                    - if(el.parentId === val.id)
+                        li
+                            a(href=`/test/subcategory/${el.id}` class="btn") #{el.name}

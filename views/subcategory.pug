@@ -1,0 +1,49 @@
+head
+    style.
+        h1 {
+            color: DarkCyan
+        }
+        ul {
+            list-style-type: none;
+            text-align: left;
+            margin-left: 450pt;
+        }
+        .parentDiv {
+            margin: auto;
+            border-style: outset;
+            height: 180px;
+            width: 700px;
+            margin-bottom: 10px;
+            padding: 10px;
+            text-align: left
+        }
+        .childDiv {
+            display: inline-block;
+            vertical-align: top;
+            width: 320px
+        }
+    title= subcategory
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+
+body(style="text-align:center;")
+    h1 #{categ.name}
+
+    nav
+        a(href='/test/login' style="margin-right: 20px") Log in
+        a(href='/test/home' style="margin-left: 20px") Back
+
+    hr
+
+    - if(ads.length > 0)
+        each el in ads
+            div.parentDiv
+                div.childDiv
+                    - if(el.image)
+                        img(src=`/uploads/${el.image[0]}` alt="Image" height="150")
+                    - else 
+                        img(src='/uploads/default.jpeg' alt="Image" height="150")
+                div.childDiv
+                    a(href=`/test/item/${el.id}` style="font-size:15pt") #{el.title}
+    - if(ads.length == 0)
+        p
+            i No ads are available in this category
