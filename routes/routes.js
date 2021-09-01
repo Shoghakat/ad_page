@@ -8,6 +8,8 @@ module.exports = app => {
     app.use('/test/category', require('./category.js'))
     app.use('/test/subcategory', require('./subcategory.js'))
     app.use('/test/item', require('./item.js'))
+    app.use('/test/message', require('./message.js'))
+    app.use('/test/user/messages', require('./messagesUser.js'))
 
     app.use('/test/login', require('./login.js'))
     app.use('/test/register', require('./register.js'))

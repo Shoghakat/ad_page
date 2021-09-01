@@ -3,6 +3,7 @@ const { Op } = require('sequelize')
 const adValidationSchema = require('../validations/adsValid.js');
 const userValidationSchema = require('../validations/usersValid.js');
 const profileValidationSchema = require('../validations/profileValid.js');
+const messageValidationSchema = require('../validations/messageValid.js');
 const paramValidationSchema = require('../validations/paramValid.js');
 
 const usersFunctionals = require('../models/users_functionals.js')
@@ -72,10 +73,25 @@ const profileValidation = (req, res, next) => {
     }
 }
 
+const messageValidation = async (req, res, next) => {
+    const { error, value } = messageValidationSchema.validate(req.body)
+    if(error !== undefined) {
+        const ad = await adsFunctionals.findAdById(req.params.id)
+        if(ad) {
+            res.render('message', { errors: error, ad: ad })
+        } else {
+            res.send(`There is no ad with id ${req.params.id}`)
+        }
+    } else {
+        next()
+    }
+}
+
 module.exports = {
     adValidation,
     adValidationEdit,
     userValidation,
     profileValidation,
+    messageValidation,
     paramValidation
 }

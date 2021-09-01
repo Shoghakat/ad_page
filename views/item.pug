@@ -18,7 +18,11 @@ head
         nav {
             text-align:center;
         }
-        p {
+        .message {
+            color: Maroon;
+            text-align: center
+        }
+        .details {
             margin-left: 20px;
             font-size: 10pt;
         }
@@ -35,6 +39,10 @@ head
             margin-left: 10pt;
             margin-right: 10pt;
             margin-bottom: 10px
+        }
+        #messagesDiv {
+            position: absolute;
+            right: 100px;
         }
         ul {
             list-style-type: none;
@@ -69,6 +77,11 @@ body
             a(href=`/test/subcategory/${ad.categoryId}` style="margin-left: 20px") Back
 
     hr
+        
+    - if(messages.success_msg)
+        p.message= messages.success_msg
+    - if(messages.error)
+        p.message= messages.error
     
     div
         - if(ad.image)
@@ -91,17 +104,33 @@ body
                     a(href=`/test/edit/${ad.id}` class="btn btn-success" style="font-size:20px") Edit
                 li(style="margin-top: 15pt;")
                     a(href=`/test/delete/ad/${ad.id}` class="btn btn-success" style="font-size:20px") Delete
+            
+            - else
+                li(style="margin-top: 50px;")
+                    a(href=`/test/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
+    
+    - if(user)
+        div#messagesDiv Messages
+            hr
+            - if(userMessages.length > 0)
+                ul
+                    each el in userMessages
+                        li
+                            a(href=`/test/user/messages/${el.id}` class="btn" style="color:DarkCyan") #{el.name}
+            - if(userMessages.length === 0)
+                div
+                    i There are no messages
 
-    p
+    p.details
         - if(ad.image && ad.image.length > 1)
             a(href=`/test/item/${ad.id}/images`) See more pictures
 
-    p
+    p.details
         strong= ad.title
 
-    p= ad.location
+    p.details= ad.location
 
-    p= ad.description
+    p.details= ad.description
 
     //- div Created:
     //-     span #{ad.createdAt}

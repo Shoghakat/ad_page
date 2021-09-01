@@ -1,13 +1,18 @@
 const usersFunctionals = require('../models/users_functionals.js')
 const adsFunctionals = require('../models/ads_functionals.js')
 const categsFunctionals = require('../models/categories_functionals.js')
+const messagesFunctionals = require('../models/messages_functionals.js')
 
 const getItemPage = async (req, res, next) => {
     const adById = await adsFunctionals.findAdById(req.params.id)
+    const messages = await messagesFunctionals.findMessagesWhere({
+        userId: adById.userId,
+        adId: adById.id
+    })
     
     if(adById) {
         const userById = await usersFunctionals.findUserById(adById.userId)
-        res.render('item', { user: req.user, ad: adById, image: userById.image })
+        res.render('item', { user: req.user, ad: adById, image: userById.image, userMessages: messages })
     } else {
         const err = `There is no ad with id ${req.params.id}`
         res.render('error', { user: req.user, err: err })

@@ -3,6 +3,7 @@ const { sequelize } = require('../configurations/dbConfig.js')
 const users = require('./users')
 const ads = require('./ads')
 const categories = require('./categories')
+const messages = require('./messages')
 
 categories.hasOne(categories, { sourceKey:'id', targetKey: 'parentId', foreignKey: 'parentId', onDelete: 'cascade' });
 
@@ -12,10 +13,19 @@ ads.belongsTo(users);
 categories.hasMany(ads, { foreignKey: 'categoryId', onDelete: 'cascade', hooks: true });
 ads.belongsTo(categories);
 
+users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
+messages.belongsTo(users);
+
+ads.hasMany(messages, { foreignKey: 'adId', onDelete: 'cascade', hooks: true });
+messages.belongsTo(ads);
+
 users
     .sync({ alter: true })
 
 ads
+    .sync({ alter: true })
+
+messages
     .sync({ alter: true })
 
 categories
@@ -43,4 +53,4 @@ categories
     })
 
 
-module.exports = { users, ads, categories }
+module.exports = { users, ads, categories, messages }
