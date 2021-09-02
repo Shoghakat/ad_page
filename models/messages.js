@@ -6,10 +6,9 @@ const messages = sequelize.define('messages', {
         autoIncrement: true,
         primaryKey: true
     },
-    name: Sequelize.STRING,
-    email: Sequelize.STRING,
-    message: Sequelize.STRING,
+    messages: Sequelize.ARRAY(Sequelize.JSON),
     userId: Sequelize.INTEGER,
+    receiverId: Sequelize.INTEGER,
     adId: Sequelize.INTEGER,
 }, {
     freezeTableName: true

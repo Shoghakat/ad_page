@@ -14,7 +14,7 @@ const getCategoryPage = async (req, res, next) => {
     const categ = await categsFunctionals.findCategById(id)
 
     if(categ) {
-        res.render('category', { categ: categ, ads: adsByIds })
+        res.render('category', { user: req.user, categ: categ, ads: adsByIds })
     } else {
         const err = `There is no category with id ${id}`
         res.render('error', { user: req.user, err: err })

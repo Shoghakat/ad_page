@@ -3,6 +3,17 @@ head
         h1 {
             color: DarkCyan
         }
+        .profileSpan {
+            position: absolute;
+            right: 100px;
+            font-size: 15pt;
+        }
+        .profileImg {
+            height: 90px;
+            padding-top: 5px;
+            padding-right: 5px;
+            border-radius: 50%;
+        }
         ul {
             list-style-type: none;
             text-align: left;
@@ -27,10 +38,23 @@ head
 
 body(style="text-align:center;")
     h1 #{categ.name}
+        - if(user)
+            span.profileSpan
+                - if(user.image)
+                    img.profileImg(src=`/uploads/${user.image}` alt="Image")
+                - else
+                    img.profileImg(src='/uploads/profile.jpeg')
+                a.hover(href='/test/profile') #{user.name}
 
-    nav
-        a(href='/test/login' style="margin-right: 20px") Log in
-        a(href='/test/home' style="margin-left: 20px") Back
+    - if(user)
+        nav
+            a(href='/test/account' style="margin-rifgr: 20px") Account
+            a(href='/test/home' style="margin-left: 20px") Back
+
+    - else
+        nav
+            a(href='/test/login' style="margin-right: 20px") Log in
+            a(href='/test/home' style="margin-left: 20px") Back        
 
     hr
 

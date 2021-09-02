@@ -40,10 +40,6 @@ head
             margin-right: 10pt;
             margin-bottom: 10px
         }
-        #messagesDiv {
-            position: absolute;
-            right: 100px;
-        }
         ul {
             list-style-type: none;
             text-align: center;
@@ -69,7 +65,7 @@ body
 
         nav
             a(href='/test/logout' style="margin-right: 20px") Logout
-            a(href='/test/account' style="margin-left: 20px") Back
+            a(href='/test/account' style="margin-left: 20px") Account
     - else
         h1 Advertisement Page
         nav
@@ -100,26 +96,14 @@ body
             li(style="font-size: 15pt;") #{ad.name}
             li(style="color: DarkCyan;") #{ad.phone_number}
             - if(user)
-                li(style="margin-top: 50px;")
-                    a(href=`/test/edit/${ad.id}` class="btn btn-success" style="font-size:20px") Edit
-                li(style="margin-top: 15pt;")
-                    a(href=`/test/delete/ad/${ad.id}` class="btn btn-success" style="font-size:20px") Delete
-            
-            - else
-                li(style="margin-top: 50px;")
-                    a(href=`/test/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
-    
-    - if(user)
-        div#messagesDiv Messages
-            hr
-            - if(userMessages.length > 0)
-                ul
-                    each el in userMessages
-                        li
-                            a(href=`/test/user/messages/${el.id}` class="btn" style="color:DarkCyan") #{el.name}
-            - if(userMessages.length === 0)
-                div
-                    i There are no messages
+                - if(user.id === ad.userId)
+                    li(style="margin-top: 50px;")
+                        a(href=`/test/edit/${ad.id}` class="btn btn-success" style="font-size:20px") Edit
+                    li(style="margin-top: 15pt;")
+                        a(href=`/test/delete/ad/${ad.id}` class="btn btn-success" style="font-size:20px") Delete
+                - else
+                    li(style="margin-top: 50px;")
+                        a(href=`/test/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
 
     p.details
         - if(ad.image && ad.image.length > 1)

@@ -14,6 +14,11 @@ router.get('/',
     check.checkNotAuthenticated,
     profileMiddlware.getProfilePage)
 
+router.get('/:id',
+    check.checkNotAuthenticated,
+    validationMiddlware.paramValidation,
+    profileMiddlware.getProfileByIdPage)
+
 router.post('/',
     check.checkNotAuthenticated,
     upload.uploadFile,

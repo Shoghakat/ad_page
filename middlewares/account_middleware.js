@@ -1,6 +1,7 @@
 const usersFunctionals = require('../models/users_functionals.js')
 const adsFunctionals = require('../models/ads_functionals.js')
 const categsFunctionals = require('../models/categories_functionals.js')
+const messagesFunctionals = require('../models/messages_functionals.js')
 
 const getAccountPage = async (req, res, next) => {
     const id = req.user.id

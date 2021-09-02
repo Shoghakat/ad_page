@@ -9,6 +9,20 @@ const getProfilePage = async (req, res, next) => {
     res.render('profile', { user: userById })
 }
 
+const getProfileByIdPage = async (req, res, next) => {
+    const id = req.params.id
+    const userById = await usersFunctionals.findUserById(req.user.id)
+    const userOwner = await usersFunctionals.findUserById(id)
+    if(userOwner) {
+        const ads = await adsFunctionals.findAdsWhere({ userId: id })
+        res.render('userAds', { user: userById, userOwner: userOwner, ads: ads })
+    } else {
+        const err = `There is no user with id ${id}`
+        res.render('error', { user: req.user, err: err })
+    }
+    
+}
+
 const postProfilePage = async (req, res, next) => {
     const user = req.user
     const data = req.body
@@ -29,4 +43,4 @@ const postProfilePage = async (req, res, next) => {
     res.redirect('/test/profile')
 }
 
-module.exports = { getProfilePage, postProfilePage }
+module.exports = { getProfilePage, getProfileByIdPage, postProfilePage }

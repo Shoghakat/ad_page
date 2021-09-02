@@ -16,6 +16,9 @@ ads.belongsTo(categories);
 users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
 messages.belongsTo(users);
 
+users.hasMany(messages, { foreignKey: 'receiverId', onDelete: 'cascade', hooks: true });
+messages.belongsTo(users);
+
 ads.hasMany(messages, { foreignKey: 'adId', onDelete: 'cascade', hooks: true });
 messages.belongsTo(ads);
 

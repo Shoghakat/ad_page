@@ -47,6 +47,11 @@ head
         p {
             color: Maroon;
         }
+        #messagesDiv {
+            display: inline-block;
+            position: absolute;
+            right: 100px;
+        }
     title= account
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
 
@@ -59,8 +64,9 @@ body(style="text-align:center;")
                 img(src='/uploads/profile.jpeg')
             a.hover(href='/test/profile') #{user.name}
 
-    div
-        a(href='/test/logout') Logout
+    nav
+        a(href='/test/logout' style="margin-right: 20px") Logout
+        a(href='/test/home' style="margin-left: 20px") Home
 
     hr
 
@@ -84,7 +90,8 @@ body(style="text-align:center;")
             div.childDiv
                 a(href='/test/delete/subcategory') Delete a subcategory
 
-    div.parentDiv2 My ads
+    div.parentDiv2
+        a(href=`/test/profile/${user.id}` class="btn") My ads
         hr
         - if(ads.length > 0)
             ul
@@ -94,3 +101,6 @@ body(style="text-align:center;")
         - if(ads.length === 0)
             div
                 i No ads posted yet
+
+    div#messagesDiv
+        a(href=`/test/user/messages` class="btn" style="color:DarkCyan") My Messages

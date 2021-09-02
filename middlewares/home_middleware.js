@@ -11,7 +11,7 @@ const getHomePage = async (req, res, next) => {
     const arr2 = await categsFunctionals.findCategsWhere({ parentId: { [Op.ne]: null } })
         .catch(next)
 
-    res.render('home', { main: arr1, subs: arr2 })
+    res.render('home', { main: arr1, subs: arr2, user: req.user })
 }
 
 module.exports = { getHomePage }

@@ -3,6 +3,23 @@ head
         h1 {
             color: DarkCyan;
         }
+        #profileSpan {
+            position: absolute;
+            right: 100px;
+            font-size: 15pt;
+        }
+        #profileImg {
+            height: 90px;
+            padding-top: 5px;
+            padding-right: 5px;
+            border-radius: 50%;
+        }
+        .hover {
+            color: grey;
+        }
+        .hover:hover {
+            color: DodgerBlue;
+        }
         span {
             font-size: 15pt;
         }
@@ -30,10 +47,16 @@ head
 
 body(style="text-align:center;")
     h1 Write a Message
+        span#profileSpan
+            - if(user.image)
+                img#profileImg(src=`/uploads/${user.image}` alt="Image")
+            - else
+                img#profileImg(src='/uploads/profile.jpeg')
+            a.hover(href='/test/profile') #{user.name}
 
     nav
-        a(href='/test/login' style="margin-right: 20px") Log in
-        a(href=`/test/item/${ad.id}` style="margin-left: 20px") Back
+        a(href='/test/logout' style="margin-right: 20px") Logout
+        a(href='/test/account' style="margin-left: 20px") Account
 
     hr
 
@@ -45,16 +68,6 @@ body(style="text-align:center;")
     span Advertisement: #{ad.title}
 
     form(action=`/test/message/${ad.id}` method='POST')
-        div
-            label.required
-                i Your Name
-            br
-            input(type='text' id='name' name='name')
-        div
-            label.required
-                i Your Email
-            br
-            input(type='email' id='email' name='email')
         div
             label.required
                 i Your Message

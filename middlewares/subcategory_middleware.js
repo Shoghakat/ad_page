@@ -8,7 +8,7 @@ const getSubcategoryPage = async (req, res, next) => {
 
     if(categById) {
         const adByCategId = await adsFunctionals.findAdsWhere({ categoryId: id })
-        res.render('subcategory', { categ: categById, ads: adByCategId })
+        res.render('subcategory', { user: req.user, categ: categById, ads: adByCategId })
     } else {
         const err = `There is no category with id ${id}`
         res.render('error', { user: req.user, err: err })
