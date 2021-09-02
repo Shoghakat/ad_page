@@ -26,7 +26,6 @@ const postMessagePage = async (req, res, next) => {
         message: req.body.message
     })
     data.userId = req.user.id,
-    data.receiverId = ad.userId,
     data.adId = ad.id
 
     if(ad) {

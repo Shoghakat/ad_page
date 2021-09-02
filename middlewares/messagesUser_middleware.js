@@ -7,7 +7,10 @@ const categsFunctionals = require('../models/categories_functionals.js')
 const messagesFunctionals = require('../models/messages_functionals.js')
 
 const getMessagesUserPage = async (req, res, next) => {
-    const messagesUser = await messagesFunctionals.findMessagesWhere({ [Op.or]: [{ userId: req.user.id }, { receiverId: req.user.id }] })
+    const ads = await adsFunctionals.findAdsWhere({ userId: req.user.id })
+    const ids = await Promise.map(ads, el => el.id)
+    const messagesUser = await messagesFunctionals.findMessagesWhere({ [Op.or]: [{ userId: req.user.id }, { adId: { [Op.or] : ids } }] })
+    
     await Promise.map(messagesUser, async  message => {
         let ad = await adsFunctionals.findAdById(message.adId)
         let user = await usersFunctionals.findUserById(message.userId)
@@ -21,9 +24,11 @@ const getMessagesUserPage = async (req, res, next) => {
 const getMessageByIdPage = async (req, res, next) => {
     const id = req.params.id
     const message = await messagesFunctionals.findMessageById(id)
+
+    const ad = await adsFunctionals.findAdById(message.adId)
     
     if(message) {
-        if(message.userId === req.user.id || message.receiverId === req.user.id) {
+        if(message.userId === req.user.id || ad.userId === req.user.id) {
             res.render('messageSingle', { user: req.user, message: message })
         } else {
             const err = `The message with id ${id} does not belong to you`
