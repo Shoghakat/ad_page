@@ -7,16 +7,16 @@ const messages = require('./messages')
 
 categories.hasOne(categories, { sourceKey:'id', targetKey: 'parentId', foreignKey: 'parentId', onDelete: 'cascade' });
 
-users.hasMany(ads, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
+users.hasMany(ads, { foreignKey: 'userId', onDelete: 'cascade' });
 ads.belongsTo(users);
 
-categories.hasMany(ads, { foreignKey: 'categoryId', onDelete: 'cascade', hooks: true });
+categories.hasMany(ads, { foreignKey: 'categoryId', onDelete: 'cascade' });
 ads.belongsTo(categories);
 
-users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade', hooks: true });
+users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade' });
 messages.belongsTo(users);
 
-ads.hasMany(messages, { foreignKey: 'adId', onDelete: 'cascade', hooks: true });
+ads.hasMany(messages, { foreignKey: 'adId', onDelete: 'cascade' });
 messages.belongsTo(ads);
 
 users
