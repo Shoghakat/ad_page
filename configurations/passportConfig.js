@@ -1,7 +1,7 @@
 const localStrategy = require('passport-local').Strategy
 
-const users = require('../models/modelsConfig').users
-const usersFunctionals = require('../models/users_functionals')
+const users = require('../models/models/modelsConfig').users
+const usersFunctionals = require('../models/functionals/users_functionals')
 
 const hashPassword = require('./passwordConfig').hashPassword
 

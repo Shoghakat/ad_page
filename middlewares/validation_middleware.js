@@ -6,9 +6,9 @@ const profileValidationSchema = require('../validations/profileValid');
 const messageValidationSchema = require('../validations/messageValid');
 const paramValidationSchema = require('../validations/paramValid');
 
-const usersFunctionals = require('../models/users_functionals')
-const adsFunctionals = require('../models/ads_functionals')
-const categsFunctionals = require('../models/categories_functionals')
+const usersFunctionals = require('../models/functionals/users_functionals')
+const adsFunctionals = require('../models/functionals/ads_functionals')
+const categsFunctionals = require('../models/functionals/categories_functionals')
 
 
 const paramValidation = async (req, res, next) => {

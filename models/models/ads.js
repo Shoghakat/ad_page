@@ -1,4 +1,4 @@
-const { Sequelize, sequelize } = require('../configurations/dbConfig')
+const { Sequelize, sequelize } = require('../../configurations/dbConfig')
 
 const ads = sequelize.define('ads', {
     id: {

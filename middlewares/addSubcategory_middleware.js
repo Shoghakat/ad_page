@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/users_functionals')
-const adsFunctionals = require('../models/ads_functionals')
-const categsFunctionals = require('../models/categories_functionals')
+const usersFunctionals = require('../models/functionals/users_functionals')
+const adsFunctionals = require('../models/functionals/ads_functionals')
+const categsFunctionals = require('../models/functionals/categories_functionals')
 
 const getAddSubcategoryPage = async (req, res) => {
     const categs = await categsFunctionals.findCategsWhere({ parentId: null })

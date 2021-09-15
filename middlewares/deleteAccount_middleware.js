@@ -1,8 +1,6 @@
-const { users, ads, categories } = require('../models/modelsConfig');
-
-const usersFunctionals = require('../models/users_functionals')
-const adsFunctionals = require('../models/ads_functionals')
-const categsFunctionals = require('../models/categories_functionals')
+const usersFunctionals = require('../models/functionals/users_functionals')
+const adsFunctionals = require('../models/functionals/ads_functionals')
+const categsFunctionals = require('../models/functionals/categories_functionals')
 
 const getDeleteAccountPage = async (req, res, next) => res.render('deleteAccount')
 

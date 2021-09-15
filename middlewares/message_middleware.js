@@ -1,7 +1,7 @@
-const usersFunctionals = require('../models/users_functionals')
-const adsFunctionals = require('../models/ads_functionals')
-const categsFunctionals = require('../models/categories_functionals')
-const messagesFunctionals = require('../models/messages_functionals')
+const usersFunctionals = require('../models/functionals/users_functionals')
+const adsFunctionals = require('../models/functionals/ads_functionals')
+const categsFunctionals = require('../models/functionals/categories_functionals')
+const messagesFunctionals = require('../models/functionals/messages_functionals')
 
 const getMessagePage = async (req, res, next) => {
     const id = req.params.id
