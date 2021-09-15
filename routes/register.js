@@ -1,8 +1,8 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const validationMiddleware = require('../middlewares/validation_middleware.js')
-const registerMiddlware = require('../middlewares/register_middleware.js')
+const validationMiddleware = require('../middlewares/validation_middleware')
+const registerMiddlware = require('../middlewares/register_middleware')
 
 router.get('/',
     check.checkAuthenticated,

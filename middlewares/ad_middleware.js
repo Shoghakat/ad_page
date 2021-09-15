@@ -1,8 +1,8 @@
 const { Op } = require('sequelize')
 
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getAdsPage = async (req, res, next) => {
     const arr1 = await categsFunctionals.findCategsWhere({ parentId: null })
@@ -36,7 +36,7 @@ const postAdsByIdPage = async (req, res, next) => {
     await adsFunctionals.createAd(data)
 
     req.flash('success_msg', 'Post published successfully.')
-    res.redirect('/test/account')
+    res.redirect('/account')
 }
 
 module.exports = { getAdsPage, getAdsByIdPage, postAdsByIdPage }

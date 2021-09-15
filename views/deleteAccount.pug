@@ -27,11 +27,11 @@ body(style="text-align:center;")
     h1 My Account
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href='/test/profile' style="margin-left: 20px") Back
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href='/profile' style="margin-left: 20px") Back
 
     hr
 
-    form(action=`/test/delete/account` method='POST')
+    form(action=`/delete/account` method='POST')
         div 
             input(type='submit' value='Delete the account' style="margin-top: 20px;")

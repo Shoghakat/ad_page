@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getDeleteAdPage = async (req, res, next) => {
     const adById = await adsFunctionals.findAdById(req.params.id)
@@ -24,10 +24,10 @@ const postDeleteAdPage = async (req, res, next) => {
     if(req.user.id === ad.userId) {
         await adsFunctionals.deleteAd({ id: id })
         req.flash('success_msg', 'Post deleted successfully.')
-        res.redirect('/test/account')
+        res.redirect('/account')
     } else {
         req.flash('error_msg', 'Post cannot be deleted since it does not belong to you.')
-        res.redirect(`/test/delete/ad/${ad.id}`)
+        res.redirect(`/delete/ad/${ad.id}`)
     }
 }
 

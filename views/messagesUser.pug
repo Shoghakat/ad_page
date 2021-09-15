@@ -56,11 +56,11 @@ body(style="text-align:center;")
                 img(src=`/uploads/${user.image}` alt="Image")
             - else
                 img(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href=`/test/account` style="margin-left: 20px") Account
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href=`/account` style="margin-left: 20px") Account
 
     hr
 
@@ -81,12 +81,12 @@ body(style="text-align:center;")
                         label.nameLabel me
                     - else
                         label.nameLabel
-                            a(href=`/test/profile/${el.userId}`) #{el.userName}
+                            a(href=`/profile/${el.userId}`) #{el.userName}
 
                     label.adLabel
-                        a(href=`/test/item/${el.adId}`) #{el.adTitle}
+                        a(href=`/item/${el.adId}`) #{el.adTitle}
                     label.readLabel
-                        a(href=`/test/user/messages/${el.id}` class="btn btn-success" style="text-align: right") Read
+                        a(href=`/user/messages/${el.id}` class="btn btn-success" style="text-align: right") Read
                     hr
         - else
             div(style="text-align: center")

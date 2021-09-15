@@ -1,5 +1,5 @@
 const check = require('../middlewares/check')
-const errorMiddlware = require('../middlewares/error_middleware.js')
+const errorMiddlware = require('../middlewares/error_middleware')
 
 const router = require('express').Router()
 

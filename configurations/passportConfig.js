@@ -1,8 +1,8 @@
 const localStrategy = require('passport-local').Strategy
 
-const users = require('../models/modelsConfig.js').users
+const users = require('../models/modelsConfig').users
 
-const hashPassword = require('./passwordConfig.js').hashPassword
+const hashPassword = require('./passwordConfig').hashPassword
 
 const initialize = (passport) => {
     const authenticateUser = (email, password, done) => {

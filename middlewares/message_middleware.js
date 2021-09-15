@@ -1,7 +1,7 @@
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
-const messagesFunctionals = require('../models/messages_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
+const messagesFunctionals = require('../models/messages_functionals')
 
 const getMessagePage = async (req, res, next) => {
     const id = req.params.id
@@ -31,7 +31,7 @@ const postMessagePage = async (req, res, next) => {
     if(ad) {
         await messagesFunctionals.createMessage(data)
         req.flash('success_msg', 'Message sent successfully.')
-        res.redirect(`/test/item/${ad.id}`)
+        res.redirect(`/item/${ad.id}`)
     } else {
         const err = `There is no ad with id ${id}`
         res.render('error', { user: req.user, err: err })

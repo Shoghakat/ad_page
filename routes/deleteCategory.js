@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const deleteCategoryMiddlware = require('../middlewares/deleteCategory_middleware.js')
+const deleteCategoryMiddlware = require('../middlewares/deleteCategory_middleware')
 
 router.get('/',
     check.checkNotAuthenticated,

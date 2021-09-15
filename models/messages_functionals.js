@@ -1,4 +1,4 @@
-const { users, ads, categories, messages } = require('../models/modelsConfig.js');
+const { users, ads, categories, messages } = require('../models/modelsConfig');
 
 const findMessages = () => {
     return messages.findAll({ raw: true })

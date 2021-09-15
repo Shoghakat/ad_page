@@ -52,11 +52,11 @@ body(style="text-align:center;")
                 img#profileImg(src=`/uploads/${user.image}` alt="Image")
             - else
                 img#profileImg(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href='/test/account' style="margin-left: 20px") Account
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href='/account' style="margin-left: 20px") Account
 
     hr
 
@@ -67,7 +67,7 @@ body(style="text-align:center;")
 
     span Advertisement: #{ad.title}
 
-    form(action=`/test/message/${ad.id}` method='POST')
+    form(action=`/message/${ad.id}` method='POST')
         div
             label.required
                 i Your Message

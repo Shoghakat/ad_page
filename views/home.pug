@@ -35,24 +35,24 @@ body(style="text-align:center;")
                     img(src=`/uploads/${user.image}` alt="Image")
                 - else
                     img(src='/uploads/profile.jpeg')
-                a.hover(href='/test/profile') #{user.name}
+                a.hover(href='/profile') #{user.name}
 
         nav
-            a(href='/test/account') Account
+            a(href='/account') Account
 
     - else
         h1 Home Page
         div
-            a(href='/test/login') Log in
+            a(href='/login') Log in
 
     hr
 
     each val in main
         div
-            a(href=`/test/category/${val.id}` class="btn" style="font-size:20px") #{val.name}
+            a(href=`/category/${val.id}` class="btn" style="font-size:20px") #{val.name}
             hr
             ul
                 each el in subs
                     - if(el.parentId === val.id)
                         li
-                            a(href=`/test/subcategory/${el.id}` class="btn") #{el.name}
+                            a(href=`/subcategory/${el.id}` class="btn") #{el.name}

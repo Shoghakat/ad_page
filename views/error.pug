@@ -35,17 +35,17 @@ body(style="text-align:center;")
                     img(src=`/uploads/${user.image}` alt="Image")
                 - else
                     img(src='/uploads/profile.jpeg')
-                a.hover(href='/test/profile') #{user.name}
+                a.hover(href='/profile') #{user.name}
 
         nav
-            a(href='/test/logout' style="margin-right: 20px") Logout
-            a(href='/test/account' style="margin-left: 20px") Account
+            a(href='/logout' style="margin-right: 20px") Logout
+            a(href='/account' style="margin-left: 20px") Account
 
     - else
         h1 Error
         nav
-            a(href='/test/login' style="margin-right: 20px") Log in
-            a(href='/test/home' style="margin-left: 20px") Home
+            a(href='/login' style="margin-right: 20px") Log in
+            a(href='/home' style="margin-left: 20px") Home
 
     hr
 

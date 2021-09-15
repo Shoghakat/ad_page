@@ -1,10 +1,10 @@
 const { Op } = require('sequelize')
 const Promise = require('bluebird')
 
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
-const messagesFunctionals = require('../models/messages_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
+const messagesFunctionals = require('../models/messages_functionals')
 
 const getMessagesUserPage = async (req, res, next) => {
     const ads = await adsFunctionals.findAdsWhere({ userId: req.user.id })
@@ -53,7 +53,7 @@ const postMessageByIdPage = async (req, res, next) => {
     if(message) {
         await messagesFunctionals.updateMessage(data, { id: id })
         req.flash('success_msg', 'Message sent successfully.')
-        res.redirect('/test/user/messages')
+        res.redirect('/user/messages')
     } else {
         const err = `There is no message with id ${id}`
         res.render('error', { user: req.user, err: err })

@@ -6,7 +6,7 @@ const check = require('../middlewares/check')
 const validationMiddlware = require('../middlewares/validation_middleware.js')
 const adMiddlware = require('../middlewares/ad_middleware.js')
 
-const upload = require('../middlewares/uploadfiles.js')
+const upload = require('../middlewares/uploadfiles')
 
 router.use("/uploads", express.static(process.cwd() + '/uploads/'));
 

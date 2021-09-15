@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getItemPage = async (req, res, next) => {
     const adById = await adsFunctionals.findAdById(req.params.id)

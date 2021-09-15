@@ -61,16 +61,16 @@ body
                     img#profileImg(src=`/uploads/${user.image}` alt="Image")
                 - else
                     img#profileImg(src='/uploads/profile.jpeg')
-                a.hover(href='/test/profile') #{user.name}
+                a.hover(href='/profile') #{user.name}
 
         nav
-            a(href='/test/logout' style="margin-right: 20px") Logout
-            a(href='/test/account' style="margin-left: 20px") Account
+            a(href='/logout' style="margin-right: 20px") Logout
+            a(href='/account' style="margin-left: 20px") Account
     - else
         h1 Advertisement Page
         nav
-            a(href='/test/login' style="margin-right: 20px") Log in
-            a(href=`/test/subcategory/${ad.categoryId}` style="margin-left: 20px") Back
+            a(href='/login' style="margin-right: 20px") Log in
+            a(href=`/subcategory/${ad.categoryId}` style="margin-left: 20px") Back
 
     hr
         
@@ -98,16 +98,16 @@ body
             - if(user)
                 - if(user.id === ad.userId)
                     li(style="margin-top: 50px;")
-                        a(href=`/test/edit/${ad.id}` class="btn btn-success" style="font-size:20px") Edit
+                        a(href=`/edit/${ad.id}` class="btn btn-success" style="font-size:20px") Edit
                     li(style="margin-top: 15pt;")
-                        a(href=`/test/delete/ad/${ad.id}` class="btn btn-success" style="font-size:20px") Delete
+                        a(href=`/delete/ad/${ad.id}` class="btn btn-success" style="font-size:20px") Delete
                 - else
                     li(style="margin-top: 50px;")
-                        a(href=`/test/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
+                        a(href=`/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
 
     p.details
         - if(ad.image && ad.image.length > 1)
-            a(href=`/test/item/${ad.id}/images`) See more pictures
+            a(href=`/item/${ad.id}/images`) See more pictures
 
     p.details
         strong= ad.title

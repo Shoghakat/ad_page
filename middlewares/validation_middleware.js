@@ -1,14 +1,14 @@
 const { Op } = require('sequelize')
 
-const adValidationSchema = require('../validations/adsValid.js');
-const userValidationSchema = require('../validations/usersValid.js');
-const profileValidationSchema = require('../validations/profileValid.js');
-const messageValidationSchema = require('../validations/messageValid.js');
-const paramValidationSchema = require('../validations/paramValid.js');
+const adValidationSchema = require('../validations/adsValid');
+const userValidationSchema = require('../validations/usersValid');
+const profileValidationSchema = require('../validations/profileValid');
+const messageValidationSchema = require('../validations/messageValid');
+const paramValidationSchema = require('../validations/paramValid');
 
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 
 const paramValidation = async (req, res, next) => {

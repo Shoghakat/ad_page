@@ -4,32 +4,32 @@ module.exports = app => {
 
     router.use("/uploads", express.static(process.cwd() + '/uploads/'));
 
-    app.use('/test/home', require('./home.js'))
-    app.use('/test/category', require('./category.js'))
-    app.use('/test/subcategory', require('./subcategory.js'))
-    app.use('/test/item', require('./item.js'))
-    app.use('/test/message', require('./message.js'))
-    app.use('/test/user/messages', require('./messagesUser.js'))
+    app.use('/home', require('./home.js'))
+    app.use('/category', require('./category.js'))
+    app.use('/subcategory', require('./subcategory.js'))
+    app.use('/item', require('./item.js'))
+    app.use('/message', require('./message.js'))
+    app.use('/user/messages', require('./messagesUser.js'))
 
-    app.use('/test/login', require('./login.js'))
-    app.use('/test/register', require('./register.js'))
-    app.use('/test/logout', require('./logout.js'))
+    app.use('/login', require('./login.js'))
+    app.use('/register', require('./register.js'))
+    app.use('/logout', require('./logout.js'))
 
-    app.use('/test/account', require('./account.js'))
-    app.use('/test/profile', require('./profile.js'))
-    app.use('/test/delete/account', require('./deleteAccount.js'))
+    app.use('/account', require('./account.js'))
+    app.use('/profile', require('./profile.js'))
+    app.use('/delete/account', require('./deleteAccount.js'))
 
-    app.use('/test/ad', require('./ad.js'))
+    app.use('/ad', require('./ad.js'))
 
-    app.use('/test/add/category', require('./addCategory.js'))
-    app.use('/test/add/subcategory', require('./addSubcategory.js'))
-    app.use('/test/delete/category', require('./deleteCategory.js'))
-    app.use('/test/delete/subcategory', require('./deleteSubcategory.js'))
+    app.use('/add/category', require('./addCategory.js'))
+    app.use('/add/subcategory', require('./addSubcategory.js'))
+    app.use('/delete/category', require('./deleteCategory.js'))
+    app.use('/delete/subcategory', require('./deleteSubcategory.js'))
 
-    app.use('/test/edit', require('./edit.js'))
-    app.use('/test/delete/ad', require('./deleteAd.js'))
+    app.use('/edit', require('./edit.js'))
+    app.use('/delete/ad', require('./deleteAd.js'))
 
-    app.use('/test/error', require('./error.js'))
+    app.use('/error', require('./error.js'))
 
     app.use('/', router)
 }

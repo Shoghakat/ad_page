@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getProfilePage = async (req, res, next) => {
     const id = req.user.id
@@ -40,7 +40,7 @@ const postProfilePage = async (req, res, next) => {
     await usersFunctionals.updateUser(data, { id: user.id })
 
     req.flash('success_msg', 'Profile updated successfully.')
-    res.redirect('/test/profile')
+    res.redirect('/profile')
 }
 
 module.exports = { getProfilePage, getProfileByIdPage, postProfilePage }

@@ -44,16 +44,16 @@ body
                     img#profileImg(src=`/uploads/${user.image}` alt="Image")
                 - else
                     img#profileImg(src='/uploads/profile.jpeg')
-                a.hover(href='/test/profile') #{user.name}
+                a.hover(href='/profile') #{user.name}
 
         nav
-            a(href='/test/logout' style="margin-right: 20px") Logout
-            a(href=`/test/item/${ad.id}` style="margin-left: 20px") Back
+            a(href='/logout' style="margin-right: 20px") Logout
+            a(href=`/item/${ad.id}` style="margin-left: 20px") Back
     - else
         h1 Advertisement Page
         nav
-            a(href='/test/login' style="margin-right: 20px") Log in
-            a(href=`/test/item/${ad.id}` style="margin-left: 20px") Back
+            a(href='/login' style="margin-right: 20px") Log in
+            a(href=`/item/${ad.id}` style="margin-left: 20px") Back
 
     hr
 

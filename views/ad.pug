@@ -59,11 +59,11 @@ body(style="text-align:center;")
                 img(src=`/uploads/${user.image}` alt="Image")
             - else
                 img(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
     
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href='/test/account' style="margin-left: 20px") Back
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href='/account' style="margin-left: 20px") Back
         
     hr
 
@@ -87,4 +87,4 @@ body(style="text-align:center;")
                     each el in subs
                         - if(el.parentId === val.id)
                             li
-                                a(href=`/test/ad/${el.id}` class="btn") #{el.name}
+                                a(href=`/ad/${el.id}` class="btn") #{el.name}

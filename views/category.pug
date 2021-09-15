@@ -39,17 +39,17 @@ body(style="text-align:center;")
                     img.profileImg(src=`/uploads/${user.image}` alt="Image")
                 - else
                     img.profileImg(src='/uploads/profile.jpeg')
-                a.hover(href='/test/profile') #{user.name}
+                a.hover(href='/profile') #{user.name}
 
     - if(user)
         nav
-            a(href='/test/account' style="margin-right: 20px") Account
-            a(href='/test/home' style="margin-left: 20px") Back
+            a(href='/account' style="margin-right: 20px") Account
+            a(href='/home' style="margin-left: 20px") Back
 
     - else
         nav
-            a(href='/test/login' style="margin-right: 20px") Log in
-            a(href='/test/home' style="margin-left: 20px") Back
+            a(href='/login' style="margin-right: 20px") Log in
+            a(href='/home' style="margin-left: 20px") Back
 
     hr
     
@@ -63,7 +63,7 @@ body(style="text-align:center;")
                     - else 
                         img(src='/uploads/default.jpeg' alt="Image" height="150")
                 div.childDiv
-                    a(href=`/test/item/${el.id}` style="font-size:15pt") #{el.title}
+                    a(href=`/item/${el.id}` style="font-size:15pt") #{el.title}
     - if(ads.length == 0)
         p
             i No ads are available in this category

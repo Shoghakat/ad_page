@@ -1,8 +1,8 @@
 const { Op } = require('sequelize')
 
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getCategoryPage = async (req, res, next) => {
     const id = req.params.id

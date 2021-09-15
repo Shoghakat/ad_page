@@ -31,7 +31,7 @@ head
 body(style="text-align:center;")
     h1 Login Page
 
-    a(href='/test/home') Home
+    a(href='/home') Home
 
     hr
 
@@ -41,7 +41,7 @@ body(style="text-align:center;")
         p= messages.error
         
     div#parentDiv
-        form(action='/test/login' method='POST')
+        form(action='/login' method='POST')
             div
                 input(type='email' id='email' name='email' placeholder='Email')
             div
@@ -53,4 +53,4 @@ body(style="text-align:center;")
         i Not registered yet?
         
     div
-        a(href='/test/register') Register
+        a(href='/register') Register

@@ -67,11 +67,11 @@ body(style="text-align:center;")
                 img#profileImg(src=`/uploads/${user.image}` alt="Image")
             - else
                 img#profileImg(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href=`/test/item/${ad.id}` style="margin-left: 20px") Back
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href=`/item/${ad.id}` style="margin-left: 20px") Back
 
     hr
 
@@ -82,7 +82,7 @@ body(style="text-align:center;")
     - if(errors !== undefined)
         p= errors.message
 
-    form(action=`/test/edit/${ad.id}` method='POST' encType="multipart/form-data")
+    form(action=`/edit/${ad.id}` method='POST' encType="multipart/form-data")
         div
             label Location
             select(id="location" name="location")

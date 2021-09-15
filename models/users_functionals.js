@@ -1,4 +1,4 @@
-const { users, ads, categories } = require('../models/modelsConfig.js');
+const { users, ads, categories } = require('../models/modelsConfig');
 
 const findUsers = () => {
     return users.findAll({ raw: true })

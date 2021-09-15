@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getAddSubcategoryPage = async (req, res) => {
     const categs = await categsFunctionals.findCategsWhere({ parentId: null })
@@ -13,14 +13,14 @@ const postAddSubcategoryPage = async (req, res, next) => {
     
     if(subCateg) {
         req.flash('error_msg', 'Subcategory already exists.')
-        res.redirect('/test/add/subcategory')
+        res.redirect('/add/subcategory')
     } else {
         await categsFunctionals.createCateg({
             name: req.body.name,
             parentId: categ.id
         })
         req.flash('success_msg', 'Subcategory added successfully.')
-        res.redirect('/test/account')
+        res.redirect('/account')
     }
 }
 

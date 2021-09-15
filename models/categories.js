@@ -1,4 +1,4 @@
-const { Sequelize, sequelize } = require('../configurations/dbConfig.js')
+const { Sequelize, sequelize } = require('../configurations/dbConfig')
 
 const categories = sequelize.define('categories', {
     id: {

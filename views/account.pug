@@ -62,11 +62,11 @@ body(style="text-align:center;")
                 img(src=`/uploads/${user.image}` alt="Image")
             - else
                 img(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href='/test/home' style="margin-left: 20px") Home
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href='/home' style="margin-left: 20px") Home
 
     hr
 
@@ -79,28 +79,28 @@ body(style="text-align:center;")
 
     div.parentDiv1
         div.childDiv1
-            a(href='/test/ad' class="btn btn-success" style="font-size:20px") Post an ad
+            a(href='/ad' class="btn btn-success" style="font-size:20px") Post an ad
         - if(user.isAdmin)
             div.childDiv
-                a(href='/test/add/category') Add a new category
+                a(href='/add/category') Add a new category
             div.childDiv
-                a(href='/test/add/subcategory') Add a new subcategory
+                a(href='/add/subcategory') Add a new subcategory
             div.childDiv
-                a(href='/test/delete/category') Delete a category
+                a(href='/delete/category') Delete a category
             div.childDiv
-                a(href='/test/delete/subcategory') Delete a subcategory
+                a(href='/delete/subcategory') Delete a subcategory
 
     div.parentDiv2
-        a(href=`/test/profile/${user.id}` class="btn") My ads
+        a(href=`/profile/${user.id}` class="btn") My ads
         hr
         - if(ads.length > 0)
             ul
                 each el in ads
                     li
-                        a(href=`/test/item/${el.id}` class="btn" style="color:DarkCyan") #{el.title}
+                        a(href=`/item/${el.id}` class="btn" style="color:DarkCyan") #{el.title}
         - if(ads.length === 0)
             div
                 i No ads posted yet
 
     div#messagesDiv
-        a(href=`/test/user/messages` class="btn" style="color:DarkCyan") My Messages
+        a(href=`/user/messages` class="btn" style="color:DarkCyan") My Messages

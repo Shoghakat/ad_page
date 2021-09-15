@@ -3,10 +3,10 @@ const express = require('express')
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const validationMiddlware = require('../middlewares/validation_middleware.js')
-const editMiddlware = require('../middlewares/edit_middleware.js')
+const validationMiddlware = require('../middlewares/validation_middleware')
+const editMiddlware = require('../middlewares/edit_middleware')
 
-const upload = require('../middlewares/uploadfiles.js')
+const upload = require('../middlewares/uploadfiles')
 
 router.use("/uploads", express.static(process.cwd() + '/uploads/'));
 

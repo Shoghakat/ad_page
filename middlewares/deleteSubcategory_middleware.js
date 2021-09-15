@@ -1,8 +1,8 @@
 const { Op } = require('sequelize')
 
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getDeleteSubcategoryPage = async (req, res, next) => {
     const categs = await categsFunctionals.findCategsWhere({ parentId: { [Op.ne]: null } })
@@ -15,11 +15,11 @@ const postDeleteSubcategoryPage = async (req, res, next) => {
 
     if(adsByCategId) {
         req.flash('error_msg', 'Subcategory cannot be deleted since it contains advertisements.')
-        res.redirect('/test/delete/subcategory')
+        res.redirect('/delete/subcategory')
     } else {
         await categsFunctionals.deleteCateg({ name: req.body.name })
         req.flash('success_msg', 'Subcategory deleted successfully.')
-        res.redirect('/test/account')
+        res.redirect('/account')
     }
 }
 

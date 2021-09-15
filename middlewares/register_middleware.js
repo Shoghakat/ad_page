@@ -1,8 +1,8 @@
 const { generateSalt, hashPassword } = require('../configurations/passwordConfig')
 
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getRegisterPage = (req, res) => res.render('register')
 
@@ -13,7 +13,7 @@ const postRegisterPage = async (req, res, next) => {
 
     if(user) {
         req.flash('error_msg', 'Emial already exists.')
-        res.redirect('/test/register')
+        res.redirect('/register')
     } else {
         const newSalt = generateSalt()
         const hashedPassword = hashPassword(password, newSalt)
@@ -28,7 +28,7 @@ const postRegisterPage = async (req, res, next) => {
         })
 
         req.flash('success_msg', 'You have registered successfully, please login.')
-        res.redirect('/test/login')
+        res.redirect('/login')
     }
 }
 

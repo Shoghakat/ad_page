@@ -6,7 +6,7 @@ const createError = require('http-errors')
 const flash = require('express-flash')
 const passport = require('passport')
 
-const { RedisStore, redisClient } = require('./configurations/redisConfig.js')
+const { RedisStore, redisClient } = require('./configurations/redisConfig')
 
 const app = express()
 
@@ -30,7 +30,7 @@ app.use(flash())
 
 
 // routes
-require('./routes/routes.js')(app)
+require('./routes/routes')(app)
 
 
 // error handling

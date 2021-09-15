@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/users_functionals.js')
-const adsFunctionals = require('../models/ads_functionals.js')
-const categsFunctionals = require('../models/categories_functionals.js')
+const usersFunctionals = require('../models/users_functionals')
+const adsFunctionals = require('../models/ads_functionals')
+const categsFunctionals = require('../models/categories_functionals')
 
 const getEditPage = async (req, res, next) => {
     const adById = await adsFunctionals.findAdById(req.params.id)
@@ -39,15 +39,15 @@ const postEditPage = async (req, res, next) => {
 
     if(data.image && data.image.length > 5) {
         req.flash('error_msg', 'More than 5 files cannot be posted.')
-        res.redirect(`/test/edit/${ad.id}`)
+        res.redirect(`/edit/${ad.id}`)
     } else {
         if(req.user.id === ad.userId) {
             await adsFunctionals.updateAd(data, { id: id })
             req.flash('success_msg', 'Post updated successfully.')
-            res.redirect('/test/account')
+            res.redirect('/account')
         } else {
             req.flash('error_msg', 'Post cannot be edited since it does not belong to you.')
-            res.redirect(`/test/edit/${ad.id}`)
+            res.redirect(`/edit/${ad.id}`)
         }
     }
 }

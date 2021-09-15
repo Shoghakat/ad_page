@@ -50,11 +50,11 @@ body(style="text-align:center;")
                 img(src=`/uploads/${user.image}` alt="Image")
             - else
                 img(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href=`/test/item/${ad.id}` style="margin-left: 20px") Back
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href=`/item/${ad.id}` style="margin-left: 20px") Back
 
     hr
 
@@ -63,6 +63,6 @@ body(style="text-align:center;")
     - if(messages.error)
         p= messages.error
 
-    form(action=`/test/delete/ad/${ad.id}` method='POST')
+    form(action=`/delete/ad/${ad.id}` method='POST')
         div 
             input(type='submit' value='Delete the ad' style="margin-top: 20px;")

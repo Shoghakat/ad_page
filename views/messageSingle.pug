@@ -55,11 +55,11 @@ body(style="text-align:center;")
                 img(src=`/uploads/${user.image}` alt="Image")
             - else
                 img(src='/uploads/profile.jpeg')
-            a.hover(href='/test/profile') #{user.name}
+            a.hover(href='/profile') #{user.name}
 
     nav
-        a(href='/test/logout' style="margin-right: 20px") Logout
-        a(href=`/test/user/messages` style="margin-left: 20px") Back
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href=`/user/messages` style="margin-left: 20px") Back
 
     hr
 
@@ -72,7 +72,7 @@ body(style="text-align:center;")
             div.rightDiv #{el.message}
 
     br
-    form(action=`/test/user/messages/${message.id}` method='POST')
+    form(action=`/user/messages/${message.id}` method='POST')
         div
             br
             textarea(id='message' name='message' style="width:500px; height:200px")
