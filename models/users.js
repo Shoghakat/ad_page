@@ -16,6 +16,10 @@ const users = sequelize.define('users', {
     isAdmin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+    },
+    status: {
+        type: Sequelize.STRING,
+        defaultValue: "active"
     }
 }, {
     freezeTableName: true

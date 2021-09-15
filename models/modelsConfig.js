@@ -42,7 +42,6 @@ categories
     //     ]
 
     //     return categories.bulkCreate(data)
-    //         // .then((result) => console.log(result))
     //         // .catch((err) => console.log(err))
     // })
     .then((result) => {

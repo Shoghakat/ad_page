@@ -12,7 +12,7 @@ const categsFunctionals = require('../models/categories_functionals')
 
 
 const paramValidation = async (req, res, next) => {
-    const { error, value } = paramValidationSchema.validate(req.params)
+    const { error } = paramValidationSchema.validate(req.params)
 
     if(error !== undefined) {
         const err = 'The id must be an integer'
@@ -25,7 +25,7 @@ const paramValidation = async (req, res, next) => {
 
 const adValidationEdit = async (req, res, next) => {
     const id = Number(req.params.id)
-    const { error, value } = adValidationSchema.validate(req.body)
+    const { error } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
         const ad = await adsFunctionals.findOneAd({ id: id })
         if(ad) {
@@ -41,7 +41,7 @@ const adValidationEdit = async (req, res, next) => {
 
 const adValidation = async (req, res, next) => {
     const id = Number(req.params.id)
-    const { error, value } = adValidationSchema.validate(req.body)   
+    const { error } = adValidationSchema.validate(req.body)   
     if(error !== undefined) {
         const categ = await categsFunctionals.findOneCateg({ id: id })
         if(categ) {
@@ -56,7 +56,7 @@ const adValidation = async (req, res, next) => {
 
 
 const userValidation = (req, res, next) => {
-    const { error, value } = userValidationSchema.validate(req.body)
+    const { error } = userValidationSchema.validate(req.body)
     if(error !== undefined) {
         res.render('register', { errors: error })
     } else {
@@ -65,7 +65,7 @@ const userValidation = (req, res, next) => {
 }
 
 const profileValidation = (req, res, next) => {
-    const { error, value } = profileValidationSchema.validate(req.body)
+    const { error } = profileValidationSchema.validate(req.body)
     if(error !== undefined) {
         res.render('profile', { errors: error, user: req.user })
     } else {
@@ -74,7 +74,7 @@ const profileValidation = (req, res, next) => {
 }
 
 const messageValidation = async (req, res, next) => {
-    const { error, value } = messageValidationSchema.validate(req.body)
+    const { error } = messageValidationSchema.validate(req.body)
     if(error !== undefined) {
         const ad = await adsFunctionals.findOneAd({ id: req.params.id })
         if(ad) {

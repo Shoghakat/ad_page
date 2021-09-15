@@ -9,17 +9,14 @@ const initialize = (passport) => {
     const authenticateUser = (email, password, done) => {
         users.findOne({ where: { email: email } })
             .then(user => {
-                if(user) {
-                    const currentPassword = hashPassword(password, user.salt);
-
-                    if(currentPassword === user.password) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false, { message: 'Incorrect password' })
-                    }
-                } else {
-                    return done(null, false, { message: 'Email is not registered' })
+                if(!user) {
+                    return done(null, false, { message: 'Email is not registered' })                
                 }
+                const currentPassword = hashPassword(password, user.salt);
+                if(currentPassword !== user.password) {
+                    return done(null, false, { message: 'Incorrect password' })    
+                }
+                return done(null, user);
             })
             .catch(err => done(err))
     }
@@ -32,7 +29,13 @@ const initialize = (passport) => {
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser((id, done) => {
         usersFunctionals.findOneUser({ id: id })
-            .then(user => done(null, user))
+            .then(user => {
+                if(user.status !== "active") {
+                    const err = `There is no active user with id ${id}`
+                    return res.render('error', { user: req.user, err: err })
+                }
+                return done(null, user)
+            })
             .catch(err => done(err))
     })
 }
