@@ -5,7 +5,7 @@ const messagesFunctionals = require('../models/messages_functionals')
 
 const getMessagePage = async (req, res, next) => {
     const id = req.params.id
-    const ad = await adsFunctionals.findAdById(id)
+    const ad = await adsFunctionals.findOneAd({ id: id })
 
     if(ad) {
         res.render('message', { user: req.user, ad: ad })
@@ -17,7 +17,7 @@ const getMessagePage = async (req, res, next) => {
 
 const postMessagePage = async (req, res, next) => {
     const id = req.params.id
-    const ad = await adsFunctionals.findAdById(id)
+    const ad = await adsFunctionals.findOneAd({ id: id })
 
     const data = {}
     data.messages = []

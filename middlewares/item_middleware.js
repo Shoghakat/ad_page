@@ -3,10 +3,10 @@ const adsFunctionals = require('../models/ads_functionals')
 const categsFunctionals = require('../models/categories_functionals')
 
 const getItemPage = async (req, res, next) => {
-    const adById = await adsFunctionals.findAdById(req.params.id)
+    const adById = await adsFunctionals.findOneAd({ id: req.params.id })
     
     if(adById) {
-        const userById = await usersFunctionals.findUserById(adById.userId)
+        const userById = await usersFunctionals.findOneUser({ id: adById.userId })
         res.render('item', { user: req.user, ad: adById, image: userById.image })
     } else {
         const err = `There is no ad with id ${req.params.id}`
@@ -15,7 +15,7 @@ const getItemPage = async (req, res, next) => {
 }
 
 const getItemImagesPage = async (req, res, next) => {
-    const adById = await adsFunctionals.findAdById(req.params.id)
+    const adById = await adsFunctionals.findOneAd({ id: req.params.id })
 
     if(adById) {
         res.render('images', { user: req.user, ad: adById })

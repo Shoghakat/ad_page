@@ -4,7 +4,7 @@ const paramSchema = Joi.object({
     id: Joi.number()
         .integer()
         .min(1)
-        .max(1000)
+        .max(2147483647)
         .required()
 })
 

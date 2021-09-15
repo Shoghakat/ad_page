@@ -3,7 +3,7 @@ const adsFunctionals = require('../models/ads_functionals')
 const categsFunctionals = require('../models/categories_functionals')
 
 const getDeleteAdPage = async (req, res, next) => {
-    const adById = await adsFunctionals.findAdById(req.params.id)
+    const adById = await adsFunctionals.findOneAd({ id: req.params.id })
     if(adById) {
         res.render('deleteAd', { user: req.user, ad: adById })
     } else {
@@ -14,7 +14,7 @@ const getDeleteAdPage = async (req, res, next) => {
 
 const postDeleteAdPage = async (req, res, next) => {
     const id = Number(req.params.id)
-    const ad = await adsFunctionals.findAdById(id)
+    const ad = await adsFunctionals.findOneAd({ id: id })
 
     if(!ad) {
         const err = `There is no ad with id ${req.params.id}`

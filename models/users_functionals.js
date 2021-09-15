@@ -4,10 +4,6 @@ const findUsers = () => {
     return users.findAll({ raw: true })
 }
 
-const findUserById = ( id ) => {
-    return users.findByPk(id, { raw: true })
-}
-
 const findOneUser = ( condition ) => {
     return users.findOne({ where: condition, raw: true })
 }
@@ -28,4 +24,11 @@ const deleteUser = ( condition ) => {
     return users.destroy({ where: condition })
 }
 
-module.exports = { findUsers, findUserById, findOneUser, findUsersWhere, createUser, updateUser, deleteUser }
+module.exports = {
+    findUsers,
+    findOneUser,
+    findUsersWhere,
+    createUser,
+    updateUser,
+    deleteUser
+}

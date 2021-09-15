@@ -27,7 +27,7 @@ const adValidationEdit = async (req, res, next) => {
     const id = Number(req.params.id)
     const { error, value } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
-        const ad = await adsFunctionals.findAdById(id)
+        const ad = await adsFunctionals.findOneAd({ id: id })
         if(ad) {
             res.render('edit', { errors: error, user: req.user, ad: ad })
         } else {
@@ -43,7 +43,7 @@ const adValidation = async (req, res, next) => {
     const id = Number(req.params.id)
     const { error, value } = adValidationSchema.validate(req.body)   
     if(error !== undefined) {
-        const categ = await categsFunctionals.findCategById(id)
+        const categ = await categsFunctionals.findOneCateg({ id: id })
         if(categ) {
             res.render('advertisement', { errors: error, user: req.user, categ: categ })
         } else {
@@ -76,7 +76,7 @@ const profileValidation = (req, res, next) => {
 const messageValidation = async (req, res, next) => {
     const { error, value } = messageValidationSchema.validate(req.body)
     if(error !== undefined) {
-        const ad = await adsFunctionals.findAdById(req.params.id)
+        const ad = await adsFunctionals.findOneAd({ id: req.params.id })
         if(ad) {
             res.render('message', { errors: error, ad: ad })
         } else {

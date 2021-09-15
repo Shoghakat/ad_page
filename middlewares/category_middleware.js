@@ -11,7 +11,7 @@ const getCategoryPage = async (req, res, next) => {
     const ids = subcategsByParentId.map(el => el.id)
     const adsByIds = await adsFunctionals.findAdsWhere({ categoryId: { [Op.or]: ids } })
 
-    const categ = await categsFunctionals.findCategById(id)
+    const categ = await categsFunctionals.findOneCateg({ id: id })
 
     if(categ) {
         res.render('category', { user: req.user, categ: categ, ads: adsByIds })

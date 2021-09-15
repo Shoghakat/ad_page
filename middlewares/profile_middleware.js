@@ -4,15 +4,15 @@ const categsFunctionals = require('../models/categories_functionals')
 
 const getProfilePage = async (req, res, next) => {
     const id = req.user.id
-    const userById = await usersFunctionals.findUserById(id)
+    const userById = await usersFunctionals.findOneUser({ id: id })
 
     res.render('profile', { user: userById })
 }
 
 const getProfileByIdPage = async (req, res, next) => {
     const id = req.params.id
-    const userById = await usersFunctionals.findUserById(req.user.id)
-    const userOwner = await usersFunctionals.findUserById(id)
+    const userById = await usersFunctionals.findOneUser({ id: req.user.id })
+    const userOwner = await usersFunctionals.findOneUser({ id: id })
     if(userOwner) {
         const ads = await adsFunctionals.findAdsWhere({ userId: id })
         res.render('userAds', { user: userById, userOwner: userOwner, ads: ads })
@@ -43,4 +43,8 @@ const postProfilePage = async (req, res, next) => {
     res.redirect('/profile')
 }
 
-module.exports = { getProfilePage, getProfileByIdPage, postProfilePage }
+module.exports = {
+    getProfilePage,
+    getProfileByIdPage,
+    postProfilePage
+}

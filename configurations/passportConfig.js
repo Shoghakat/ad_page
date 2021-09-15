@@ -1,6 +1,7 @@
 const localStrategy = require('passport-local').Strategy
 
 const users = require('../models/modelsConfig').users
+const usersFunctionals = require('../models/users_functionals')
 
 const hashPassword = require('./passwordConfig').hashPassword
 
@@ -30,7 +31,7 @@ const initialize = (passport) => {
 
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser((id, done) => {
-        users.findByPk(id)
+        usersFunctionals.findOneUser({ id: id })
             .then(user => done(null, user))
             .catch(err => done(err))
     })

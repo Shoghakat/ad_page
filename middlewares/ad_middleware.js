@@ -15,7 +15,7 @@ const getAdsPage = async (req, res, next) => {
 }
 
 const getAdsByIdPage = async (req, res, next) => {
-    const categ = await categsFunctionals.findCategById(req.params.id)
+    const categ = await categsFunctionals.findOneCateg({ id: req.params.id })
     if(categ) {
         res.render('advertisement', { categ: categ, user: req.user })
     } else {

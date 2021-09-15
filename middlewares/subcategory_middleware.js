@@ -4,7 +4,7 @@ const categsFunctionals = require('../models/categories_functionals')
 
 const getSubcategoryPage = async (req, res, next) => {
     const id = req.params.id
-    const categById = await categsFunctionals.findCategById(id)
+    const categById = await categsFunctionals.findOneCateg({ id: id })
 
     if(categById) {
         const adByCategId = await adsFunctionals.findAdsWhere({ categoryId: id })

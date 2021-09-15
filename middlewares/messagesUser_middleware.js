@@ -12,8 +12,8 @@ const getMessagesUserPage = async (req, res, next) => {
     const messagesUser = await messagesFunctionals.findMessagesWhere({ [Op.or]: [{ userId: req.user.id }, { adId: { [Op.or] : ids } }] })
     
     await Promise.map(messagesUser, async  message => {
-        let ad = await adsFunctionals.findAdById(message.adId)
-        let user = await usersFunctionals.findUserById(message.userId)
+        let ad = await adsFunctionals.findOneAd({ id: message.adId })
+        let user = await usersFunctionals.findOneUser({ id: message.userId })
         message.adTitle = ad.title
         message.userName = user.name
         return message
@@ -25,7 +25,7 @@ const getMessageByIdPage = async (req, res, next) => {
     const id = req.params.id
     const message = await messagesFunctionals.findMessageById(id)
 
-    const ad = await adsFunctionals.findAdById(message.adId)
+    const ad = await adsFunctionals.findOneAd({ id: message.adId })
     
     if(message) {
         if(message.userId === req.user.id || ad.userId === req.user.id) {
@@ -60,4 +60,8 @@ const postMessageByIdPage = async (req, res, next) => {
     }
 }
 
-module.exports = { getMessagesUserPage, getMessageByIdPage, postMessageByIdPage }
+module.exports = {
+    getMessagesUserPage,
+    getMessageByIdPage,
+    postMessageByIdPage
+}

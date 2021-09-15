@@ -4,10 +4,6 @@ const findCategs = () => {
     return categories.findAll({ raw: true })
 }
 
-const findCategById = ( id ) => {
-    return categories.findByPk(id, { raw: true })
-}
-
 const findOneCateg = ( condition ) => {
     return categories.findOne({ where: condition, raw: true })
 }
@@ -28,4 +24,11 @@ const deleteCateg = ( condition ) => {
     return categories.destroy({ where: condition })
 }
 
-module.exports = { findCategs, findCategById, findOneCateg, findCategsWhere, createCateg, updateCateg, deleteCateg }
+module.exports = {
+    findCategs,
+    findOneCateg,
+    findCategsWhere,
+    createCateg,
+    updateCateg,
+    deleteCateg
+}

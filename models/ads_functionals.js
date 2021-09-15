@@ -4,10 +4,6 @@ const findAds = () => {
     return ads.findAll({ raw: true })
 }
 
-const findAdById = ( id ) => {
-    return ads.findByPk(id, { raw: true })
-}
-
 const findOneAd = ( condition ) => {
     return ads.findOne({ where: condition, raw: true })
 }
@@ -28,4 +24,11 @@ const deleteAd = ( condition ) => {
     return ads.destroy({ where: condition })
 }
 
-module.exports = { findAds, findAdById, findOneAd, findAdsWhere, createAd, updateAd, deleteAd }
+module.exports = {
+    findAds,
+    findOneAd,
+    findAdsWhere,
+    createAd,
+    updateAd,
+    deleteAd
+}
