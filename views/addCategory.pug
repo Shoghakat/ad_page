@@ -16,15 +16,18 @@ head
         }
         form {
             text-align: right;
-            margin-left: 205pt;
             width: 600px;
+            margin-left: 205pt;
+        }
+        div {
+            margin-bottom: 5px
         }
         label {
             margin-right: 10px;
         }
-        input {
+        select, input {
             width: 220px;
-            height: 30px
+            height: 30px;
         }
         .hover {
             color: grey;
@@ -42,9 +45,9 @@ body(style="text-align:center;")
     h1 My Account
         span
             - if(user.image)
-                img(src=`/uploads/${user.image}` alt="Image")
+                img(src=`/uploads/profile/${user.image}` alt="Image")
             - else
-                img(src='/uploads/profile.jpeg')
+                img(src='/uploads/profile/profile.jpeg')
             a.hover(href='/profile') #{user.name}
     
     nav
@@ -62,7 +65,13 @@ body(style="text-align:center;")
 
     form(action='/add/category' method='POST')
         div
+            label Choose a Parent category
+            select(id="category" name="category")
+                option(value='None') None
+                each el in categs
+                    option(value=`${el.name}`) #{el.name}
+        div
             label Category Name
             input(type='text' id='name' name='name')
         div
-            input#button(type='submit' value='Add' style="margin-top: 20px;")
+            input(type='submit' value='Add' style="margin-top: 20px;")

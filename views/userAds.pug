@@ -53,36 +53,36 @@ body(style="text-align: center")
         h1 My Account
             span#profileSpan
                 - if(user.image)
-                    img#profileImg(src=`/uploads/${user.image}` alt="Image")
+                    img#profileImg(src=`/uploads/profile/${user.image}` alt="Image")
                 - else
-                    img#profileImg(src='/uploads/profile.jpeg')
+                    img#profileImg(src='/uploads/profile/profile.jpeg')
                 a.hover(href='/profile') #{user.name}
 
         nav
             a(href='/logout' style="margin-right: 20px") Logout
-            - if(user.id === userOwner.id)
+            - if(user.id === owner.id)
                 a(href='/account' style="margin-left: 20px") Account
             - else
                 a(href='/user/messages' style="margin-left: 20px") Back
 
     - else
-        h1 Advertisement Page
+        h1 Advertisements Page
         nav
             a(href='/login' style="margin-right: 20px") Log in
             a(href=`/subcategory/${ad.categoryId}` style="margin-left: 20px") Back
 
     hr
 
-    div.firstDiv Ads by #{userOwner.name}
+    div.firstDiv Ads by #{owner.name}
 
-    - if(ads.length > 0)
+    - if(ads)
         each el in ads
             div.parentDiv
                 div.childDiv
-                    - if(el.image)
-                        img(src=`/uploads/${el.image[0]}` alt="Image" height="150")
+                    - if(el.imgId)
+                        img(src=`/uploads/ads/${el.filename}` alt="Image" height="150")
                     - else 
-                        img(src='/uploads/default.jpeg' alt="Image" height="150")
+                        img(src='/uploads/ads/default.jpeg' alt="Image" height="150")
                 div.childDiv
                     a(href=`/item/${el.id}` style="font-size:15pt") #{el.title}
     - else

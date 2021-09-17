@@ -13,7 +13,7 @@ const findAdsWhere = ( condition ) => {
 }
 
 const createAd = ( obj ) => {
-    return ads.create(obj)
+    return ads.create(obj, { raw: true })
 }
 
 const updateAd = ( values, condition ) => {

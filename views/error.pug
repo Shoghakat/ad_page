@@ -32,9 +32,9 @@ body(style="text-align:center;")
         h1 Error
             span
                 - if(user.image)
-                    img(src=`/uploads/${user.image}` alt="Image")
+                    img(src=`/uploads/profile/${user.image}` alt="Image")
                 - else
-                    img(src='/uploads/profile.jpeg')
+                    img(src='/uploads/profile/profile.jpeg')
                 a.hover(href='/profile') #{user.name}
 
         nav

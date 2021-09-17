@@ -32,7 +32,7 @@ const initialize = (passport) => {
             .then(user => {
                 if(user.status !== "active") {
                     const err = `There is no active user with id ${id}`
-                    return res.render('error', { user: req.user, err: err })
+                    return res.render('error', { err: err })
                 }
                 return done(null, user)
             })

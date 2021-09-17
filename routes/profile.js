@@ -1,5 +1,3 @@
-const express = require('express')
-
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
@@ -8,19 +6,12 @@ const profileMiddlware = require('../middlewares/profile_middleware')
 
 const upload = require('../middlewares/uploadfiles')
 
-router.use("/uploads", express.static(process.cwd() + '/uploads/'));
-
 router.get('/',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     profileMiddlware.getProfilePage)
 
-router.get('/:id',
-    check.checkNotAuthenticated,
-    validationMiddlware.paramValidation,
-    profileMiddlware.getProfileByIdPage)
-
 router.post('/',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     upload.uploadFile,
     validationMiddlware.profileValidation,
     profileMiddlware.postProfilePage)

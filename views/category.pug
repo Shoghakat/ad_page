@@ -32,13 +32,13 @@ head
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
 
 body(style="text-align:center;")
-    h1 #{categ.name}
+    h1= categName
         - if(user)
             span.profileSpan
                 - if(user.image)
-                    img.profileImg(src=`/uploads/${user.image}` alt="Image")
+                    img.profileImg(src=`/uploads/profile/${user.image}` alt="Image")
                 - else
-                    img.profileImg(src='/uploads/profile.jpeg')
+                    img.profileImg(src='/uploads/profile/profile.jpeg')
                 a.hover(href='/profile') #{user.name}
 
     - if(user)
@@ -54,16 +54,16 @@ body(style="text-align:center;")
     hr
     
     
-    - if(ads.length > 0)
+    - if(ads)
         each el in ads
             div.parentDiv
                 div.childDiv
-                    - if(el.image)
-                        img(src=`/uploads/${el.image[0]}` alt="Image" height="150")
+                    - if(el.imgId)
+                        img(src=`/uploads/ads/${el.filename}` alt="Image" height="150")
                     - else 
-                        img(src='/uploads/default.jpeg' alt="Image" height="150")
+                        img(src='/uploads/ads/default.jpeg' alt="Image" height="150")
                 div.childDiv
-                    a(href=`/item/${el.id}` style="font-size:15pt") #{el.title}
-    - if(ads.length == 0)
+                    a(href=`/item/${el.adId}` style="font-size:15pt") #{el.adTitle}
+    - else
         p
             i No ads are available in this category

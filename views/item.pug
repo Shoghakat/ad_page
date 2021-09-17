@@ -33,12 +33,15 @@ head
             margin-left: 10px;
             font-size: 10pt;
         }
-        div {
+        .parentDiv {
             display: inline-block;
             vertical-align: top;
             margin-left: 10pt;
             margin-right: 10pt;
             margin-bottom: 10px
+        }
+        .childDiv {
+            margin-bottom: 5px
         }
         ul {
             list-style-type: none;
@@ -58,9 +61,9 @@ body
         h1 My Account
             span#profileSpan
                 - if(user.image)
-                    img#profileImg(src=`/uploads/${user.image}` alt="Image")
+                    img#profileImg(src=`/uploads/profile/${user.image}` alt="Image")
                 - else
-                    img#profileImg(src='/uploads/profile.jpeg')
+                    img#profileImg(src='/uploads/profile/profile.jpeg')
                 a.hover(href='/profile') #{user.name}
 
         nav
@@ -70,7 +73,7 @@ body
         h1 Advertisement Page
         nav
             a(href='/login' style="margin-right: 20px") Log in
-            a(href=`/subcategory/${ad.categoryId}` style="margin-left: 20px") Back
+            a(href=`/home` style="margin-left: 20px") Home
 
     hr
         
@@ -79,19 +82,21 @@ body
     - if(messages.error)
         p.message= messages.error
     
-    div
-        - if(ad.image)
-            img(src=`/uploads/${ad.image[0]}` alt="Image" height="400")
+    div.parentDiv
+        - if(ad.imgId)
+            each el in images
+                div.childDiv
+                    img.adImage(src=`/uploads/ads/${el.filename}` alt="Image" height="400")
         - else
-            img(src='/uploads/default.jpeg' alt="Image" height="400")
+            img(src='/uploads/ads/default.jpeg' alt="Image" height="400")
 
-    div
+    div.parentDiv
         ul
             li
-                -if(image)
-                    img(src=`/uploads/${image}` style="height: 90px; padding-top: 5px; padding-right: 5px; border-radius: 50%;")
+                -if(ad.userImg)
+                    img(src=`/uploads/profile/${ad.userImg}` style="height: 90px; padding-top: 5px; padding-right: 5px; border-radius: 50%;")
                 - else
-                    img(src='/uploads/profile.jpeg' style="height: 90px; padding-top: 5px; padding-right: 5px; border-radius: 50%;")
+                    img(src='/uploads/profile/profile.jpeg' style="height: 90px; padding-top: 5px; padding-right: 5px; border-radius: 50%;")
             
             li(style="font-size: 15pt;") #{ad.name}
             li(style="color: DarkCyan;") #{ad.phone_number}
@@ -104,10 +109,6 @@ body
                 - else
                     li(style="margin-top: 50px;")
                         a(href=`/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
-
-    p.details
-        - if(ad.image && ad.image.length > 1)
-            a(href=`/item/${ad.id}/images`) See more pictures
 
     p.details
         strong= ad.title

@@ -4,6 +4,7 @@ const users = require('./users')
 const ads = require('./ads')
 const categories = require('./categories')
 const messages = require('./messages')
+const ads_images = require('./adsImages')
 
 categories.hasOne(categories, { sourceKey:'id', targetKey: 'parentId', foreignKey: 'parentId', onDelete: 'cascade' });
 
@@ -16,19 +17,13 @@ ads.belongsTo(categories);
 users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade' });
 messages.belongsTo(users);
 
+ads.hasMany(ads_images, { foreignKey: 'adId', onDelete: 'cascade' });
+ads_images.belongsTo(ads);
+
 ads.hasMany(messages, { foreignKey: 'adId', onDelete: 'cascade' });
 messages.belongsTo(ads);
 
-users
-    .sync({ alter: true })
-
-ads
-    .sync({ alter: true })
-
-messages
-    .sync({ alter: true })
-
-categories
+sequelize
     .sync({ alter: true })
     // .then(() => {
     //     const data = [
@@ -52,4 +47,10 @@ categories
     })
 
 
-module.exports = { users, ads, categories, messages }
+module.exports = {
+    users,
+    ads,
+    categories,
+    ads_images,
+    messages
+}

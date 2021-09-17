@@ -5,13 +5,17 @@ const validationMiddlware = require('../middlewares/validation_middleware')
 const deleteAdMiddlware = require('../middlewares/deleteAd_middleware')
 
 router.get('/:id',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     validationMiddlware.paramValidation,
+    deleteAdMiddlware.checkAd,
+    deleteAdMiddlware.checkAdOwner,
     deleteAdMiddlware.getDeleteAdPage)
 
 router.post('/:id',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     validationMiddlware.paramValidation,
-    deleteAdMiddlware.postDeleteAdPage)
+    deleteAdMiddlware.checkAd,
+    deleteAdMiddlware.checkAdOwner,
+    deleteAdMiddlware.deleteAd)
 
 module.exports = router

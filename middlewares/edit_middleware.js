@@ -1,55 +1,77 @@
+const { sequelize } = require('../configurations/dbConfig')
+
+const Promise = require('bluebird')
+
 const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
+const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const getEditPage = async (req, res, next) => {
-    const adById = await adsFunctionals.findOneAd({ id: req.params.id })
+const getEditAdPage = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
 
-    if(adById) {
-        res.render('edit', { user: req.user, ad: adById })
-    } else {
-        const err = `There is no ad with id ${req.params.id}`
-        res.render('error', { user: req.user, err: err })
-    }
+    sequelize.query(`
+        SELECT "a".*,
+            "i"."id" "imgId", "i"."filename", "i"."path"
+        FROM "test_2"."ads" "a"
+        LEFT OUTER JOIN "test_2"."ads_images" "i"
+        ON "i"."adId" = "a"."id"
+        WHERE "a"."id" = :a_id`,
+        {
+            replacements: {
+                a_id: id
+            },
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+        .then(data => {
+            if(!data) {
+                const err = `There is no ad with id ${id}`
+                return res.render('error', { err: err })
+            }
+            console.log(data)
+            return res.render('edit', { ad: data[0], images: data })
+        })
+        .catch(next)
+}
+
+const createImageByAdId = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+
+    return Promise.each(req.files, el => {
+        adsImagesFunctionals.createImage({
+            filename: el.filename,
+            path: el.path,
+            adId: id
+        })
+    })
+    .then(() => next())
+    .catch(next)
 }
 
 
-const postEditPage = async (req, res, next) => {
-    const id = Number(req.params.id)
-    const ad = await adsFunctionals.findOneAd({ id: id })
+const updateAd = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+    
+    adsFunctionals.findOneAd({ id: id })
+        .then(ad => {
+            if(!ad) {
+                const err = `There is no ad with id ${id}`
+                return res.render('error', { err: err })
+            }
 
-    if(!ad) {
-        const err = `There is no ad with id ${req.params.id}`
-        res.render('error', { user: req.user, err: err })
-    }
-
-    const data = req.body
-    data.image = ad.image
-
-    if(req.body.delete === 'true') {
-        data.image = null
-    }
-    if(req.files.length > 0) {
-        if(data.image) {
-            req.files.forEach(el => data.image.push(el.filename))
-        } else {
-            data.image = req.files.map(el => el.filename)
-        }
-    }
-
-    if(data.image && data.image.length > 5) {
-        req.flash('error_msg', 'More than 5 files cannot be posted.')
-        res.redirect(`/edit/${ad.id}`)
-    } else {
-        if(req.user.id === ad.userId) {
-            await adsFunctionals.updateAd(data, { id: id })
-            req.flash('success_msg', 'Post updated successfully.')
-            res.redirect('/account')
-        } else {
-            req.flash('error_msg', 'Post cannot be edited since it does not belong to you.')
-            res.redirect(`/edit/${ad.id}`)
-        }
-    }
+            if(req.user.id !== ad.userId) {
+                req.flash('error_msg', 'Post cannot be edited since it does not belong to you.')
+                return res.redirect(`/edit/${ad.id}`)
+            }
+            
+            adsFunctionals.updateAd(req.body, { id: id })
+                .then(() => {
+                    req.flash('success_msg', 'Post updated successfully.')
+                    return res.redirect('/account')
+                })
+        }) 
+        .catch(next)   
 }
 
-module.exports = { getEditPage, postEditPage }
+module.exports = { getEditAdPage, updateAd, createImageByAdId }

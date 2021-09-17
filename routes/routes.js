@@ -1,16 +1,17 @@
 module.exports = app => {
-    const express = require('express')
     const router = require('express').Router()
 
-    router.use("/uploads", express.static(process.cwd() + '/uploads/'));
+    // const check = require('../middlewares/check')
+
+    app.use('/', router)
+
+    app.use('/error', require('./error'))
 
     app.use('/home', require('./home'))
     app.use('/category', require('./category'))
     app.use('/subcategory', require('./subcategory'))
     app.use('/item', require('./item'))
-    app.use('/message', require('./message'))
-    app.use('/user/messages', require('./messagesUser'))
-
+    
     app.use('/login', require('./login'))
     app.use('/register', require('./register'))
     app.use('/logout', require('./logout'))
@@ -20,16 +21,13 @@ module.exports = app => {
     app.use('/delete/account', require('./deleteAccount'))
 
     app.use('/ad', require('./ad'))
-
-    app.use('/add/category', require('./addCategory'))
-    app.use('/add/subcategory', require('./addSubcategory'))
-    app.use('/delete/category', require('./deleteCategory'))
-    app.use('/delete/subcategory', require('./deleteSubcategory'))
-
     app.use('/edit', require('./edit'))
     app.use('/delete/ad', require('./deleteAd'))
 
-    app.use('/error', require('./error'))
+    app.use('/message', require('./message'))
+    app.use('/user/messages', require('./messagesUser'))
+    app.use('/user/ads', require('./adsUser'))
 
-    app.use('/', router)
+    app.use('/add/category', require('./addCategory'))
+    app.use('/delete/category', require('./deleteCategory'))
 }

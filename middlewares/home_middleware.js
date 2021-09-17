@@ -1,17 +1,26 @@
-const { Op } = require('sequelize')
+const Promise = require('bluebird')
 
 const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const getHomePage = async (req, res, next) => {
-    const arr1 = await categsFunctionals.findCategsWhere({ parentId: null })
+const getHomePage = (req, res, next) => {
+    categsFunctionals.findCategs()
+        .then(categs => {
+            return Promise.reduce(categs, (acc, el) => {
+                if(el.parentId === null) {
+                    acc.arr1.push(el)
+                } else {
+                    acc.arr2.push(el)
+                }
+                return acc
+            }, {
+                arr1: [],
+                arr2: []
+            })
+        })
+        .then(data => res.render('home', { parentCategs: data.arr1, subCategs: data.arr2 }) )
         .catch(next)
-
-    const arr2 = await categsFunctionals.findCategsWhere({ parentId: { [Op.ne]: null } })
-        .catch(next)
-
-    res.render('home', { main: arr1, subs: arr2, user: req.user })
 }
 
 module.exports = { getHomePage }

@@ -6,30 +6,33 @@ const categsFunctionals = require('../models/functionals/categories_functionals'
 
 const getRegisterPage = (req, res) => res.render('register')
 
-const postRegisterPage = async (req, res, next) => {
+const postRegisterPage = (req, res, next) => {
     const { email, name, password, password2, phone_number, location } = req.body
 
-    const user = await usersFunctionals.findOneUser({ email: email })
-
-    if(user) {
-        req.flash('error_msg', 'Emial already exists.')
-        res.redirect('/register')
-    } else {
-        const newSalt = generateSalt()
-        const hashedPassword = hashPassword(password, newSalt)
-
-        await usersFunctionals.createUser({
-            email: `${email}`,
-            name: `${name}`,
-            password: `${hashedPassword}`,
-            salt: `${newSalt}`,
-            phone_number: `${phone_number}`,
-            location: `${location}`
+    usersFunctionals.findOneUser({ email: email })
+        .then(user => {
+            if(user) {
+                req.flash('error_msg', 'Emial already exists.')
+                return res.redirect('/register')
+            }
+            
+            const newSalt = generateSalt()
+            const hashedPassword = hashPassword(password, newSalt)
+        
+            usersFunctionals.createUser({
+                email: email,
+                name: name,
+                password: hashedPassword,
+                salt: newSalt,
+                phone_number: phone_number || null,
+                location: location || null
+            })
+                .then(() => {
+                    req.flash('success_msg', 'You have registered successfully, please login.')
+                    return res.redirect('/login')
+                })
         })
-
-        req.flash('success_msg', 'You have registered successfully, please login.')
-        res.redirect('/login')
-    }
+        .catch(next)
 }
 
 module.exports = { getRegisterPage, postRegisterPage }

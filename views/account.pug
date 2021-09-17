@@ -59,9 +59,9 @@ body(style="text-align:center;")
     h1 My Account
         span
             - if(user.image)
-                img(src=`/uploads/${user.image}` alt="Image")
+                img(src=`/uploads/profile/${user.image}` alt="Image")
             - else
-                img(src='/uploads/profile.jpeg')
+                img(src='/uploads/profile/profile.jpeg')
             a.hover(href='/profile') #{user.name}
 
     nav
@@ -84,21 +84,17 @@ body(style="text-align:center;")
             div.childDiv
                 a(href='/add/category') Add a new category
             div.childDiv
-                a(href='/add/subcategory') Add a new subcategory
-            div.childDiv
                 a(href='/delete/category') Delete a category
-            div.childDiv
-                a(href='/delete/subcategory') Delete a subcategory
 
     div.parentDiv2
-        a(href=`/profile/${user.id}` class="btn") My ads
+        a(href=`/user/ads/${user.id}` class="btn") My ads
         hr
         - if(ads.length > 0)
             ul
                 each el in ads
                     li
                         a(href=`/item/${el.id}` class="btn" style="color:DarkCyan") #{el.title}
-        - if(ads.length === 0)
+        - else
             div
                 i No ads posted yet
 

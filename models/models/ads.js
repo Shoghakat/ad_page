@@ -8,7 +8,6 @@ const ads = sequelize.define('ads', {
     },
     title: Sequelize.STRING,
     description: Sequelize.STRING,
-    image: Sequelize.ARRAY(Sequelize.STRING),
     location: Sequelize.STRING,
     name: Sequelize.STRING,
     phone_number: Sequelize.STRING

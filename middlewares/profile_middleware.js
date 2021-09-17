@@ -2,28 +2,17 @@ const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const getProfilePage = async (req, res, next) => {
+const getProfilePage = (req, res, next) => {
     const id = req.user.id
-    const userById = await usersFunctionals.findOneUser({ id: id })
-
-    res.render('profile', { user: userById })
-}
-
-const getProfileByIdPage = async (req, res, next) => {
-    const id = req.params.id
-    const userById = await usersFunctionals.findOneUser({ id: req.user.id })
-    const userOwner = await usersFunctionals.findOneUser({ id: id })
-    if(userOwner) {
-        const ads = await adsFunctionals.findAdsWhere({ userId: id })
-        res.render('userAds', { user: userById, userOwner: userOwner, ads: ads })
-    } else {
-        const err = `There is no user with id ${id}`
-        res.render('error', { user: req.user, err: err })
-    }
     
+    usersFunctionals.findOneUser({ id: id })
+        .then(user => {
+            return res.render('profile', { user: user })
+        })
+        .catch(next)
 }
 
-const postProfilePage = async (req, res, next) => {
+const postProfilePage = (req, res, next) => {
     const user = req.user
     const data = req.body
 
@@ -37,14 +26,15 @@ const postProfilePage = async (req, res, next) => {
         data.image = null
     }
 
-    await usersFunctionals.updateUser(data, { id: user.id })
-
-    req.flash('success_msg', 'Profile updated successfully.')
-    res.redirect('/profile')
+    usersFunctionals.updateUser(data, { id: user.id })
+        .then(() => {
+            req.flash('success_msg', 'Profile updated successfully.')
+            return res.redirect('/profile')
+        })
+        .catch(next)
 }
 
 module.exports = {
     getProfilePage,
-    getProfileByIdPage,
     postProfilePage
 }

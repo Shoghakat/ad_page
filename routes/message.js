@@ -5,12 +5,12 @@ const validationMiddlware = require('../middlewares/validation_middleware')
 const messageMiddlware = require('../middlewares/message_middleware')
 
 router.get('/:id',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     validationMiddlware.paramValidation,
     messageMiddlware.getMessagePage)
 
 router.post('/:id',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     validationMiddlware.paramValidation,
     validationMiddlware.messageValidation,
     messageMiddlware.postMessagePage)

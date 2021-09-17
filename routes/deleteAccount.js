@@ -4,11 +4,11 @@ const check = require('../middlewares/check')
 const deleteAccountMiddlware = require('../middlewares/deleteAccount_middleware')
 
 router.get('/',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     deleteAccountMiddlware.getDeleteAccountPage)
 
 router.post('/',
-    check.checkNotAuthenticated,
-    deleteAccountMiddlware.postDeleteAccountPage)
+    check.checkAuthenticated,
+    deleteAccountMiddlware.deleteAccount)
 
 module.exports = router

@@ -4,13 +4,16 @@ const check = require('../middlewares/check')
 const deleteCategoryMiddlware = require('../middlewares/deleteCategory_middleware')
 
 router.get('/',
-    check.checkNotAuthenticated,
-    check.checkNotAdmin,
+    check.checkAuthenticated,
+    check.checkAdmin,
     deleteCategoryMiddlware.getDeleteCategoryPage)
 
 router.post('/',
-    check.checkNotAuthenticated,
-    check.checkNotAdmin,
-    deleteCategoryMiddlware.postDeleteCategoryPage)
+    check.checkAuthenticated,
+    check.checkAdmin,
+    deleteCategoryMiddlware.checkCateg,
+    deleteCategoryMiddlware.checkHasChildCateg,
+    deleteCategoryMiddlware.checkHasAd,
+    deleteCategoryMiddlware.deleteCateg)
 
 module.exports = router

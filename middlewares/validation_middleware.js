@@ -1,5 +1,3 @@
-const { Op } = require('sequelize')
-
 const adValidationSchema = require('../validations/adsValid');
 const userValidationSchema = require('../validations/usersValid');
 const profileValidationSchema = require('../validations/profileValid');
@@ -11,44 +9,50 @@ const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
 
-const paramValidation = async (req, res, next) => {
+const paramValidation = (req, res, next) => {
     const { error } = paramValidationSchema.validate(req.params)
 
     if(error !== undefined) {
         const err = 'The id must be an integer'
-        res.render('error', { user: req.user, err: err })
-    } else {
-        next()
+        return res.render('error', { err: err })
     }
+    
+    next()
 }
 
 
-const adValidationEdit = async (req, res, next) => {
-    const id = Number(req.params.id)
+const adValidationEdit = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
     const { error } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
-        const ad = await adsFunctionals.findOneAd({ id: id })
-        if(ad) {
-            res.render('edit', { errors: error, user: req.user, ad: ad })
-        } else {
-            res.send(`There is no ad with id ${id}`)
-        }
+        adsFunctionals.findOneAd({ id: id })
+            .then(ad => {
+                if(!ad) {
+                    return res.send(`There is no ad with id ${id}`) 
+                }
+                
+                return res.render('edit', { errors: error, ad: ad })
+            })
+            .catch(next)
     } else {
         next()
     }
 }
 
 
-const adValidation = async (req, res, next) => {
-    const id = Number(req.params.id)
+const adValidation = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
     const { error } = adValidationSchema.validate(req.body)   
     if(error !== undefined) {
-        const categ = await categsFunctionals.findOneCateg({ id: id })
-        if(categ) {
-            res.render('advertisement', { errors: error, user: req.user, categ: categ })
-        } else {
-            res.send(`There is no ad with id ${id}`)
-        }
+        categsFunctionals.findOneCateg({ id: id })
+            .then(categ => {
+                if(!categ) {
+                    return res.send(`There is no ad with id ${id}`)
+                }
+                
+                return res.render('advertisement', { errors: error, categ: categ })
+            })
+            .catch(next)
     } else {
         next()
     }
@@ -58,30 +62,34 @@ const adValidation = async (req, res, next) => {
 const userValidation = (req, res, next) => {
     const { error } = userValidationSchema.validate(req.body)
     if(error !== undefined) {
-        res.render('register', { errors: error })
-    } else {
-        next()
+        return res.render('register', { errors: error })
     }
+    
+    next()
 }
 
 const profileValidation = (req, res, next) => {
     const { error } = profileValidationSchema.validate(req.body)
     if(error !== undefined) {
-        res.render('profile', { errors: error, user: req.user })
-    } else {
-        next()
+        return res.render('profile', { errors: error })
     }
+    
+    next()
 }
 
-const messageValidation = async (req, res, next) => {
+const messageValidation = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
     const { error } = messageValidationSchema.validate(req.body)
     if(error !== undefined) {
-        const ad = await adsFunctionals.findOneAd({ id: req.params.id })
-        if(ad) {
-            res.render('message', { errors: error, ad: ad })
-        } else {
-            res.send(`There is no ad with id ${req.params.id}`)
-        }
+        adsFunctionals.findOneAd({ id: id })
+            .then(ad => {
+                if(!ad) {
+                    return res.send(`There is no ad with id ${id}`)
+                }
+
+                return res.render('message', { errors: error, ad: ad })
+            })
+            .catch(next)
     } else {
         next()
     }

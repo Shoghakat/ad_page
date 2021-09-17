@@ -2,10 +2,15 @@ const multer = require('multer')
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, process.cwd() + '/uploads/')
+        if(req.baseUrl === '/ad' || req.baseUrl === '/edit') {
+            cb(null, process.env.PWD + '/uploads/ads/')
+        }
+        if(req.baseUrl === '/profile') {
+            cb(null, process.env.PWD + '/uploads/profile')
+        }
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+        cb(null, Math.random().toString(10) + '_' +file.originalname)
     }
 })
 
@@ -17,13 +22,11 @@ const upload = multer({
 
 const uploadFile = (req, res, next) => {
     upload(req, res, err => {
-        if (err instanceof multer.MulterError) {
-            res.render('error', { user: req.user, err: err })
-        } else if (err) {
-            res.render('error', { user: req.user, err: err })
-        } else {
-            next()
+        if (err) {
+            res.render('error', { err: err })
         }
+        
+        next()
     })
 }
 
@@ -38,13 +41,11 @@ const uploads = multer({
 
 const uploadFiles = (req, res, next) => {
     uploads(req, res, err => {
-        if (err instanceof multer.MulterError) {
-            res.render('error', { user: req.user, err: err })
-        } else if (err) {
-            res.render('error', { user: req.user, err: err })
-        } else {
-            next()
+        if (err) {
+            return res.render('error', { err: err })
         }
+        
+        next()
     })
 }
 

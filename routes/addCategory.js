@@ -5,13 +5,13 @@ const validationMiddleware = require('../middlewares/validation_middleware')
 const addCategoryMiddlware = require('../middlewares/addCategory_middleware')
 
 router.get('/',
-    check.checkNotAuthenticated,
-    check.checkNotAdmin,
-    addCategoryMiddlware.getAddCategoryPage)
+    check.checkAuthenticated,
+    check.checkAdmin,
+    addCategoryMiddlware.getCreateCategoryPage)
 
 router.post('/',
-    check.checkNotAuthenticated,
-    check.checkNotAdmin,
-    addCategoryMiddlware.postAddCategoryPage)
+    check.checkAuthenticated,
+    check.checkAdmin,
+    addCategoryMiddlware.createCategory)
 
 module.exports = router

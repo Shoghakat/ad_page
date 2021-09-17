@@ -7,8 +7,4 @@ router.get('/:id',
     validationMiddlware.paramValidation,
     itemMiddlware.getItemPage)
 
-router.get('/:id/images',
-    validationMiddlware.paramValidation,
-    itemMiddlware.getItemImagesPage)
-
 module.exports = router

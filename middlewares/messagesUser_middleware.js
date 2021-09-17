@@ -6,7 +6,7 @@ const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 const messagesFunctionals = require('../models/functionals/messages_functionals')
 
-const getMessagesUserPage = async (req, res, next) => {
+const getUserMessagesPage = async (req, res, next) => {
     const ads = await adsFunctionals.findAdsWhere({ userId: req.user.id })
     const ids = await Promise.map(ads, el => el.id)
     const messagesUser = await messagesFunctionals.findMessagesWhere({ [Op.or]: [{ userId: req.user.id }, { adId: { [Op.or] : ids } }] })
@@ -18,50 +18,59 @@ const getMessagesUserPage = async (req, res, next) => {
         message.userName = user.name
         return message
     })
-    res.render('messagesUser', { user: req.user, messagesUser: messagesUser })
+    res.render('messagesUser', { messagesUser: messagesUser })
 }
 
-const getMessageByIdPage = async (req, res, next) => {
-    const id = req.params.id
-    const message = await messagesFunctionals.findMessageById(id)
-
-    const ad = await adsFunctionals.findOneAd({ id: message.adId })
+const getMessageByIdPage = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
     
-    if(message) {
-        if(message.userId === req.user.id || ad.userId === req.user.id) {
-            res.render('messageSingle', { user: req.user, message: message })
-        } else {
-            const err = `The message with id ${id} does not belong to you`
-            res.render('error', { user: req.user, err: err })
-        }
-    } else {
-        const err = `There is no message with id ${id}`
-        res.render('error', { user: req.user, err: err })
-    }
+    messagesFunctionals.findMessageById(id)
+        .then(message => {
+            adsFunctionals.findOneAd({ id: message.adId })
+                .then(ad => {
+                    if(!message) {
+                        const err = `There is no message with id ${id}`
+                        return res.render('error', { err: err })
+                    }
+                    
+                    if(message.userId !== req.user.id && ad.userId !== req.user.id) {
+                        const err = `The message with id ${id} does not belong to you`
+                        return res.render('error', { err: err })
+                    }
+                    
+                    return res.render('messageSingle', { message: message })
+                })
+        })
+        .catch(next)
 }
 
-const postMessageByIdPage = async (req, res, next) => {
-    const id = req.params.id
-    const message = await messagesFunctionals.findMessageById(id)
+const postMessageByIdPage = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
 
-    const data = message
-    data.messages.push({
-        name: req.user.name,
-        message: req.body.message
-    })
+    messagesFunctionals.findMessageById(id)
+        .then(message => {
+            const data = message
+            data.messages.push({
+                name: req.user.name,
+                message: req.body.message
+            })
 
-    if(message) {
-        await messagesFunctionals.updateMessage(data, { id: id })
-        req.flash('success_msg', 'Message sent successfully.')
-        res.redirect('/user/messages')
-    } else {
-        const err = `There is no message with id ${id}`
-        res.render('error', { user: req.user, err: err })
-    }
+            if(!message) {
+                const err = `There is no message with id ${id}`
+                return res.render('error', { err: err })
+            }
+            
+            messagesFunctionals.updateMessage(data, { id: id })
+                .then(() => {
+                    req.flash('success_msg', 'Message sent successfully.')
+                    return res.redirect('/user/messages')
+                })
+        })
+        .catch(next)
 }
 
 module.exports = {
-    getMessagesUserPage,
+    getUserMessagesPage,
     getMessageByIdPage,
     postMessageByIdPage
 }

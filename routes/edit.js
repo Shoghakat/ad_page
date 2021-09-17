@@ -1,5 +1,3 @@
-const express = require('express')
-
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
@@ -8,18 +6,17 @@ const editMiddlware = require('../middlewares/edit_middleware')
 
 const upload = require('../middlewares/uploadfiles')
 
-router.use("/uploads", express.static(process.cwd() + '/uploads/'));
-
 router.get('/:id',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     validationMiddlware.paramValidation,
-    editMiddlware.getEditPage)
+    editMiddlware.getEditAdPage)
 
 router.post('/:id',
-    check.checkNotAuthenticated,
+    check.checkAuthenticated,
     validationMiddlware.paramValidation,
     upload.uploadFiles,
     validationMiddlware.adValidationEdit,
-    editMiddlware.postEditPage)
+    editMiddlware.createImageByAdId,
+    editMiddlware.updateAd)
 
 module.exports = router

@@ -49,9 +49,9 @@ body(style="text-align:center;")
     h1 Write a Message
         span#profileSpan
             - if(user.image)
-                img#profileImg(src=`/uploads/${user.image}` alt="Image")
+                img#profileImg(src=`/uploads/profile/${user.image}` alt="Image")
             - else
-                img#profileImg(src='/uploads/profile.jpeg')
+                img#profileImg(src='/uploads/profile/profile.jpeg')
             a.hover(href='/profile') #{user.name}
 
     nav

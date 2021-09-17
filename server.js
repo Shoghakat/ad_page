@@ -1,10 +1,9 @@
 const express = require('express')
 const session = require('express-session')
-
-const createError = require('http-errors')
-
 const flash = require('express-flash')
+const cors = require('cors')
 const passport = require('passport')
+const createError = require('http-errors')
 
 const { RedisStore, redisClient } = require('./configurations/redisConfig')
 
@@ -27,6 +26,17 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+app.use(cors({
+    origin: '*',
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
+
+app.use("/uploads", express.static('./uploads/'));
+
+app.use('*', (req, res, next) => {
+    res.locals.user = req.user || null
+    return next()
+})
 
 
 // routes

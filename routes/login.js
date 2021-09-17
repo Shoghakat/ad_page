@@ -4,11 +4,11 @@ const check = require('../middlewares/check')
 const loginMiddlware = require('../middlewares/login_middleware')
 
 router.get('/',
-    check.checkAuthenticated,
+    check.checkNotAuthenticated,
     loginMiddlware.getLoginPage)
 
 router.post('/',
-    check.checkAuthenticated,
+    check.checkNotAuthenticated,
     loginMiddlware.postLoginPage)
 
 module.exports = router

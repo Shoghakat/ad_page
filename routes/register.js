@@ -5,11 +5,11 @@ const validationMiddleware = require('../middlewares/validation_middleware')
 const registerMiddlware = require('../middlewares/register_middleware')
 
 router.get('/',
-    check.checkAuthenticated,
+    check.checkNotAuthenticated,
     registerMiddlware.getRegisterPage)
 
 router.post('/',
-    check.checkAuthenticated,
+    check.checkNotAuthenticated,
     validationMiddleware.userValidation,
     registerMiddlware.postRegisterPage)
 
