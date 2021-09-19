@@ -23,6 +23,7 @@ router.post('/:id',
     check.checkCateg,
     validationMiddlware.adValidation,
     adMiddlware.createAd,
+    validationMiddlware.imagesAdValidation,
     adMiddlware.createImagesByAdId,
     adMiddlware.completeCreateAd)
 

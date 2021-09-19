@@ -1,12 +1,11 @@
+const Promise = require('bluebird')
+
 const adValidationSchema = require('../validations/adsValid');
 const userValidationSchema = require('../validations/usersValid');
 const profileValidationSchema = require('../validations/profileValid');
+const imageValidationSchema = require('../validations/imageValid');
 const messageValidationSchema = require('../validations/messageValid');
 const paramValidationSchema = require('../validations/paramValid');
-
-const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
 
 
 const paramValidation = (req, res, next) => {
@@ -20,19 +19,6 @@ const paramValidation = (req, res, next) => {
 }
 
 
-const adValidationEdit = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
-
-    const { error } = adValidationSchema.validate(req.body)
-    if(error !== undefined) {
-        req.flash('success_msg', error.message)
-        return res.redirect(`/edit/${id}`)
-    }
-    
-    return next()
-}
-
-
 const adValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
 
@@ -40,6 +26,19 @@ const adValidation = (req, res, next) => {
     if(error !== undefined) {
         req.flash('error_msg', error.message)
         return res.redirect(`/ad/${id}`)
+    }
+    
+    return next()
+}
+
+
+const adValidationEdit = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+
+    const { error } = adValidationSchema.validate(req.body)
+    if(error !== undefined) {
+        req.flash('success_msg', error.message)
+        return res.redirect(`/edit/${id}`)
     }
     
     return next()
@@ -57,7 +56,6 @@ const userValidation = (req, res, next) => {
 }
 
 const profileValidation = (req, res, next) => {
-    console.log([req.body])
     const { error } = profileValidationSchema.validate(req.body)
     if(error !== undefined) {
         req.flash('error_msg', error.message)
@@ -66,6 +64,47 @@ const profileValidation = (req, res, next) => {
     
     next()
 }
+
+
+const imageProfileValidation = (req, res, next) => {
+    const { error } = imageValidationSchema.validate(req.file)
+    if(error !== undefined) {
+        req.flash('error_msg', error.message)
+        return res.redirect(`/profile/picture`)
+    }
+    return next()
+}
+
+const imagesAdValidation = (req, res, next) => {
+    if(req.files.length === 0) {
+        return next()
+    }
+
+    const id = parseInt(req.params.id, 10)
+    return Promise.each(req.files, el => {
+        const { error } = imageValidationSchema.validate(el)
+        if(error !== undefined) {
+            req.flash('error_msg', error.message)
+            return res.redirect(`/ad/${id}`)
+        }
+    })
+    .then(() => next())
+    .catch(() => next())
+}
+
+const imagesItemValidation = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+    return Promise.each(req.files, el => {
+        const { error } = imageValidationSchema.validate(el)
+        if(error !== undefined) {
+            req.flash('error_msg', error.message)
+            return res.redirect(`/item/${id}`)
+        }
+    })
+    .then(() => next())
+    .catch(next)
+}
+
 
 const messageValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
@@ -97,6 +136,9 @@ module.exports = {
     adValidationEdit,
     userValidation,
     profileValidation,
+    imageProfileValidation,
+    imagesAdValidation,
+    imagesItemValidation,
     messageValidation,
     messageAnswerValidation
 }

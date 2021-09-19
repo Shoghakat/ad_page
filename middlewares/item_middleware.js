@@ -4,7 +4,6 @@ const adsImagesFunctionals = require('../models/functionals/adsImages_functional
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
 const Promise = require('bluebird')
-const { ConnectionClosedEvent } = require('mongodb')
 
 const getItemPage = (req, res, next) => {
     const ad = req.ad
@@ -18,21 +17,32 @@ const getItemPage = (req, res, next) => {
         .catch(next)
 }
 
+const postItemPage = (req, res, next) => {
+    const ad = req.ad
+    if(req.files.length === 0) {
+        return res.redirect(`/item/${ad.id}`)
+    }
+    return next()
+}
 
 const createImagesByAdId = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
+    const ad = req.ad
     return Promise.each(req.files, el => {
         return adsImagesFunctionals.createImage({
             filename: el.filename,
             path: el.path,
-            adId: id
+            adId: ad.id
         })
     })
         .then(() => {
             req.flash('success_msg', 'File/s saved successfully.')
-            return res.redirect(`/item/${id}`)
+            return res.redirect(`/item/${ad.id}`)
         })
         .catch(next)
 }
 
-module.exports = { getItemPage, createImagesByAdId }
+module.exports = {
+    getItemPage,
+    postItemPage,
+    createImagesByAdId
+}

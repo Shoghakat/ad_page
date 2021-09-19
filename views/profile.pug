@@ -71,7 +71,10 @@ body(style="text-align:center;")
             input(type='text' id='name' name='name' value=`${user.name}`)
         div
             label Your Phone Number
-            input(type='text' id='phone_number' name='phone_number' value=`${user.phone_number}` placeholder="(099)99-99-99")
+            - if(user.phone_number)
+                input(type='text' id='phone_number' name='phone_number' value=`${user.phone_number}`)
+            - else
+                input(type='text' id='phone_number' name='phone_number' placeholder="(099)99-99-99")
         div
             label Location
             select(id="location" name="location")

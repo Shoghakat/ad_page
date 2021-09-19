@@ -17,8 +17,9 @@ router.post('/:id',
     check.checkAd,
     check.checkAdOwner,
     upload.uploadFiles,
-    // validationMiddlware.imageValidation,
+    itemMiddlware.postItemPage,
     check.checkImagesNumber,
+    validationMiddlware.imagesItemValidation,
     itemMiddlware.createImagesByAdId)
 
 module.exports = router

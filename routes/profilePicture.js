@@ -15,7 +15,7 @@ router.post('/',
     check.checkAuthenticated,
     upload.uploadFile,
     profilePictureMiddlware.postProfilePicturePage,
-    // validationMiddlware.profilePictureValidation,
+    validationMiddlware.imageProfileValidation,
     removeFiles.removeProfilePicture,
     profilePictureMiddlware.completePostProfilePicture)
 
