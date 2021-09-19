@@ -38,12 +38,8 @@ sequelize
     //         { name: 'other', parentId: 2 }
     //     ]
 
-    //     return categories.bulkCreate(data)
-    //         // .catch((err) => console.log(err))
+    //     categories.bulkCreate(data)
     // })
-    .then((result) => {
-        console.log('Synced: ' + result)
-    })
     .catch((err) => {
         console.log('Not Synced: ' + err)
     })

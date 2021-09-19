@@ -5,10 +5,12 @@ const categsFunctionals = require('../models/functionals/categories_functionals'
 const getDeleteAccountPage = (req, res, next) => res.render('deleteAccount')
 
 const deleteAccount = (req, res, next) => {
-    usersFunctionals.deleteUser({ id: req.user.id })
+    const id = req.user.id
+    req.logOut()
+    usersFunctionals.deleteUser({ id: id })
         .then(() => {
             req.flash('success_msg', 'Account deleted successfully.')
-            res.redirect('/profile')
+            res.redirect('/login')
         })
         .catch(next)
 }
