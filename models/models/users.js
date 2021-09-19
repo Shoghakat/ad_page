@@ -13,6 +13,7 @@ const users = sequelize.define('users', {
     phone_number: Sequelize.STRING,
     location: Sequelize.STRING,
     image: Sequelize.STRING,
+    imagePath: Sequelize.STRING,
     isAdmin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false

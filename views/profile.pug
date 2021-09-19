@@ -38,7 +38,7 @@ head
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
 
 body(style="text-align:center;")
-    h1 My Account
+    h1 My Profile
 
     nav
         a(href='/logout' style="margin-right: 20px") Logout
@@ -48,12 +48,21 @@ body(style="text-align:center;")
 
     - if(messages.success_msg)
         p= messages.success_msg
+    - if(messages.error_msg)
+        p= messages.error_msg
     - if(messages.error)
         p= messages.error
     - if(errors !== undefined)
         p= errors.message
 
-    form(action='/profile' method='POST' encType="multipart/form-data")
+    div(style="margin-top: 20px")
+        - if(user.image)
+            img(src=`/uploads/profile/${user.image}` alt="Image")
+        - else
+            img(src=`/uploads/profile/profile.jpeg` alt="Image")
+        a(href='/profile/picture') Profile Picture
+
+    form(action='/profile' method='POST')
         div
             label Your Email
             input(type='email' id='eamil' name='email' value=`${user.email}` readonly)
@@ -81,22 +90,6 @@ body(style="text-align:center;")
                 option(value="Tavush") Tavush
                 option(value="Vayots Dzor") Vayots Dzor
                 option(value="Yerevan") Yerevan
-
-        - if(user.image)
-            div
-                label Your Avatar
-                img(src=`/uploads/profile/${user.image}` alt="Image")
-            div
-                label Delete the image
-                select(id="delete" name="delete")
-                    option(value='false') false
-                    option(value='true') true
-        div
-            - if(user.image)
-                label Choose another image
-            - else
-                label Your Avatar
-            input(type="file" id="image" name="image" accept="image/*")
         div
             input#button(type='submit' value='Save' style="margin-top: 20px;")
 

@@ -11,9 +11,8 @@ router.get('/',
 router.post('/',
     check.checkAuthenticated,
     check.checkAdmin,
-    deleteCategoryMiddlware.checkCateg,
-    deleteCategoryMiddlware.checkHasChildCateg,
-    deleteCategoryMiddlware.checkHasAd,
+    check.checkCategByName,
+    check.checkHasChildOrAd,
     deleteCategoryMiddlware.deleteCateg)
 
 module.exports = router

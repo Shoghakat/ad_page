@@ -11,7 +11,6 @@ const categsFunctionals = require('../models/functionals/categories_functionals'
 
 const paramValidation = (req, res, next) => {
     const { error } = paramValidationSchema.validate(req.params)
-
     if(error !== undefined) {
         const err = 'The id must be an integer'
         return res.render('error', { err: err })
@@ -23,55 +22,46 @@ const paramValidation = (req, res, next) => {
 
 const adValidationEdit = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
+
     const { error } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
-        adsFunctionals.findOneAd({ id: id })
-            .then(ad => {
-                if(!ad) {
-                    return res.send(`There is no ad with id ${id}`) 
-                }
-                
-                return res.render('edit', { errors: error, ad: ad })
-            })
-            .catch(next)
-    } else {
-        next()
+        req.flash('success_msg', error.message)
+        return res.redirect(`/edit/${id}`)
     }
+    
+    return next()
 }
 
 
 const adValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-    const { error } = adValidationSchema.validate(req.body)   
+
+    const { error } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
-        categsFunctionals.findOneCateg({ id: id })
-            .then(categ => {
-                if(!categ) {
-                    return res.send(`There is no ad with id ${id}`)
-                }
-                
-                return res.render('advertisement', { errors: error, categ: categ })
-            })
-            .catch(next)
-    } else {
-        next()
+        req.flash('error_msg', error.message)
+        return res.redirect(`/ad/${id}`)
     }
+    
+    return next()
 }
 
 
 const userValidation = (req, res, next) => {
     const { error } = userValidationSchema.validate(req.body)
     if(error !== undefined) {
-        return res.render('register', { errors: error })
+        req.flash('error_msg', error.message)
+        return res.redirect(`/register`)
     }
     
     next()
 }
 
 const profileValidation = (req, res, next) => {
+    console.log([req.body])
     const { error } = profileValidationSchema.validate(req.body)
     if(error !== undefined) {
-        return res.render('profile', { errors: error })
+        req.flash('error_msg', error.message)
+        return res.redirect(`/profile`)
     }
     
     next()
@@ -79,27 +69,34 @@ const profileValidation = (req, res, next) => {
 
 const messageValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
+
     const { error } = messageValidationSchema.validate(req.body)
     if(error !== undefined) {
-        adsFunctionals.findOneAd({ id: id })
-            .then(ad => {
-                if(!ad) {
-                    return res.send(`There is no ad with id ${id}`)
-                }
-
-                return res.render('message', { errors: error, ad: ad })
-            })
-            .catch(next)
-    } else {
-        next()
+        req.flash('error_msg', error.message)
+        return res.redirect(`/message/${id}`)
     }
+    
+    return next()
+}
+
+const messageAnswerValidation = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+
+    const { error } = messageValidationSchema.validate(req.body)
+    if(error !== undefined) {
+        req.flash('error_msg', error.message)
+        return res.redirect(`/user/messages/${id}`)
+    }
+    
+    return next()
 }
 
 module.exports = {
+    paramValidation,
     adValidation,
     adValidationEdit,
     userValidation,
     profileValidation,
     messageValidation,
-    paramValidation
+    messageAnswerValidation
 }

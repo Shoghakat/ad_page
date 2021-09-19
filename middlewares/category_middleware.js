@@ -6,46 +6,31 @@ const adsImagesFunctionals = require('../models/functionals/adsImages_functional
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
 const getAdsByCategoryPage = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
+    const categ = req.categ
 
     sequelize.query(`
-        SELECT "a"."id" AS "adId", "a"."title" AS "adTitle",
-            "c"."id" AS "categId",
-            "c_parent"."id" AS "categId", "c_parent"."name" AS "categName",
-            "i"."id" AS "imgId", "i"."filename", "i"."path"
-        FROM "test_2"."ads" AS "a"
-        INNER JOIN "test_2"."categories" AS "c"
-        ON ("a"."categoryId" = "c"."id")
-        INNER JOIN "test_2"."categories" AS "c_parent"
-        ON ("c"."parentId" = "c_parent"."id")
+        SELECT a.id "adId", a.title "adTitle",
+            i.id "imgId", i.filename, i.path
+        FROM test_2.ads a
+        INNER JOIN test_2.categories c
+        ON (a."categoryId" = c.id)
         LEFT OUTER JOIN (
-            SELECT "id", "filename", "adId", "path"
-            FROM "test_2"."ads_images" AS "i"
-            WHERE "id" IN (
-                SELECT MIN("id")
-                FROM "test_2"."ads_images"
+            SELECT id, filename, "adId", path
+            FROM test_2.ads_images i
+            WHERE id IN (
+                SELECT MIN(id)
+                FROM test_2.ads_images
                 GROUP BY "adId"
             )
-        ) AS "i"
-        ON ("i"."adId" = "a"."id")
-        WHERE "c"."parentId" = :c_parent_id`,
+        ) i
+        ON (i."adId" = a.id)
+        WHERE c."parentId" = :c_id`,
         {
-            replacements: {
-                c_parent_id: id
-            },
+            replacements: { c_id: categ.id },
             type: sequelize.QueryTypes.SELECT
         }
     )
-        .then(data => {
-            if(data.length > 0) {
-                return res.render('category', { ads: data, categName: data[0].categName })
-            }
-            
-            categsFunctionals.findOneCateg({ id: id })
-                .then(categ => {
-                    return res.render('category', { ads: null, categName: categ.name })
-                })
-        })
+        .then(data => res.render('category', { ads: data, categ: categ }))
         .catch(next)
 }
 

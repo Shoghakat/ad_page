@@ -1,0 +1,27 @@
+head
+    style.
+        h1 {
+            color: DarkCyan;
+        }
+        form {
+            text-align: left;
+            margin-left: 400pt
+        }
+        input {
+            width: 500px;
+        }
+    title= deleteProfilePicture
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+
+body(style="text-align:center;")
+    h1 My Profile Picture
+
+    nav
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href=`/profile/picture` style="margin-left: 20px") Back
+
+    hr
+
+    form(action=`/delete/picture` method='POST')
+        div 
+            input(type='submit' value='Delete the file' style="margin-top: 20px;")

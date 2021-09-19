@@ -6,7 +6,7 @@ const categories = require('./categories')
 const messages = require('./messages')
 const ads_images = require('./adsImages')
 
-categories.hasOne(categories, { sourceKey:'id', targetKey: 'parentId', foreignKey: 'parentId', onDelete: 'cascade' });
+categories.hasMany(categories, { sourceKey:'id', targetKey: 'parentId', foreignKey: 'parentId', onDelete: 'cascade' });
 
 users.hasMany(ads, { foreignKey: 'userId', onDelete: 'cascade' });
 ads.belongsTo(users);
@@ -14,11 +14,13 @@ ads.belongsTo(users);
 categories.hasMany(ads, { foreignKey: 'categoryId', onDelete: 'cascade' });
 ads.belongsTo(categories);
 
-users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade' });
-messages.belongsTo(users);
-
 ads.hasMany(ads_images, { foreignKey: 'adId', onDelete: 'cascade' });
 ads_images.belongsTo(ads);
+
+messages.hasMany(messages, { sourceKey:'id', targetKey: 'conversationId', foreignKey: 'conversationId', onDelete: 'cascade' });
+
+users.hasMany(messages, { foreignKey: 'userId', onDelete: 'cascade' });
+messages.belongsTo(users);
 
 ads.hasMany(messages, { foreignKey: 'adId', onDelete: 'cascade' });
 messages.belongsTo(ads);

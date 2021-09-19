@@ -13,17 +13,17 @@ router.get('/',
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
-    adMiddlware.checkCateg,
+    check.checkCateg,
     adMiddlware.getCreateAdByCategPage)
 
 router.post('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
     upload.uploadFiles,
-    adMiddlware.checkCateg,
+    check.checkCateg,
     validationMiddlware.adValidation,
     adMiddlware.createAd,
-    adMiddlware.createImageByAdId,
+    adMiddlware.createImagesByAdId,
     adMiddlware.completeCreateAd)
 
 module.exports = router

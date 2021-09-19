@@ -25,8 +25,8 @@ head
             color: DodgerBlue;
         }
         .parentDiv {
-            width: 360px;
-            margin-left: 460pt;
+            width: 380px;
+            margin-left: 440pt;
             text-align: left
         }
         .childDiv {
@@ -38,6 +38,10 @@ head
         .adLabel {
             width: 180px;
             text-align: left
+        }
+        .readLabel {
+            text-align: right;
+            margin-left: 10px
         }
         ul {
             list-style-type: none;
@@ -81,12 +85,16 @@ body(style="text-align:center;")
                         label.nameLabel me
                     - else
                         label.nameLabel
-                            a(href=`/user/ads/${el.userId}`) #{el.userName}
+                            a(href=`/user/ads/${el.userId}`) #{el.name}
 
                     label.adLabel
                         a(href=`/item/${el.adId}`) #{el.adTitle}
+                    - if(el.number)
+                        label= el.number
+                    -else
+                        label 1
                     label.readLabel
-                        a(href=`/user/messages/${el.id}` class="btn btn-success" style="text-align: right") Read
+                        a(href=`/user/messages/${el.id}` class="btn btn-success") Read
                     hr
         - else
             div(style="text-align: center")

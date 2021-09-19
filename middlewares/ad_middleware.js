@@ -26,23 +26,6 @@ const getCategsListPage = (req, res, next) => {
 }
 
 
-const checkCateg = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
-
-    categsFunctionals.findOneCateg({ id: id })
-        .then(categ => {
-            if(!categ) {
-                const err = `There is no ad with id ${id}`
-                return res.render('error', { err: err })
-            }
-            
-            req.categ = categ
-            return next()
-        })
-        .catch(next)
-}
-
-
 const getCreateAdByCategPage = (req, res, next) => {
     const categ = req.categ
     res.render('advertisement', { categ: categ })
@@ -64,7 +47,7 @@ const createAd = (req, res, next) => {
         .catch(next)
 }
 
-const createImageByAdId = (req, res, next) => {
+const createImagesByAdId = (req, res, next) => {
     if(req.files.length === 0) {
         return next()
     }
@@ -89,9 +72,8 @@ const completeCreateAd = (req, res, next) => {
 
 module.exports = {
     getCategsListPage,
-    checkCateg,
     getCreateAdByCategPage,
     createAd,
-    createImageByAdId,
+    createImagesByAdId,
     completeCreateAd
 }

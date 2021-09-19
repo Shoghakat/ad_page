@@ -11,12 +11,16 @@ router.get('/',
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
-    messagesUserMiddlware.getMessageByIdPage)
+    check.checkMessage,
+    check.checkMessageOwner,
+    messagesUserMiddlware.getMessagesByConvIdPage)
 
 router.post('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
-    validationMiddlware.messageValidation,
-    messagesUserMiddlware.postMessageByIdPage)
+    check.checkMessage,
+    check.checkMessageOwner,
+    validationMiddlware.messageAnswerValidation,
+    messagesUserMiddlware.postMessagesByConvIdPage)
 
 module.exports = router

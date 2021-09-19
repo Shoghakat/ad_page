@@ -20,7 +20,7 @@ const updateImage = ( values, condition ) => {
     return ads_images.update(values, { where: condition })
 }
 
-const deleteImages = ( condition ) => {
+const deleteImage = ( condition ) => {
     return ads_images.destroy({ where: condition })
 }
 
@@ -30,5 +30,5 @@ module.exports = {
     findImagesWhere,
     createImage,
     updateImage,
-    deleteImages
+    deleteImage
 }

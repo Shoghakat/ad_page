@@ -60,6 +60,8 @@ body(style="text-align:center;")
 
     hr
 
+    - if(messages.error_msg)
+        p= messages.error_msg
     - if(messages.error)
         p= messages.error
     - if(errors !== undefined)
@@ -70,7 +72,17 @@ body(style="text-align:center;")
     form(action=`/message/${ad.id}` method='POST')
         div
             label.required
-                i Your Message
+                i Your Name
+            br
+            input(type="text" id='name' name='name' value=`${user.name}`)
+        div
+            label.required
+                i Your Phone Number
+            br
+            input(type="text" id='phone_number' name='phone_number' value=`${user.phone_number}` placeholder="(099)99-99-99")
+        div
+            label.required
+                i Write a Message
             br
             textarea(id='message' name='message' style="width:500px; height:200px")
         div

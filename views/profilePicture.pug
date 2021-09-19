@@ -1,0 +1,60 @@
+head
+    style.
+        h1 {
+            color: DarkCyan;
+        }
+        img {
+            height: 90px;
+            padding-top: 5px;
+            padding-right: 5px;
+            border-radius: 50%;
+        }
+        div {
+            margin-bottom: 10px
+        }
+        form {
+            text-align: right;
+            margin-left: 330pt;
+            width: 450px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        input {
+            width: 220px;
+            height: 30px;
+        }
+        p {
+            color: Maroon;
+        }
+    title= profilePicture
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+
+body(style="text-align:center;")
+    h1 My Profile Picture
+    
+    nav
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href='/account' style="margin-left: 20px") Account
+        
+    hr
+
+    - if(messages.success_msg)
+        p= messages.success_msg
+    - if(messages.error)
+        p= messages.error
+
+    form(action='/profile/picture' method='POST' encType="multipart/form-data")
+        div
+            - if(user.image)
+                div
+                    img(src=`/uploads/profile/${user.image}` alt="Image")
+                div
+                    a(href='/delete/picture' style="margin-left: 20px") Delete the file
+            - if(user.image)
+                label Choose another file
+            - else
+                label Choose a Profile Picture
+            input(type="file" id="image" name="image" accept="image/*")
+        div
+            input(type='submit' value='Save' style="margin-top: 20px;")

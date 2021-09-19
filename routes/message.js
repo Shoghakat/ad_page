@@ -7,11 +7,13 @@ const messageMiddlware = require('../middlewares/message_middleware')
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
+    check.checkAd,
     messageMiddlware.getMessagePage)
 
 router.post('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
+    check.checkAd,
     validationMiddlware.messageValidation,
     messageMiddlware.postMessagePage)
 

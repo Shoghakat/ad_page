@@ -2,10 +2,10 @@ const multer = require('multer')
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
-        if(req.baseUrl === '/ad' || req.baseUrl === '/edit') {
+        if(req.baseUrl === '/ad' || req.baseUrl === '/item') {
             cb(null, process.env.PWD + '/uploads/ads/')
         }
-        if(req.baseUrl === '/profile') {
+        if(req.baseUrl === '/profile/picture') {
             cb(null, process.env.PWD + '/uploads/profile')
         }
     },

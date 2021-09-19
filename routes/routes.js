@@ -18,10 +18,13 @@ module.exports = app => {
 
     app.use('/account', require('./account'))
     app.use('/profile', require('./profile'))
+    app.use('/profile/picture', require('./profilePicture'))
+    app.use('/delete/picture', require('./deleteProfilePicture'))
     app.use('/delete/account', require('./deleteAccount'))
 
     app.use('/ad', require('./ad'))
     app.use('/edit', require('./edit'))
+    app.use('/delete/image', require('./deleteAdImage'))
     app.use('/delete/ad', require('./deleteAd'))
 
     app.use('/message', require('./message'))

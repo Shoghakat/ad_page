@@ -57,6 +57,8 @@ body(style="text-align:center;")
 
     hr
 
+    - if(messages.error_msg)
+        p= messages.error_msg
     - if(messages.error)
         p= messages.error
     - if(errors !== undefined)

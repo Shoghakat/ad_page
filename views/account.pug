@@ -72,6 +72,8 @@ body(style="text-align:center;")
 
     - if(messages.success_msg)
         p= messages.success_msg
+    - if(messages.error_msg)
+        p= messages.error_msg
     - if(messages.error)
         p= messages.error
     - if(errors !== undefined)

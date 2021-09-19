@@ -4,19 +4,19 @@ const check = require('../middlewares/check')
 const validationMiddlware = require('../middlewares/validation_middleware')
 const editMiddlware = require('../middlewares/edit_middleware')
 
-const upload = require('../middlewares/uploadfiles')
-
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
+    check.checkAd,
+    check.checkAdOwner,
     editMiddlware.getEditAdPage)
 
 router.post('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
-    upload.uploadFiles,
+    check.checkAd,
+    check.checkAdOwner,
     validationMiddlware.adValidationEdit,
-    editMiddlware.createImageByAdId,
     editMiddlware.updateAd)
 
 module.exports = router

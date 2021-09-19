@@ -1,4 +1,3 @@
-const check = require('../middlewares/check')
 const homeMiddlware = require('../middlewares/home_middleware')
 
 const router = require('express').Router()
