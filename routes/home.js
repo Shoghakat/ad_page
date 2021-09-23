@@ -1,8 +1,8 @@
-const homeMiddlware = require('../middlewares/home_middleware')
+const homeMiddlwares = require('../middlewares/home_middleware')
 
 const router = require('express').Router()
 
 router.get('/',
-    homeMiddlware.getHomePage)
+    homeMiddlwares.getHomePage)
 
 module.exports = router

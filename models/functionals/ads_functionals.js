@@ -1,7 +1,7 @@
 const { users, ads, categories } = require('../models/modelsConfig');
 
 const findAds = () => {
-    return ads.findAll({ raw: true })
+    return ads.findAll({ raw: true, limit: 50 })
 }
 
 const findOneAd = ( condition ) => {
@@ -9,7 +9,7 @@ const findOneAd = ( condition ) => {
 }
 
 const findAdsWhere = ( condition ) => {
-    return ads.findAll({ where: condition, raw: true })
+    return ads.findAll({ where: condition, raw: true, limit: 50 })
 }
 
 const createAd = ( obj ) => {

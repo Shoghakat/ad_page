@@ -2,17 +2,17 @@ const router = require('express').Router()
 
 const check = require('../middlewares/check')
 const validationMiddlware = require('../middlewares/validation_middleware')
-const deleteProfilePictureMiddlware = require('../middlewares/deleteProfilePicture_middleware')
+const deleteProfilePictureMiddlwares = require('../middlewares/deleteProfilePicture_middleware')
 const removeFiles = require('../middlewares/removeFiles')
 
 router.get('/',
     check.checkAuthenticated,
-    deleteProfilePictureMiddlware.getDeleteProfilePicturePage)
+    deleteProfilePictureMiddlwares.getDeleteProfilePicturePage)
 
 router.post('/',
     check.checkAuthenticated,
-    deleteProfilePictureMiddlware.deleteProfilePicture,
+    deleteProfilePictureMiddlwares.deleteProfilePicture,
     removeFiles.removeProfilePicture,
-    deleteProfilePictureMiddlware.postProfilePicturePage)
+    deleteProfilePictureMiddlwares.postProfilePicturePage)
 
 module.exports = router

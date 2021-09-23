@@ -6,20 +6,25 @@ const categsFunctionals = require('../models/functionals/categories_functionals'
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
 
 
+const getParentAndChildCategs = (categs) => {
+    return Promise.reduce(categs, (acc, el) => {
+        if(el.parentId === null) {
+            acc.arr1.push(el)
+        } else {
+            acc.arr2.push(el)
+        }
+        return acc
+    }, {
+        arr1: [],
+        arr2: []
+    })
+}
+
+
 const getCategsListPage = (req, res, next) => {
     categsFunctionals.findCategs()
         .then(categs => {
-            return Promise.reduce(categs, (acc, el) => {
-                if(el.parentId === null) {
-                    acc.arr1.push(el)
-                } else {
-                    acc.arr2.push(el)
-                }
-                return acc
-            }, {
-                arr1: [],
-                arr2: []
-            })
+            return getParentAndChildCategs(categs)
         })
         .then(data => res.render('ad', { parentCategs: data.arr1, subCategs: data.arr2 }) )
         .catch(next)

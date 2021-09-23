@@ -75,7 +75,7 @@ body(style="text-align: center")
 
     div.firstDiv Ads by #{owner.name}
 
-    - if(ads)
+    - if(ads[0].id)
         each el in ads
             div.parentDiv
                 div.childDiv
@@ -86,4 +86,4 @@ body(style="text-align: center")
                 div.childDiv
                     a(href=`/item/${el.id}` style="font-size:15pt") #{el.title}
     - else
-        p No ads are available
+        p No ads are available by #{owner.name}

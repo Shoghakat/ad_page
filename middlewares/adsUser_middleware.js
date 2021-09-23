@@ -4,15 +4,13 @@ const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const getUserAdsPage = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
-
-    sequelize.query(`
-        SELECT "a"."id", "a"."title",
-            "u"."id" "userId", "u"."name" "userName",
+const getUserAdsById = (id) => {
+    return sequelize.query(`
+        SELECT "u"."id" "userId", "u"."name",
+            "a"."id", "a"."title",
             "i"."id" "imgId", "i"."filename", "i"."path"
-        FROM "test_2"."ads" "a"
-        INNER JOIN "test_2"."users" "u"
+        FROM "test_2"."users" "u"
+        LEFT OUTER JOIN "test_2"."ads" "a"
         ON "a"."userId" = "u"."id"
         LEFT OUTER JOIN (
             SELECT "id", "filename", "adId", "path"
@@ -24,7 +22,7 @@ const getUserAdsPage = (req, res, next) => {
             )
         ) i
         ON "i"."adId" = "a"."id"
-        WHERE a."userId" = :u_id`,
+        WHERE u."id" = :u_id`,
         {
             replacements: {
                 u_id: id
@@ -32,21 +30,20 @@ const getUserAdsPage = (req, res, next) => {
             type: sequelize.QueryTypes.SELECT
         }
     )
+}
+
+
+const getUserAdsPage = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+    getUserAdsById(id)
         .then(data => {
-            if(data.length > 0) {
-                return res.render('userAds', {
-                    ads: data,
-                    owner: {
-                        id: data[0].userId,
-                        name: data[0].userName
-                    }
-                })
-            }
-            
-            usersFunctionals.findOneUser({ id: id })
-                .then(user => {
-                    return res.render('userAds', { ads: null, owner: user })
-                })
+            return res.render('userAds', {
+                ads: data,
+                owner: {
+                    id: data[0].userId,
+                    name: data[0].name
+                }
+            })
         })
         .catch(next)
 }

@@ -1,18 +1,18 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const deleteCategoryMiddlware = require('../middlewares/deleteCategory_middleware')
+const deleteCategoryMiddlwares = require('../middlewares/deleteCategory_middleware')
 
 router.get('/',
     check.checkAuthenticated,
     check.checkAdmin,
-    deleteCategoryMiddlware.getDeleteCategoryPage)
+    deleteCategoryMiddlwares.getDeleteCategoryPage)
 
 router.post('/',
     check.checkAuthenticated,
     check.checkAdmin,
     check.checkCategByName,
     check.checkHasChildOrAd,
-    deleteCategoryMiddlware.deleteCateg)
+    deleteCategoryMiddlwares.deleteCateg)
 
 module.exports = router

@@ -26,18 +26,26 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-app.use(cors({
-    origin: '*',
-    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-}));
 
 app.use("/uploads", express.static('./uploads/'));
+
+// app.use(cors({
+//     origin: '*',
+//     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+// }));
+
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     next();
+// });
+
 
 app.use('*', (req, res, next) => {
     res.locals.user = req.user || null
     return next()
 })
-
 
 // routes
 require('./routes/routes')(app)

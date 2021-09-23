@@ -1,9 +1,8 @@
-const check = require('../middlewares/check')
-const errorMiddlware = require('../middlewares/error_middleware')
+const errorMiddlwares = require('../middlewares/error_middleware')
 
 const router = require('express').Router()
 
 router.get('/',
-    errorMiddlware.getErrorPage)
+    errorMiddlwares.getErrorPage)
 
 module.exports = router

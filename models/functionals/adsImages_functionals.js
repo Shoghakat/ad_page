@@ -1,7 +1,7 @@
 const { ads_images } = require('../models/modelsConfig');
 
 const findImages = () => {
-    return ads_images.findAll({ raw: true })
+    return ads_images.findAll({ raw: true, limit: 50 })
 }
 
 const findOneImage = ( condition ) => {
@@ -9,7 +9,7 @@ const findOneImage = ( condition ) => {
 }
 
 const findImagesWhere = ( condition ) => {
-    return ads_images.findAll({ where: condition, raw: true })
+    return ads_images.findAll({ where: condition, raw: true, limit: 50 })
 }
 
 const createImage = ( obj ) => {

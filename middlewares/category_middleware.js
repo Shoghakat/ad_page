@@ -5,12 +5,10 @@ const adsFunctionals = require('../models/functionals/ads_functionals')
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const getAdsByCategoryPage = (req, res, next) => {
-    const categ = req.categ
-
-    sequelize.query(`
+const getAdsByCateg = (id) => {
+    return sequelize.query(`
         SELECT a.id "adId", a.title "adTitle",
-            i.id "imgId", i.filename, i.path
+        i.id "imgId", i.filename, i.path
         FROM test_2.ads a
         INNER JOIN test_2.categories c
         ON (a."categoryId" = c.id)
@@ -26,10 +24,17 @@ const getAdsByCategoryPage = (req, res, next) => {
         ON (i."adId" = a.id)
         WHERE c."parentId" = :c_id`,
         {
-            replacements: { c_id: categ.id },
+            replacements: {
+                c_id: id
+            },
             type: sequelize.QueryTypes.SELECT
         }
     )
+}
+
+const getAdsByCategoryPage = (req, res, next) => {
+    const categ = req.categ
+    getAdsByCateg(categ.id)
         .then(data => res.render('category', { ads: data, categ: categ }))
         .catch(next)
 }

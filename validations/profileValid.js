@@ -1,19 +1,24 @@
 const Joi = require('joi');
 
 const profileSchema = Joi.object({
-    email: Joi.string().email().allow(null, ''),
+    email: Joi.string()
+        .email()
+        .required(),
 
-    name: Joi.string().required(),
-
-    location: Joi.string().allow(null, ''),
+    name: Joi.string()
+        .alphanum()
+        .min(2)
+        .max(20)
+        .required(),
 
     phone_number: Joi.string()
-        .pattern(new RegExp('[\(]0[0-9]{2}[\)][0-9]{2}-[0-9]{2}-[0-9]{2}'))
+        .pattern(new RegExp('[\(]0[0-9]{2}[\)]([0-9]{2})-[0-9]{2}-[0-9]{2}'))
         .allow(null, ''),
 
-    image: Joi.string().allow(null, ''),
-
-    delete: Joi.boolean()
+    location: Joi.string()
+        .min(2)
+        .max(40)
+        .allow(null, ''),
 })
 
 module.exports = profileSchema

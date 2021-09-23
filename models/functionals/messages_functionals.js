@@ -1,7 +1,7 @@
 const { users, ads, categories, messages } = require('../models/modelsConfig');
 
 const findMessages = () => {
-    return messages.findAll({ raw: true })
+    return messages.findAll({ raw: true, limit: 50 })
 }
 
 const findMessageById = ( id ) => {
@@ -9,7 +9,7 @@ const findMessageById = ( id ) => {
 }
 
 const findOneMessage = ( condition ) => {
-    return messages.findOne({ where: condition, raw: true })
+    return messages.findOne({ where: condition, raw: true, limit: 50 })
 }
 
 const findMessagesWhere = ( condition ) => {

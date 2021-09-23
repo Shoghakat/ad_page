@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
-const logoutMiddlware = require('../middlewares/logout_middleware')
+const logoutMiddlwares = require('../middlewares/logout_middleware')
 
-router.get('/', logoutMiddlware.getLogOut)
+router.get('/', logoutMiddlwares.getLogOut)
 
 module.exports = router

@@ -1,7 +1,7 @@
 const { users, ads, categories } = require('../models/modelsConfig');
 
 const findUsers = () => {
-    return users.findAll({ raw: true })
+    return users.findAll({ raw: true, limit: 50 })
 }
 
 const findOneUser = ( condition ) => {
@@ -9,7 +9,7 @@ const findOneUser = ( condition ) => {
 }
 
 const findUsersWhere = ( condition ) => {
-    return users.findAll({ where: condition, raw: true })
+    return users.findAll({ where: condition, raw: true, limit: 50 })
 }
 
 const createUser = ( obj ) => {

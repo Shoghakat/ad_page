@@ -6,6 +6,9 @@ const userSchema = Joi.object({
         .required(),
     
     name: Joi.string()
+        .alphanum()
+        .min(2)
+        .max(20)
         .required(),
 
     password: Joi.string()
@@ -15,10 +18,12 @@ const userSchema = Joi.object({
     password2: Joi.ref('password'),
 
     phone_number: Joi.string()
-        .pattern(new RegExp('[\(]0[0-9][0-9][\)][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'))
+        .pattern(new RegExp('[\(]0[0-9]{2}[\)]([0-9]{2})-[0-9]{2}-[0-9]{2}'))
         .allow(null, ''),
 
     location: Joi.string()
+        .min(2)
+        .max(40)
         .allow(null, ''),
 })
 

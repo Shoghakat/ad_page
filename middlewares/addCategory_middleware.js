@@ -4,9 +4,7 @@ const categsFunctionals = require('../models/functionals/categories_functionals'
 
 const getCreateCategoryPage = (req, res, next) => {
     categsFunctionals.findCategsWhere({ parentId: null })
-        .then(categs => {
-            return res.render('addCategory', { categs: categs })
-        })
+        .then(categs => res.render('addCategory', { categs: categs }))
         .catch(next)
 }
 

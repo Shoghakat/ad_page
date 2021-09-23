@@ -1,7 +1,7 @@
 const { users, ads, categories } = require('../models/modelsConfig');
 
 const findCategs = () => {
-    return categories.findAll({ raw: true })
+    return categories.findAll({ raw: true, limit: 50 })
 }
 
 const findOneCateg = ( condition ) => {
@@ -9,7 +9,7 @@ const findOneCateg = ( condition ) => {
 }
 
 const findCategsWhere = ( condition ) => {
-    return categories.findAll({ where: condition, raw: true })
+    return categories.findAll({ where: condition, raw: true, limit: 50 })
 }
 
 const createCateg = ( obj ) => {

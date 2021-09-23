@@ -14,33 +14,28 @@ const paramValidation = (req, res, next) => {
         const err = 'The id must be an integer'
         return res.render('error', { err: err })
     }
-    
-    next()
+    return next()
 }
 
 
 const adValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-
     const { error } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
         req.flash('error_msg', error.message)
         return res.redirect(`/ad/${id}`)
-    }
-    
+    }  
     return next()
 }
 
 
 const adValidationEdit = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-
     const { error } = adValidationSchema.validate(req.body)
     if(error !== undefined) {
-        req.flash('success_msg', error.message)
+        req.flash('error_msg', error.message)
         return res.redirect(`/edit/${id}`)
     }
-    
     return next()
 }
 
@@ -51,8 +46,7 @@ const userValidation = (req, res, next) => {
         req.flash('error_msg', error.message)
         return res.redirect(`/register`)
     }
-    
-    next()
+    return next()
 }
 
 const profileValidation = (req, res, next) => {
@@ -61,8 +55,7 @@ const profileValidation = (req, res, next) => {
         req.flash('error_msg', error.message)
         return res.redirect(`/profile`)
     }
-    
-    next()
+    return next()
 }
 
 
@@ -108,25 +101,21 @@ const imagesItemValidation = (req, res, next) => {
 
 const messageValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-
     const { error } = messageValidationSchema.validate(req.body)
     if(error !== undefined) {
         req.flash('error_msg', error.message)
         return res.redirect(`/message/${id}`)
     }
-    
     return next()
 }
 
 const messageAnswerValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-
     const { error } = messageValidationSchema.validate(req.body)
     if(error !== undefined) {
         req.flash('error_msg', error.message)
         return res.redirect(`/user/messages/${id}`)
-    }
-    
+    }   
     return next()
 }
 

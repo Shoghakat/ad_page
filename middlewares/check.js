@@ -61,6 +61,17 @@ const checkCategByName = (req, res, next) => {
         })
 }
 
+const checkNotCategByName = (req, res, next) => {
+    categsFunctionals.findOneCateg({ name: req.body.name })
+        .then(categ => {
+            if(categ) {
+                req.flash('error_msg', 'Category already exists.')
+                return res.redirect('/add/category')
+            }
+            return next()
+        })
+}
+
 const checkHasChildCateg = (req, res, next) => {
     const categ = req.categ
     categsFunctionals.findOneCateg({ parentId: categ.id })
@@ -213,6 +224,7 @@ module.exports = {
     checkAdmin,
     checkCateg,
     checkCategByName,
+    checkNotCategByName,
     checkHasChildCateg,
     checkHasAd,
     checkHasChildOrAd,

@@ -1,36 +1,37 @@
 module.exports = app => {
     const router = require('express').Router()
+    const routes = require('./routesExport')
 
     // const check = require('../middlewares/check')
 
     app.use('/', router)
 
-    app.use('/error', require('./error'))
+    app.use('/error', routes.error)
 
-    app.use('/home', require('./home'))
-    app.use('/category', require('./category'))
-    app.use('/subcategory', require('./subcategory'))
-    app.use('/item', require('./item'))
+    app.use('/home', routes.home)
+    app.use('/category', routes.category)
+    app.use('/subcategory', routes.subcategory)
+    app.use('/item', routes.item)
     
-    app.use('/login', require('./login'))
-    app.use('/register', require('./register'))
-    app.use('/logout', require('./logout'))
+    app.use('/login', routes.login)
+    app.use('/register', routes.register)
+    app.use('/logout', routes.logout)
 
-    app.use('/account', require('./account'))
-    app.use('/profile', require('./profile'))
-    app.use('/profile/picture', require('./profilePicture'))
-    app.use('/delete/picture', require('./deleteProfilePicture'))
-    app.use('/delete/account', require('./deleteAccount'))
+    app.use('/account', routes.account)
+    app.use('/profile', routes.profile)
+    app.use('/profile/picture', routes.profilePicture)
+    app.use('/delete/picture', routes.deleteProfilePicture)
+    app.use('/delete/account', routes.deleteAccount)
 
-    app.use('/ad', require('./ad'))
-    app.use('/edit', require('./edit'))
-    app.use('/delete/image', require('./deleteAdImage'))
-    app.use('/delete/ad', require('./deleteAd'))
+    app.use('/ad', routes.ad)
+    app.use('/edit', routes.edit)
+    app.use('/delete/image', routes.deleteAdImage)
+    app.use('/delete/ad', routes.deleteAd)
 
-    app.use('/message', require('./message'))
-    app.use('/user/messages', require('./messagesUser'))
-    app.use('/user/ads', require('./adsUser'))
+    app.use('/message', routes.message)
+    app.use('/user/messages', routes.messagesUser)
+    app.use('/user/ads', routes.adsUser)
 
-    app.use('/add/category', require('./addCategory'))
-    app.use('/delete/category', require('./deleteCategory'))
+    app.use('/add/category', routes.addCategory)
+    app.use('/delete/category', routes.deleteCategory)
 }

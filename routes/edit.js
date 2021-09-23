@@ -2,14 +2,14 @@ const router = require('express').Router()
 
 const check = require('../middlewares/check')
 const validationMiddlware = require('../middlewares/validation_middleware')
-const editMiddlware = require('../middlewares/edit_middleware')
+const editMiddlwares = require('../middlewares/edit_middleware')
 
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
     check.checkAd,
     check.checkAdOwner,
-    editMiddlware.getEditAdPage)
+    editMiddlwares.getEditAdPage)
 
 router.post('/:id',
     check.checkAuthenticated,
@@ -17,6 +17,6 @@ router.post('/:id',
     check.checkAd,
     check.checkAdOwner,
     validationMiddlware.adValidationEdit,
-    editMiddlware.updateAd)
+    editMiddlwares.updateAd)
 
 module.exports = router

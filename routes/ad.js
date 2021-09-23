@@ -2,19 +2,19 @@ const router = require('express').Router()
 
 const check = require('../middlewares/check')
 const validationMiddlware = require('../middlewares/validation_middleware')
-const adMiddlware = require('../middlewares/ad_middleware')
+const adMiddlwares = require('../middlewares/ad_middleware')
 
 const upload = require('../middlewares/uploadfiles')
 
 router.get('/',
     check.checkAuthenticated,
-    adMiddlware.getCategsListPage)
+    adMiddlwares.getCategsListPage)
 
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
     check.checkCateg,
-    adMiddlware.getCreateAdByCategPage)
+    adMiddlwares.getCreateAdByCategPage)
 
 router.post('/:id',
     check.checkAuthenticated,
@@ -22,9 +22,9 @@ router.post('/:id',
     upload.uploadFiles,
     check.checkCateg,
     validationMiddlware.adValidation,
-    adMiddlware.createAd,
+    adMiddlwares.createAd,
     validationMiddlware.imagesAdValidation,
-    adMiddlware.createImagesByAdId,
-    adMiddlware.completeCreateAd)
+    adMiddlwares.createImagesByAdId,
+    adMiddlwares.completeCreateAd)
 
 module.exports = router

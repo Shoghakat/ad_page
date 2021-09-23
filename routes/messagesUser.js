@@ -2,18 +2,18 @@ const router = require('express').Router()
 
 const check = require('../middlewares/check')
 const validationMiddlware = require('../middlewares/validation_middleware')
-const messagesUserMiddlware = require('../middlewares/messagesUser_middleware')
+const messagesUserMiddlwares = require('../middlewares/messagesUser_middleware')
 
 router.get('/',
     check.checkAuthenticated,
-    messagesUserMiddlware.getUserMessagesPage)
+    messagesUserMiddlwares.getUserMessagesPage)
 
 router.get('/:id',
     check.checkAuthenticated,
     validationMiddlware.paramValidation,
     check.checkMessage,
     check.checkMessageOwner,
-    messagesUserMiddlware.getMessagesByConvIdPage)
+    messagesUserMiddlwares.getMessagesByConvIdPage)
 
 router.post('/:id',
     check.checkAuthenticated,
@@ -21,6 +21,6 @@ router.post('/:id',
     check.checkMessage,
     check.checkMessageOwner,
     validationMiddlware.messageAnswerValidation,
-    messagesUserMiddlware.postMessagesByConvIdPage)
+    messagesUserMiddlwares.postMessagesByConvIdPage)
 
 module.exports = router
