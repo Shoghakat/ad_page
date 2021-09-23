@@ -4,14 +4,10 @@ const check = require('../middlewares/check')
 const deleteCategoryMiddlwares = require('../middlewares/deleteCategory_middleware')
 
 router.get('/',
-    check.checkAuthenticated,
-    check.checkAdmin,
     deleteCategoryMiddlwares.getDeleteCategoryPage)
 
 router.post('/',
-    check.checkAuthenticated,
-    check.checkAdmin,
-    check.checkCategByName,
+    check.checkCategByBody,
     check.checkHasChildOrAd,
     deleteCategoryMiddlwares.deleteCateg)
 

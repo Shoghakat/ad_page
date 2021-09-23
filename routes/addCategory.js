@@ -3,15 +3,14 @@ const router = require('express').Router()
 const check = require('../middlewares/check')
 const validationMiddleware = require('../middlewares/validation_middleware')
 const addCategoryMiddlwares = require('../middlewares/addCategory_middleware')
+const { addCategory } = require('./routesExport')
 
 router.get('/',
-    check.checkAuthenticated,
-    check.checkAdmin,
     addCategoryMiddlwares.getCreateCategoryPage)
 
 router.post('/',
-    check.checkAuthenticated,
-    check.checkAdmin,
-    addCategoryMiddlwares.createCategory)
+    check.checkNotCateg,
+    addCategoryMiddlwares.createCategory,
+    addCategoryMiddlwares.completeCreateCateg)
 
 module.exports = router

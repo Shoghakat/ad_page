@@ -4,20 +4,7 @@ const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const getParentAndChildCategs = (categs) => {
-    return Promise.reduce(categs, (acc, el) => {
-        if(el.parentId === null) {
-            acc.arr1.push(el)
-        } else {
-            acc.arr2.push(el)
-        }
-        return acc
-    }, {
-        arr1: [],
-        arr2: []
-    })
-}
-
+const { getParentAndChildCategs } = require('./utilities')
 
 const getHomePage = (req, res, next) => {
     categsFunctionals.findCategs()

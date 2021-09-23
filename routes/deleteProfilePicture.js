@@ -6,11 +6,9 @@ const deleteProfilePictureMiddlwares = require('../middlewares/deleteProfilePict
 const removeFiles = require('../middlewares/removeFiles')
 
 router.get('/',
-    check.checkAuthenticated,
     deleteProfilePictureMiddlwares.getDeleteProfilePicturePage)
 
 router.post('/',
-    check.checkAuthenticated,
     deleteProfilePictureMiddlwares.deleteProfilePicture,
     removeFiles.removeProfilePicture,
     deleteProfilePictureMiddlwares.postProfilePicturePage)

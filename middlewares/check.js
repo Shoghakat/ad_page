@@ -34,9 +34,7 @@ const checkAdmin = (req, res, next) => {
 }
 
 
-
-const checkCateg = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
+const checkCateg = (req, res, next, id) => {
     categsFunctionals.findOneCateg({ id: id })
         .then(categ => {
             if(!categ) {
@@ -49,19 +47,17 @@ const checkCateg = (req, res, next) => {
         .catch(next)
 }
 
-const checkCategByName = (req, res, next) => {
-    categsFunctionals.findOneCateg({ name: req.body.name })
-        .then(categ => {
-            if(!categ) {
-                req.flash(`error_msg', 'There is no category with name ${req.body.name}.`)
-                return res.redirect('/delete/category')
-            }
-            req.categ = categ
-            return next()
-        })
+const checkCategByParams = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+    return checkCateg(req, res, next, id)
 }
 
-const checkNotCategByName = (req, res, next) => {
+const checkCategByBody = (req, res, next) => {
+    const id = req.body.categId
+    return checkCateg(req, res, next, id)
+}
+
+const checkNotCateg = (req, res, next) => {
     categsFunctionals.findOneCateg({ name: req.body.name })
         .then(categ => {
             if(categ) {
@@ -222,9 +218,9 @@ module.exports = {
     checkAuthenticated,
     checkNotAuthenticated,
     checkAdmin,
-    checkCateg,
-    checkCategByName,
-    checkNotCategByName,
+    checkCategByParams,
+    checkCategByBody,
+    checkNotCateg,
     checkHasChildCateg,
     checkHasAd,
     checkHasChildOrAd,

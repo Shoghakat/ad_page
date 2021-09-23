@@ -6,7 +6,7 @@ const subcategoryMiddlwares = require('../middlewares/subcategory_middleware')
 
 router.get('/:id',
     validationMiddlware.paramValidation,
-    check.checkCateg,
+    check.checkCategByParams,
     subcategoryMiddlwares.getSubcategoryPage)
 
 module.exports = router

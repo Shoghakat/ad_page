@@ -9,30 +9,30 @@ const getCreateCategoryPage = (req, res, next) => {
 }
 
 const createCategory = (req, res, next) => {
-    categsFunctionals.findOneCateg({ name: req.body.name })
-        .then(categ => {
-            if(categ) {
-                req.flash('error_msg', 'Category already exists.')
-                return res.redirect('/add/category')
-            }
-
-            if(req.body.category === 'None') {
-                categsFunctionals.createCateg({ name: req.body.name })
-            } else {
-                categsFunctionals.findOneCateg({ name: req.body.category })
-                    .then(parentCateg => {
-                        categsFunctionals.createCateg({
-                            name: req.body.name,
-                            parentId: parentCateg.id
-                        })
-                    })
-            }
-        })
-        .then(() => {
-            req.flash('success_msg', 'Category added successfully.')
-            return res.redirect('/account')
-        })
-        .catch(next)
+    if(req.body.categId === 'None') {
+        categsFunctionals.createCateg({ name: req.body.name })
+            .then(() => next())
+            .catch(next)
+    } else {
+        categsFunctionals.findOneCateg({ id: req.body.categId })
+            .then(parentCateg => {
+                categsFunctionals.createCateg({
+                    name: req.body.name,
+                    parentId: parentCateg.id
+                })
+            })
+            .then(() => next())
+            .catch(next)
+    }
 }
 
-module.exports = { getCreateCategoryPage, createCategory }
+const completeCreateCateg = (req, res, next) => {
+    req.flash('success_msg', 'Category added successfully.')
+    return res.redirect('/account')
+}
+
+module.exports = {
+    getCreateCategoryPage,
+    createCategory,
+    completeCreateCateg
+}

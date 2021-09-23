@@ -66,10 +66,10 @@ body(style="text-align:center;")
     form(action='/add/category' method='POST')
         div
             label Choose a Parent category
-            select(id="category" name="category")
+            select(id="categId" name="categId")
                 option(value='None') None
                 each el in categs
-                    option(value=`${el.name}`) #{el.name}
+                    option(value=`${el.id}`) #{el.name}
         div
             label Category Name
             input(type='text' id='name' name='name')

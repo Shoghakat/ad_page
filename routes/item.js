@@ -12,14 +12,12 @@ router.get('/:id',
     itemMiddlwares.getItemPage)
 
 router.post('/:id',
-    check.checkAuthenticated,
     validationMiddlware.paramValidation,
     check.checkAd,
     check.checkAdOwner,
     upload.uploadFiles,
     itemMiddlwares.postItemPage,
     check.checkImagesNumber,
-    validationMiddlware.imagesItemValidation,
     itemMiddlwares.createImagesByAdId)
 
 module.exports = router

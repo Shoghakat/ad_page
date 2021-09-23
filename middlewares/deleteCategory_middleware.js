@@ -14,7 +14,6 @@ const getDeleteCategoryPage = (req, res, next) => {
 
 const deleteCateg = (req, res, next) => {
     const categ = req.categ
-
     categsFunctionals.deleteCateg({ id: categ.id })
         .then(() => {
             req.flash('success_msg', 'Category deleted successfully.')

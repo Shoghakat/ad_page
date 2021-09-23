@@ -66,8 +66,8 @@ body(style="text-align:center;")
     form(action='/delete/category' method='POST')
         div
             label Select the Category
-            select(id="name" name="name")
+            select(id="name" name="categId")
                 each el in categs
-                    option(value=`${el.name}`) #{el.name}
+                    option(value=`${el.id}`) #{el.name}
         div
             input(type='submit' value='Delete' style="margin-top: 20px;")

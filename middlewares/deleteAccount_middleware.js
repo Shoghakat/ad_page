@@ -4,6 +4,12 @@ const categsFunctionals = require('../models/functionals/categories_functionals'
 
 const getDeleteAccountPage = (req, res, next) => res.render('deleteAccount')
 
+const deleteAdsByUser = (req, res, next) => {
+    adsFunctionals.deleteAd({ userId: req.user.id })
+        .then(() => next())
+        .catch(next)
+}
+
 const deleteAccount = (req, res, next) => {
     const id = req.user.id
     req.logOut()
@@ -17,5 +23,6 @@ const deleteAccount = (req, res, next) => {
 
 module.exports = {
     getDeleteAccountPage,
+    deleteAdsByUser,
     deleteAccount
 }

@@ -6,14 +6,12 @@ const deleteAdMiddlwares = require('../middlewares/deleteAd_middleware')
 const removeFiles = require('../middlewares/removeFiles')
 
 router.get('/:id',
-    check.checkAuthenticated,
     validationMiddlware.paramValidation,
     check.checkAd,
     check.checkAdOwner,
     deleteAdMiddlwares.getDeleteAdPage)
 
 router.post('/:id',
-    check.checkAuthenticated,
     validationMiddlware.paramValidation,
     check.checkAd,
     check.checkAdOwner,

@@ -8,14 +8,11 @@ const removeFiles = require('../middlewares/removeFiles')
 const upload = require('../middlewares/uploadfiles')
 
 router.get('/',
-    check.checkAuthenticated,
     profilePictureMiddlwares.getProfilePicturePage)
 
 router.post('/',
-    check.checkAuthenticated,
     upload.uploadFile,
     profilePictureMiddlwares.postProfilePicturePage,
-    validationMiddlware.imageProfileValidation,
     removeFiles.removeProfilePicture,
     profilePictureMiddlwares.completePostProfilePicture)
 

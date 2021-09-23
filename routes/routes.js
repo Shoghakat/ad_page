@@ -2,7 +2,7 @@ module.exports = app => {
     const router = require('express').Router()
     const routes = require('./routesExport')
 
-    // const check = require('../middlewares/check')
+    const check = require('../middlewares/check')
 
     app.use('/', router)
 
@@ -15,6 +15,9 @@ module.exports = app => {
     
     app.use('/login', routes.login)
     app.use('/register', routes.register)
+
+    app.use('/*', check.checkAuthenticated)
+
     app.use('/logout', routes.logout)
 
     app.use('/account', routes.account)
@@ -31,6 +34,8 @@ module.exports = app => {
     app.use('/message', routes.message)
     app.use('/user/messages', routes.messagesUser)
     app.use('/user/ads', routes.adsUser)
+
+    app.use('/*', check.checkAdmin)
 
     app.use('/add/category', routes.addCategory)
     app.use('/delete/category', routes.deleteCategory)
