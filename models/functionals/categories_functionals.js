@@ -17,7 +17,7 @@ class methods {
         return categories.findOne({ where: { name }, raw: true })
     }
 
-    findCategsWhere(parentId) {
+    findCategsByParentId(parentId) {
         return categories.findAll({ where: { parentId }, raw: true, limit: 50 })
     }
 
