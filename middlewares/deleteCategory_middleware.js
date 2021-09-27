@@ -1,27 +1,19 @@
-const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
-
+const categFunctionals = new categsFunctionals.methods()
 
 const getDeleteCategoryPage = (req, res, next) => {
-    categsFunctionals.findCategs()
-        .then(categs => {
-            return res.render('deleteCategory', { categs: categs })
-        })
-        .catch(next)
+    return res.render('deleteCategory')
 }
-
 
 const deleteCateg = (req, res, next) => {
     const categ = req.categ
-    categsFunctionals.deleteCateg({ id: categ.id })
+    categFunctionals.deleteCateg(categ.id)
         .then(() => {
             req.flash('success_msg', 'Category deleted successfully.')
-            return res.redirect('/account')
+            return res.json({ message: 'Category deleted successfully'})
         })
         .catch(next)
 }
-
 
 module.exports = {
     getDeleteCategoryPage,

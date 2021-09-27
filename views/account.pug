@@ -1,3 +1,4 @@
+doctype html
 head
     style.
         h1 {
@@ -82,11 +83,6 @@ body(style="text-align:center;")
     div.parentDiv1
         div.childDiv1
             a(href='/ad' class="btn btn-success" style="font-size:20px") Post an ad
-        - if(user.isAdmin)
-            div.childDiv
-                a(href='/add/category') Add a new category
-            div.childDiv
-                a(href='/delete/category') Delete a category
 
     div.parentDiv2
         a(href=`/user/ads/${user.id}` class="btn") My ads

@@ -1,19 +1,22 @@
 const Promise = require('bluebird')
 
-const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
+const categsFunctionals = require('../models/functionals/categories_functionals')
 
-const { getParentAndChildCategs } = require('./utilities')
+const adFunctionals = new adsFunctionals.methods()
+const adImagesFunctionals = new adsImagesFunctionals.methods()
+const categFunctionals = new categsFunctionals.methods()
+
+const { getParentAndChildCategs } = require('./utilities/utilities')
 
 
 const getCategsListPage = (req, res, next) => {
-    categsFunctionals.findCategs()
+    categFunctionals.findCategs()
         .then(categs => {
-            return getParentAndChildCategs(categs)
+            const data = getParentAndChildCategs(categs)
+            res.render('ad', { parentCategs: data.arr1, subCategs: data.arr2 })
         })
-        .then(data => res.render('ad', { parentCategs: data.arr1, subCategs: data.arr2 }) )
         .catch(next)
 }
 
@@ -31,7 +34,7 @@ const createAd = (req, res, next) => {
     data.userId = req.user.id,
     data.categoryId = categ.id
     
-    adsFunctionals.createAd(data)
+    adFunctionals.createAd(data)
         .then(ad => {
             req.adId = ad.id
             next()
@@ -51,7 +54,7 @@ const createImagesByAdId = (req, res, next) => {
             adId: req.adId
         }
 
-        adsImagesFunctionals.createImage(newImage)
+        adImagesFunctionals.createImage(newImage)
             .then(() => next())
     })
     .catch(next)

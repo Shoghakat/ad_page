@@ -1,15 +1,20 @@
 const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
+const messagesFunctionals = require('../models/functionals/messages_functionals')
+
+const userFunctionals = new usersFunctionals.methods()
+const adFunctionals = new adsFunctionals.methods()
+const adImagesFunctionals = new adsImagesFunctionals.methods()
+const messageFunctionals = new messagesFunctionals.methods()
 
 const Promise = require('bluebird')
 
 const getItemPage = (req, res, next) => {
     const ad = req.ad
-    adsImagesFunctionals.findImagesWhere({ adId: ad.id })
+    adImagesFunctionals.findImagesByAdId(ad.id)
         .then(images => {
-            usersFunctionals.findOneUser({ id: ad.userId })
+            userFunctionals.findOneUser(ad.userId)
                 .then(adUser => {
                     return res.render('item', { ad: ad, images: images, adUser: adUser })
                 })
@@ -28,7 +33,7 @@ const postItemPage = (req, res, next) => {
 const createImagesByAdId = (req, res, next) => {
     const ad = req.ad
     return Promise.each(req.files, el => {
-        return adsImagesFunctionals.createImage({
+        return adImagesFunctionals.createImage({
             filename: el.filename,
             path: el.path,
             adId: ad.id
@@ -41,8 +46,29 @@ const createImagesByAdId = (req, res, next) => {
         .catch(next)
 }
 
+
+const deleteMessagesByAdId = (req, res, next) => {
+    const ad = req.ad
+    messageFunctionals.deleteMessagesByAdId(ad.id)
+        .then(() => next())
+        .catch(next)
+}
+
+const deleteAd = (req, res, next) => {
+    const ad = req.ad
+    adFunctionals.deleteAd(ad.id)
+        .then(() => {
+            req.flash('success_msg', 'Post deleted successfully.')
+            return res.json({ message: 'Post deleted successfully' })
+        })
+        .catch(next)
+}
+
+
 module.exports = {
     getItemPage,
     postItemPage,
-    createImagesByAdId
+    createImagesByAdId,
+    deleteMessagesByAdId,
+    deleteAd
 }

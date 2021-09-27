@@ -11,14 +11,14 @@ router.get('/',
 
 router.get('/:id',
     validationMiddlware.paramValidation,
-    check.checkCategByParams,
+    check.checkCateg,
     adMiddlwares.getCreateAdByCategPage)
 
 router.post('/:id',
     validationMiddlware.paramValidation,
-    check.checkCategByParams,
-    validationMiddlware.adValidation,
+    check.checkCateg,
     upload.uploadFiles,
+    validationMiddlware.adValidation,
     adMiddlwares.createAd,
     adMiddlwares.createImagesByAdId,
     adMiddlwares.completeCreateAd)

@@ -2,6 +2,7 @@ const localStrategy = require('passport-local').Strategy
 
 const users = require('../models/models/modelsConfig').users
 const usersFunctionals = require('../models/functionals/users_functionals')
+const userFunctionals = new usersFunctionals.methods()
 
 const hashPassword = require('./passwordConfig').hashPassword
 
@@ -28,7 +29,7 @@ const initialize = (passport) => {
 
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser((id, done) => {
-        usersFunctionals.findOneUser({ id: id })
+        userFunctionals.findOneUser(id)
             .then(user => {
                 if(user.status !== "active") {
                     const err = `There is no active user with id ${id}`

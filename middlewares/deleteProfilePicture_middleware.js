@@ -1,15 +1,13 @@
 const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
-
+const userFunctionals = new usersFunctionals.methods()
 
 const getDeleteProfilePicturePage = (req, res, next) => {
     res.render('deleteProfilePicture')
 }
 
-
 const deleteProfilePicture = (req, res, next) => {
-    usersFunctionals.updateUser({ image: null, imagePath: null }, { id: req.user.id })
+    const data = { image: null, imagePath: null }
+    userFunctionals.updateUser(data, req.user.id)
         .then(() => {
             return next()
         })
@@ -18,7 +16,7 @@ const deleteProfilePicture = (req, res, next) => {
 
 const postProfilePicturePage = (req, res, next) => {
     req.flash('success_msg', 'Profile Picture deleted successfully.')
-    return res.redirect('/profile/picture')
+    return res.json({ message: 'Profile Picture deleted successfully' })
 }
 
 

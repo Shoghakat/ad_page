@@ -11,7 +11,7 @@ router.get('/:id',
     check.checkImageOwner,
     deleteAdImageMiddlwares.getDeleteAdImagePage)
 
-router.post('/:id',
+router.delete('/:id',
     validationMiddlware.paramValidation,
     check.checkImage,
     check.checkImageOwner,

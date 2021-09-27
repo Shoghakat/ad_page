@@ -1,10 +1,13 @@
+const fs = require('fs/promises')
+const Promise = require('bluebird')
+
 const adValidationSchema = require('../validations/adsValid');
 const userValidationSchema = require('../validations/usersValid');
 const profileValidationSchema = require('../validations/profileValid');
 const messageValidationSchema = require('../validations/messageValid');
 const paramValidationSchema = require('../validations/paramValid');
 
-const { validationFunction } = require('./utilities')
+const { validationFunction } = require('./utilities/validation')
 
 
 const paramValidation = (req, res, next) => {
@@ -20,7 +23,15 @@ const paramValidation = (req, res, next) => {
 const adValidation = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
     const { error } = adValidationSchema.validate(req.body)
-    return validationFunction(req, res, next, error, `/ad/${id}`)
+    if(error !== undefined) {
+        return Promise.each(req.files, el => fs.unlink(el.path) )
+            .then(() => {
+                req.flash('error_msg', error.message)
+                return res.redirect(`/ad/${id}`)
+            })
+            .catch(next)
+    }
+    return next()
 }
 
 
@@ -37,6 +48,11 @@ const userValidation = (req, res, next) => {
 }
 
 const profileValidation = (req, res, next) => {
+    // if(error !== undefined) {
+    //     req.flash('error_msg', error.message)
+    //     return res.json({ message: 'A validation error ocurred when updating the profile' })
+    // }
+    // return next()
     const { error } = profileValidationSchema.validate(req.body)
     return validationFunction(req, res, next, error, `/profile`)
 }

@@ -12,7 +12,8 @@ head
         }
     title= deleteProfilePicture
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
-
+    script(type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js")
+    
 body(style="text-align:center;")
     h1 My Profile Picture
 
@@ -22,6 +23,28 @@ body(style="text-align:center;")
 
     hr
 
-    form(action=`/delete/picture` method='POST')
-        div 
-            input(type='submit' value='Delete the file' style="margin-top: 20px;")
+    //- form(action=`/delete/picture` method='POST')
+    //-     div 
+    //-         input(type='submit' value='Delete the file' style="margin-top: 20px;")
+
+    button(type="button" id="delete") Delete the file
+
+    script.
+        const url = $(location).attr('pathname')
+        $(document).ready(() => {
+            $('#delete').on('click', e => {
+                e.preventDefault()
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: () => {  
+                        window.location.pathname = '/profile'
+                    },
+                    error: (xhr, textStatus, errorThrown) => { 
+                        window.location.pathname = '/profile/picture'
+                        console.log('Error in Operation')
+                    }
+                })
+            })
+        })

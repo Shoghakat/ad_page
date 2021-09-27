@@ -1,34 +1,33 @@
-const { users, ads, categories } = require('../models/modelsConfig');
+const { ads } = require('../models/modelsConfig');
 
-const findAds = () => {
-    return ads.findAll({ raw: true, limit: 50 })
+class methods {
+    findOneAd(id) {
+        return ads.findOne({ where: { id }, raw: true })
+    }
+
+    findOneAdByCategId(categoryId) {
+        return ads.findOne({ where: { categoryId }, raw: true })
+    }
+
+    findAdsByUserId(userId) {
+        return ads.findAll({ where: { userId }, raw: true })
+    }
+
+    createAd(ad) {
+        return ads.create(ad, { raw: true })
+    }
+
+    updateAd(values, id) {
+        return ads.update(values, { where: { id } })
+    }
+
+    deleteAd(id) {
+        return ads.destroy({ where: { id } })
+    }
+
+    deleteAdByUserId(userId) {
+        return ads.destroy({ where: { userId } })
+    }
 }
 
-const findOneAd = ( condition ) => {
-    return ads.findOne({ where: condition, raw: true })
-}
-
-const findAdsWhere = ( condition ) => {
-    return ads.findAll({ where: condition, raw: true, limit: 50 })
-}
-
-const createAd = ( obj ) => {
-    return ads.create(obj, { raw: true })
-}
-
-const updateAd = ( values, condition ) => {
-    return ads.update(values, { where: condition })
-}
-
-const deleteAd = ( condition ) => {
-    return ads.destroy({ where: condition })
-}
-
-module.exports = {
-    findAds,
-    findOneAd,
-    findAdsWhere,
-    createAd,
-    updateAd,
-    deleteAd
-}
+module.exports = { methods }

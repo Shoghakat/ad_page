@@ -8,7 +8,7 @@ const removeFiles = require('../middlewares/removeFiles')
 router.get('/',
     deleteProfilePictureMiddlwares.getDeleteProfilePicturePage)
 
-router.post('/',
+router.delete('/',
     deleteProfilePictureMiddlwares.deleteProfilePicture,
     removeFiles.removeProfilePicture,
     deleteProfilePictureMiddlwares.postProfilePicturePage)

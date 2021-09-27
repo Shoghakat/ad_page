@@ -13,7 +13,7 @@ head
         }
         form {
             text-align: left;
-            margin-left: 385pt;
+            margin-left: 550px;
             width: 600px;
         }
         input, select {
@@ -36,6 +36,7 @@ head
         }
     title= profile
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+    script(type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js")
 
 body(style="text-align:center;")
     h1 My Profile
@@ -62,7 +63,7 @@ body(style="text-align:center;")
             img(src=`/uploads/profile/profile.jpeg` alt="Image")
         a(href='/profile/picture') Profile Picture
 
-    form(action='/profile' method='POST')
+    form(action='/profile' id="form" method='POST')
         div
             label Your Email
             input(type='email' id='eamil' name='email' value=`${user.email}` readonly)
@@ -78,9 +79,9 @@ body(style="text-align:center;")
         div
             label Location
             select(id="location" name="location")
-                option(value=`${user.location}`) #{user.location}
-                - if(user.location !== "")
-                    option(value="")
+                - if(user.location)
+                    option(value=`${user.location}`) #{user.location}
+                option(value=null)
                 option(value="Aragatsotn") Aragatsotn
                 option(value="Ararat") Ararat
                 option(value="Armavir") Armavir
@@ -96,5 +97,27 @@ body(style="text-align:center;")
         div
             input#button(type='submit' value='Save' style="margin-top: 20px;")
 
-    div(style="margin-top: 50px")
-        a(href='/delete/account') Delete the Account
+    div
+        a(href='/delete/account') Delete the account
+
+    //- script.
+    //-     const url = $(location).attr('pathname')
+    //-     $(document).ready(() => {
+    //-         $('#form').submit(function(e) {
+    //-             console.log($(this).serialize())
+    //-             e.preventDefault()
+    //-             $.ajax({
+    //-                 url: url,
+    //-                 type: 'PUT',
+    //-                 dataType: 'JSON',
+    //-                 //- processData: false,
+    //-                 data: $(this).serialize(),
+    //-                 success: () => {  
+    //-                     window.location.pathname = '/account'
+    //-                 },
+    //-                 error: (xhr, textStatus, errorThrown) => {
+    //-                     console.log(errorThrown)
+    //-                 }
+    //-             })
+    //-         })
+    //-     })

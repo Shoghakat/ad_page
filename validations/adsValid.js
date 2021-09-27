@@ -19,6 +19,9 @@ const adSchema = Joi.object({
         .max(255)
         .allow(null, ''),
 
+    image: Joi.string()
+        .allow(null, ''),
+
     phone_number: Joi.string()
         .pattern(new RegExp('[\(]0[0-9]{2}[\)]([0-9]{2})-[0-9]{2}-[0-9]{2}'))
         .required(),

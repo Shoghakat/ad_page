@@ -1,6 +1,5 @@
 const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
+const userFunctionals = new usersFunctionals.methods()
 
 const getProfilePicturePage = (req, res, next) => {
     return res.render('profilePicture')
@@ -14,12 +13,11 @@ const postProfilePicturePage = (req, res, next) => {
 }
 
 const completePostProfilePicture = (req, res, next) => {
-    const user = req.user
     const image = {
         image: req.file.filename,
         imagePath: req.file.path
     }
-    usersFunctionals.updateUser(image, { id: user.id })
+    userFunctionals.updateUser(image, req.user.id)
         .then(() => {
             req.flash('success_msg', 'Profile Picture updated successfully.')
             return res.redirect('/profile')

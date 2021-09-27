@@ -1,10 +1,8 @@
 const fs = require('fs/promises')
 const Promise = require('bluebird')
 
-const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
+const adImagesFunctionals = new adsImagesFunctionals.methods()
 
 const removeImage = (image, cb) => {
     fs.unlink(image)
@@ -19,7 +17,7 @@ const removeAdImage = (req, res, next) => {
 
 const removeAdImages = (req, res, next) => {
     const ad = req.ad
-    adsImagesFunctionals.findImagesWhere({ adId: ad.id })
+    adImagesFunctionals.findImagesByAdId(ad.id)
         .then(images => {
             return Promise.each(images, el => fs.unlink(el.path) )
         })

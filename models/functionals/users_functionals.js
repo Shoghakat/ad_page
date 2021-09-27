@@ -1,34 +1,25 @@
-const { users, ads, categories } = require('../models/modelsConfig');
+const { users } = require('../models/modelsConfig');
 
-const findUsers = () => {
-    return users.findAll({ raw: true, limit: 50 })
+class methods {
+    findOneUser(id) {
+        return users.findOne({ where: { id }, raw: true })
+    }
+
+    findOneUserByEmail(email) {
+        return users.findOne({ where: { email }, raw: true })
+    }
+
+    createUser(user) {
+        return users.create(user, { raw: true })
+    }
+
+    updateUser(values, id) {
+        return users.update(values, { where: { id } })
+    }
+
+    deleteUser(id) {
+        return users.destroy({ where: { id } })
+    }
 }
 
-const findOneUser = ( condition ) => {
-    return users.findOne({ where: condition, raw: true })
-}
-
-const findUsersWhere = ( condition ) => {
-    return users.findAll({ where: condition, raw: true, limit: 50 })
-}
-
-const createUser = ( obj ) => {
-    return users.create(obj)
-}
-
-const updateUser = ( values, condition ) => {
-    return users.update(values, { where: condition })
-}
-
-const deleteUser = ( condition ) => {
-    return users.destroy({ where: condition })
-}
-
-module.exports = {
-    findUsers,
-    findOneUser,
-    findUsersWhere,
-    createUser,
-    updateUser,
-    deleteUser
-}
+module.exports = { methods }

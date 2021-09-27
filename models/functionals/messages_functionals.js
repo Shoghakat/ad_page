@@ -1,39 +1,34 @@
-const { users, ads, categories, messages } = require('../models/modelsConfig');
+const { Op } = require('sequelize')
 
-const findMessages = () => {
-    return messages.findAll({ raw: true, limit: 50 })
+const { messages } = require('../models/modelsConfig');
+
+class methods {
+    findOneMessage(id) {
+        return messages.findOne({ where: { id }, raw: true })
+    }
+
+    findMessagesByConvId(conversationId) {
+        return messages.findAll({ where: { conversationId }, raw: true })
+    }
+
+    createMessage(message) {
+        return messages.create(message)
+    }
+
+    deleteMessagesByAdId(adId) {
+        return messages.destroy({ where: { adId } })
+    }
+
+    deleteMessages(userId, adsIds) {
+        return messages.destroy({
+            where: {
+                [Op.or] : [
+                    { userId },
+                    { adId: { [Op.or]: adsIds } }
+                ]
+            } 
+        })
+    }
 }
 
-const findMessageById = ( id ) => {
-    return messages.findByPk(id, { raw: true })
-}
-
-const findOneMessage = ( condition ) => {
-    return messages.findOne({ where: condition, raw: true, limit: 50 })
-}
-
-const findMessagesWhere = ( condition ) => {
-    return messages.findAll({ where: condition, raw: true })
-}
-
-const createMessage = ( obj ) => {
-    return messages.create(obj)
-}
-
-const updateMessage = ( values, condition ) => {
-    return messages.update(values, { where: condition })
-}
-
-const deleteMessage = ( condition ) => {
-    return messages.destroy({ where: condition })
-}
-
-module.exports = {
-    findMessages,
-    findMessageById,
-    findOneMessage,
-    findMessagesWhere,
-    createMessage,
-    updateMessage,
-    deleteMessage
-}
+module.exports = { methods }

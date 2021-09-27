@@ -29,7 +29,6 @@ module.exports = app => {
     app.use('/ad', routes.ad)
     app.use('/edit', routes.edit)
     app.use('/delete/image', routes.deleteAdImage)
-    app.use('/delete/ad', routes.deleteAd)
 
     app.use('/message', routes.message)
     app.use('/user/messages', routes.messagesUser)

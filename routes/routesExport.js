@@ -14,7 +14,6 @@ const deleteAccount = require('./deleteAccount')
 const ad = require('./ad')
 const edit = require('./edit')
 const deleteAdImage = require('./deleteAdImage')
-const deleteAd = require('./deleteAd')
 const message = require('./message')
 const messagesUser = require('./messagesUser')
 const adsUser= require('./adsUser')
@@ -38,7 +37,6 @@ module.exports = {
     ad,
     edit,
     deleteAdImage,
-    deleteAd,
     message,
     messagesUser,
     adsUser,

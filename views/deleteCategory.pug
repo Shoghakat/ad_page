@@ -40,6 +40,7 @@ head
         }
     title= deleteCategory
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+    script(type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js")
 
 body(style="text-align:center;")
     h1 My Account
@@ -63,11 +64,23 @@ body(style="text-align:center;")
     - if(errors !== undefined)
         p= errors.message
 
-    form(action='/delete/category' method='POST')
-        div
-            label Select the Category
-            select(id="name" name="categId")
-                each el in categs
-                    option(value=`${el.id}`) #{el.name}
-        div
-            input(type='submit' value='Delete' style="margin-top: 20px;")
+    button(type="button" id="delete") Delete the category
+
+    script.
+        const url = $(location).attr('pathname')
+        $(document).ready(() => {
+            $('#delete').on('click', e => {
+                e.preventDefault()
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: () => {  
+                        window.location.pathname = '/ad'
+                    },
+                    error: (xhr, textStatus, errorThrown) => {
+                        console.log('Error in Operation')
+                    }
+                })
+            })
+        })

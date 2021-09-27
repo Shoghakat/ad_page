@@ -1,17 +1,14 @@
-const Promise = require('bluebird')
-
-const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
+const categFunctionals = new categsFunctionals.methods()
 
-const { getParentAndChildCategs } = require('./utilities')
+const { getParentAndChildCategs } = require('./utilities/utilities')
 
 const getHomePage = (req, res, next) => {
-    categsFunctionals.findCategs()
+    categFunctionals.findCategs()
         .then(categs => {
-            return getParentAndChildCategs(categs)
+            const data = getParentAndChildCategs(categs)
+            return res.render('home', { parentCategs: data.arr1, subCategs: data.arr2 })
         })
-        .then(data => res.render('home', { parentCategs: data.arr1, subCategs: data.arr2 }) )
         .catch(next)
 }
 

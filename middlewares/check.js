@@ -2,11 +2,15 @@ const { sequelize } = require('../configurations/dbConfig')
 
 const passport = require('passport')
 
-const usersFunctionals = require('../models/functionals/users_functionals')
 const adsFunctionals = require('../models/functionals/ads_functionals')
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
 const categsFunctionals = require('../models/functionals/categories_functionals')
 const messagesFunctionals = require('../models/functionals/messages_functionals')
+
+const adFunctionals = new adsFunctionals.methods()
+const adImagesFunctionals = new adsImagesFunctionals.methods()
+const categFunctionals = new categsFunctionals.methods()
+const messageFunctionals = new messagesFunctionals.methods()
 
 const initializePassport = require('../configurations/passportConfig')
 initializePassport(passport);
@@ -34,12 +38,13 @@ const checkAdmin = (req, res, next) => {
 }
 
 
-const checkCateg = (req, res, next, id) => {
-    categsFunctionals.findOneCateg({ id: id })
+const checkCateg = (req, res, next) => {
+    const id = parseInt(req.params.id, 10)
+    categFunctionals.findOneCateg(id)
         .then(categ => {
             if(!categ) {
-                const err = `There is no category with id ${id}`
-                return res.render('error', { err: err })
+                req.flash(`There is no category with id ${id}.`)
+                return res.json({ message: `There is no category with id ${id}` })
             }
             req.categ = categ
             return next()
@@ -47,18 +52,8 @@ const checkCateg = (req, res, next, id) => {
         .catch(next)
 }
 
-const checkCategByParams = (req, res, next) => {
-    const id = parseInt(req.params.id, 10)
-    return checkCateg(req, res, next, id)
-}
-
-const checkCategByBody = (req, res, next) => {
-    const id = req.body.categId
-    return checkCateg(req, res, next, id)
-}
-
 const checkNotCateg = (req, res, next) => {
-    categsFunctionals.findOneCateg({ name: req.body.name })
+    categFunctionals.findOneCategByName(req.body.name)
         .then(categ => {
             if(categ) {
                 req.flash('error_msg', 'Category already exists.')
@@ -70,11 +65,11 @@ const checkNotCateg = (req, res, next) => {
 
 const checkHasChildCateg = (req, res, next) => {
     const categ = req.categ
-    categsFunctionals.findOneCateg({ parentId: categ.id })
+    categFunctionals.findOneCategByParentId(categ.id)
         .then(subcateg => {
             if(subcateg) {
                 req.flash('error_msg', 'Category cannot be deleted since it contains subcategories.')
-                return res.redirect('/delete/category')
+                return res.json({ message: 'Category cannot be deleted since it contains subcategories' })
             }
             return next()
         })
@@ -83,11 +78,11 @@ const checkHasChildCateg = (req, res, next) => {
 
 const checkHasAd = (req, res, next) => {
     const categ = req.categ
-    adsFunctionals.findOneAd({ categoryId: categ.id })
+    adFunctionals.findOneAdByCategId(categ.id)
         .then(ad => {
             if(ad) {
                 req.flash('error_msg', 'Subcategory cannot be deleted since it contains advertisements.')
-                return res.redirect('/delete/category')
+                return res.json({ message: 'Subcategory cannot be deleted since it contains advertisements' })
             }
             return next()
         })
@@ -106,7 +101,7 @@ const checkHasChildOrAd = (req, res, next) => {
 
 const checkAd = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-    adsFunctionals.findOneAd({ id: id })
+    adFunctionals.findOneAd(id)
         .then(ad => {
             if(!ad) {
                 const err = `There is no ad with id ${id}`
@@ -131,7 +126,7 @@ const checkAdOwner = (req, res, next) => {
 
 const checkImage = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-    adsImagesFunctionals.findOneImage({ id: id })
+    adImagesFunctionals.findOneImage(id)
         .then(image => {
             if(!image) {
                 const err = `There is no image with id ${id}`
@@ -145,7 +140,7 @@ const checkImage = (req, res, next) => {
 
 const checkImageOwner = (req, res, next) => {
     const image = req.image
-    adsFunctionals.findOneAd({ id: image.adId })
+    adFunctionals.findOneAd(image.adId)
         .then(ad => {
             if(ad.userId !== req.user.id) {
                 const err = `The image with id ${image.id} does not belong to your advertisement`
@@ -187,7 +182,7 @@ const checkImagesNumber = (req, res, next) => {
 
 const checkMessage = (req, res, next) => {
     const id = parseInt(req.params.id, 10)
-    messagesFunctionals.findOneMessage({ id: id })
+    messageFunctionals.findOneMessage(id)
         .then(message => {
             if(!message) {
                 const err = `There is no message with id ${id}`
@@ -201,7 +196,7 @@ const checkMessage = (req, res, next) => {
 
 const checkMessageOwner = (req, res, next) => {
     const message = req.message
-    adsFunctionals.findOneAd({ id: message.adId })
+    adFunctionals.findOneAd(message.adId)
         .then(ad => {
             if(message.userId !== req.user.id && ad.userId !== req.user.id) {
                 const err = `The message with id ${message.id} does not belong to you`
@@ -218,8 +213,7 @@ module.exports = {
     checkAuthenticated,
     checkNotAuthenticated,
     checkAdmin,
-    checkCategByParams,
-    checkCategByBody,
+    checkCateg,
     checkNotCateg,
     checkHasChildCateg,
     checkHasAd,

@@ -1,34 +1,33 @@
-const { users, ads, categories } = require('../models/modelsConfig');
+const { categories } = require('../models/modelsConfig');
 
-const findCategs = () => {
-    return categories.findAll({ raw: true, limit: 50 })
+class methods {
+    findCategs() {
+        return categories.findAll({ raw: true, limit: 50 })
+    }
+
+    findOneCateg(id) {
+        return categories.findOne({ where: { id }, raw: true })
+    }
+
+    findOneCategByParentId(parentId) {
+        return categories.findOne({ where: { parentId }, raw: true })
+    }
+
+    findOneCategByName(name) {
+        return categories.findOne({ where: { name }, raw: true })
+    }
+
+    findCategsWhere(parentId) {
+        return categories.findAll({ where: { parentId }, raw: true, limit: 50 })
+    }
+
+    createCateg(categ) {
+        return categories.create(categ, { raw: true })
+    }
+
+    deleteCateg(id) {
+        return categories.destroy({ where: { id } })
+    }
 }
 
-const findOneCateg = ( condition ) => {
-    return categories.findOne({ where: condition, raw: true })
-}
-
-const findCategsWhere = ( condition ) => {
-    return categories.findAll({ where: condition, raw: true, limit: 50 })
-}
-
-const createCateg = ( obj ) => {
-    return categories.create(obj)
-}
-
-const updateCateg = ( values, condition ) => {
-    return categories.update(values, { where: condition })
-}
-
-const deleteCateg = ( condition ) => {
-    return categories.destroy({ where: condition })
-}
-
-module.exports = {
-    findCategs,
-    findOneCateg,
-    findCategsWhere,
-    createCateg,
-    updateCateg,
-    deleteCateg
-}
+module.exports = { methods }

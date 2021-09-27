@@ -1,0 +1,145 @@
+head
+    style.
+        h1 {
+            text-align: center;
+            color: DarkCyan;
+        }
+        #profileSpan {
+            position: absolute;
+            right: 100px;
+            font-size: 15pt;
+        }
+        #profileImg {
+            height: 90px;
+            padding-top: 5px;
+            padding-right: 5px;
+            border-radius: 50%;
+        }
+        .hover {
+            color: grey;
+        }
+        .hover:hover {
+            color: DodgerBlue;
+        }
+        nav {
+            text-align:center;
+        }
+        .message {
+            color: Maroon;
+            text-align: center
+        }
+        .details {
+            margin-left: 20px;
+            font-size: 10pt;
+        }
+        strong {
+            font-size: 20pt;
+        }
+        span {
+            margin-left: 10px;
+            font-size: 10pt;
+        }
+        .parentDiv {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 10pt;
+            margin-right: 10pt;
+            margin-bottom: 10px
+        }
+        .childDiv {
+            margin-bottom: 5px
+        }
+        ul {
+            list-style-type: none;
+            text-align: center;
+        }
+        form {
+            text-align: right;
+            width: 400px;
+        }
+    title= item
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+    script(type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js")
+
+body
+    h1 My Account
+        span#profileSpan
+            - if(user.image)
+                img#profileImg(src=`/uploads/profile/${user.image}` alt="Image")
+            - else
+                img#profileImg(src='/uploads/profile/profile.jpeg')
+            a.hover(href='/profile') #{user.name}
+
+    nav
+        a(href='/logout' style="margin-right: 20px") Logout
+        a(href=`/item/${ad.id}` style="margin-left: 20px") Back
+    
+    div.parentDiv
+        - if(images.length > 0)
+            each el in images
+                - if(user && user.id === ad.userId)
+                    div
+                        a(href=`/delete/image/${el.id}` style="vertical-align: top") Delete the image
+                div.childDiv
+                    img.adImage(src=`/uploads/ads/${el.filename}` alt="Image" height="400")
+        - else
+            img(src='/uploads/ads/default.jpeg' alt="Image" height="400")
+
+    div.parentDiv
+        ul
+            li
+                -if(adUser.image)
+                    img(src=`/uploads/profile/${adUser.image}` style="height: 90px; padding-top: 5px; padding-right: 5px; border-radius: 50%;")
+                - else
+                    img(src='/uploads/profile/profile.jpeg' style="height: 90px; padding-top: 5px; padding-right: 5px; border-radius: 50%;")
+            
+            li(style="font-size: 15pt;") #{ad.name}
+            li(style="color: DarkCyan;") #{ad.phone_number}
+            - if(user)
+                - if(user.id === ad.userId)
+                    li(style="margin-top: 50px;")
+                        a(href=`/edit/${ad.id}` class="btn btn-success") Edit
+                    li(style="margin-top: 15px;")
+                        a(href=`/images/ad/${ad.id}` class="btn btn-success") Edit image(s)
+                    li(style="margin-top: 20pt;")
+                        button(type="button" id="delete" class="btn btn-success") Delete
+                - else
+                    li(style="margin-top: 50px;")
+                        a(href=`/message/${ad.id}` class="btn btn-success" style="font-size:20px") Write a message
+
+    - if(user && user.id === ad.userId)
+        form(action=`/item/${ad.id}` method='POST' encType="multipart/form-data")
+            input(type="file" id="image" name="image" accept="image/*" multiple)
+            input(type='submit' value='Save' style="margin-top: 20px;")
+
+    p.details
+        strong= ad.title
+
+    p.details= ad.location
+
+    p.details= ad.description
+        
+
+    //- div Created:
+    //-     span #{ad.createdAt}
+    //- div Last update:
+    //-     span #{ad.updatedAt}
+
+    script.
+        $(document).ready(() => {
+            $('#delete').on('click', e => {
+                e.preventDefault()
+                $.ajax({
+                    url: document.location.href,
+                    //- data: formData,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: (xhr, textStatus, errorThrown) => {  
+                        console.log('No error in Operation');  
+                    },
+                    error: (xhr, textStatus, errorThrown) => {  
+                        console.log('Error in Operation');  
+                    }
+                })
+            })
+        })

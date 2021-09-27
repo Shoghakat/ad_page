@@ -1,8 +1,5 @@
-const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
 const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
-
+const adImagesFunctionals = new adsImagesFunctionals.methods()
 
 const getDeleteAdImagePage = (req, res, next) => {
     const image = req.image
@@ -12,18 +9,15 @@ const getDeleteAdImagePage = (req, res, next) => {
 
 const deleteAdImage = (req, res, next) => {
     const image = req.image
-    adsImagesFunctionals.deleteImage({ id: image.id })
-        .then(() => {
-            return next()
-        })
+    adImagesFunctionals.deleteImage(image.id)
+        .then(() => next())
         .catch(next)
 }
 
 
 const postDeleteAdImagePage = (req, res, next) => {
-    const image = req.image
     req.flash('success_msg', 'Image deleted successfully.')
-    return res.redirect(`/item/${image.adId}`)
+    return res.json({ message: 'File deleted successfully' })
 }
 
 

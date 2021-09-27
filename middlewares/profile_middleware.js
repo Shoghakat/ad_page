@@ -1,10 +1,9 @@
 const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
+const userFunctionals = new usersFunctionals.methods()
 
 const getProfilePage = (req, res, next) => {
     const id = req.user.id
-    usersFunctionals.findOneUser({ id: id })
+    userFunctionals.findOneUser(id)
         .then(user => {
             return res.render('profile', { user: user })
         })
@@ -12,9 +11,10 @@ const getProfilePage = (req, res, next) => {
 }
 
 const postProfilePage = (req, res, next) => {
-    usersFunctionals.updateUser(req.body, { id: req.user.id })
+    userFunctionals.updateUser(req.body, req.user.id)
         .then(() => {
             req.flash('success_msg', 'Profile updated successfully.')
+            // return res.json({ message: 'Profile updated successfully' })
             return res.redirect('/account')
         })
         .catch(next)

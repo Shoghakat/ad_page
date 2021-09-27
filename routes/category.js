@@ -6,7 +6,7 @@ const categoryMiddlwares = require('../middlewares/category_middleware')
 
 router.get('/:id',
     validationMiddlware.paramValidation,
-    check.checkCategByParams,
+    check.checkCateg,
     categoryMiddlwares.getAdsByCategoryPage)
 
 module.exports = router

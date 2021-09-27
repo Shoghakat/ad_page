@@ -3,11 +3,11 @@ const router = require('express').Router()
 const check = require('../middlewares/check')
 const deleteCategoryMiddlwares = require('../middlewares/deleteCategory_middleware')
 
-router.get('/',
+router.get('/:id',
     deleteCategoryMiddlwares.getDeleteCategoryPage)
 
-router.post('/',
-    check.checkCategByBody,
+router.delete('/:id',
+    check.checkCateg,
     check.checkHasChildOrAd,
     deleteCategoryMiddlwares.deleteCateg)
 

@@ -30,8 +30,10 @@ app.use(flash())
 app.use("/uploads", express.static('./uploads/'));
 
 // app.use(cors({
-//     origin: '*',
-//     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+//     "origin": "*",
+//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     "preflightContinue": false,
+//     "optionsSuccessStatus": 204
 // }));
 
 // app.use((req, res, next) => {

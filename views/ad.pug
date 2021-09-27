@@ -21,21 +21,21 @@ head
             list-style-type: none;
         }
         #parentDiv {
-            width: 450px;
-            margin-left: 420pt;
+            width: 600px;
+            margin-left: 380pt;
             margin-bottom: 30px
         }
         .leftDiv {
             display: inline-block;
             text-align: right;
             padding-top: 7px;
-            width: 150px;
+            width: 200px;
             vertical-align: top;
         }
         .rightDiv {
             display: inline-block;
             text-align: left;
-            width: 250px;
+            width: 300px;
             vertical-align: top;
         }
         .add {
@@ -69,10 +69,10 @@ body(style="text-align:center;")
 
     - if(messages.success_msg)
         p= messages.success_msg
+    - if(messages.error_msg)
+        p= messages.error_msg
     - if(messages.error)
         p= messages.error
-    - if(errors !== undefined)
-        p= errors.message
 
     div
         strong Select a category
@@ -81,6 +81,8 @@ body(style="text-align:center;")
     div#parentDiv
         each val in parentCategs
             div.leftDiv
+                - if(user.isAdmin)
+                    a(href=`/delete/category/${val.id}` style="vertical-align: top; margin-right: 10px") Delete
                 i #{val.name}
             div.rightDiv
                 ul
@@ -88,3 +90,8 @@ body(style="text-align:center;")
                         - if(el.parentId === val.id)
                             li
                                 a(href=`/ad/${el.id}` class="btn") #{el.name}
+                                - if(user.isAdmin)
+                                    a(href=`/delete/category/${el.id}` style="margin-left: 10px") Delete
+
+    - if(user.isAdmin)
+        a(href='/add/category') Add a new category
