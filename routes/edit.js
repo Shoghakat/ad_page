@@ -10,7 +10,7 @@ router.get('/:id',
     check.checkAdOwner,
     editMiddlwares.getEditAdPage)
 
-router.post('/:id',
+router.put('/:id',
     validationMiddlware.paramValidation,
     check.checkAd,
     check.checkAdOwner,

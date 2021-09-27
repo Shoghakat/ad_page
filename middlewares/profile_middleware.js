@@ -14,8 +14,7 @@ const postProfilePage = (req, res, next) => {
     userFunctionals.updateUser(req.body, req.user.id)
         .then(() => {
             req.flash('success_msg', 'Profile updated successfully.')
-            // return res.json({ message: 'Profile updated successfully' })
-            return res.redirect('/account')
+            return res.json({ message: 'Profile updated successfully' })
         })
         .catch(next)
 }

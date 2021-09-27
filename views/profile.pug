@@ -63,7 +63,7 @@ body(style="text-align:center;")
             img(src=`/uploads/profile/profile.jpeg` alt="Image")
         a(href='/profile/picture') Profile Picture
 
-    form(action='/profile' id="form" method='POST')
+    form(action='/profile' method='POST')
         div
             label Your Email
             input(type='email' id='eamil' name='email' value=`${user.email}` readonly)
@@ -99,25 +99,3 @@ body(style="text-align:center;")
 
     div
         a(href='/delete/account') Delete the account
-
-    //- script.
-    //-     const url = $(location).attr('pathname')
-    //-     $(document).ready(() => {
-    //-         $('#form').submit(function(e) {
-    //-             console.log($(this).serialize())
-    //-             e.preventDefault()
-    //-             $.ajax({
-    //-                 url: url,
-    //-                 type: 'PUT',
-    //-                 dataType: 'JSON',
-    //-                 //- processData: false,
-    //-                 data: $(this).serialize(),
-    //-                 success: () => {  
-    //-                     window.location.pathname = '/account'
-    //-                 },
-    //-                 error: (xhr, textStatus, errorThrown) => {
-    //-                     console.log(errorThrown)
-    //-                 }
-    //-             })
-    //-         })
-    //-     })

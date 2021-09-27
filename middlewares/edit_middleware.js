@@ -18,7 +18,7 @@ const updateAd = (req, res, next) => {
     adFunctionals.updateAd(req.body, ad.id)
         .then(() => {
             req.flash('success_msg', 'Post updated successfully.')
-            return res.redirect(`/item/${ad.id}`)
+            return res.json({ message: 'Post updated successfully' })
         }) 
         .catch(next)   
 }

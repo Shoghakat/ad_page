@@ -48,11 +48,6 @@ const userValidation = (req, res, next) => {
 }
 
 const profileValidation = (req, res, next) => {
-    // if(error !== undefined) {
-    //     req.flash('error_msg', error.message)
-    //     return res.json({ message: 'A validation error ocurred when updating the profile' })
-    // }
-    // return next()
     const { error } = profileValidationSchema.validate(req.body)
     return validationFunction(req, res, next, error, `/profile`)
 }

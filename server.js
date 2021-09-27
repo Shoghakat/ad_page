@@ -1,5 +1,6 @@
 const express = require('express')
 const session = require('express-session')
+const morgan = require('morgan')
 const flash = require('express-flash')
 const cors = require('cors')
 const passport = require('passport')
@@ -11,6 +12,7 @@ const app = express()
 
 app.set('view engine', 'pug')
 
+app.use(morgan(':method :status :url"HTTP/:http-version"'))
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
     store: new RedisStore({ client: redisClient }),
