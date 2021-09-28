@@ -1,8 +1,8 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const validationMiddleware = require('../middlewares/validation_middleware')
-const registerMiddlwares = require('../middlewares/register_middleware')
+const validationMiddleware = require('../middlewares/validationMiddleware')
+const registerMiddlwares = require('../middlewares/registerMiddleware')
 
 router.get('/',
     check.checkNotAuthenticated,
@@ -11,6 +11,7 @@ router.get('/',
 router.post('/',
     check.checkNotAuthenticated,
     validationMiddleware.userValidation,
+    check.checkNotUser,
     registerMiddlwares.postRegisterPage)
 
 module.exports = router

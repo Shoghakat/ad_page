@@ -1,9 +1,8 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const validationMiddlware = require('../middlewares/validation_middleware')
-const adMiddlwares = require('../middlewares/ad_middleware')
-
+const validationMiddlware = require('../middlewares/validationMiddleware')
+const adMiddlwares = require('../middlewares/adMiddleware')
 const upload = require('../middlewares/uploadfiles')
 
 router.get('/',

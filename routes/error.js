@@ -1,4 +1,4 @@
-const errorMiddlwares = require('../middlewares/error_middleware')
+const errorMiddlwares = require('../middlewares/errorMiddleware')
 
 const router = require('express').Router()
 

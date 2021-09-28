@@ -2,7 +2,7 @@ const { categories } = require('../models/modelsConfig');
 
 class methods {
     findCategs() {
-        return categories.findAll({ raw: true, limit: 50 })
+        return categories.findAll({ raw: true })
     }
 
     findOneCateg(id) {
@@ -18,7 +18,7 @@ class methods {
     }
 
     findCategsByParentId(parentId) {
-        return categories.findAll({ where: { parentId }, raw: true, limit: 50 })
+        return categories.findAll({ where: { parentId }, raw: true })
     }
 
     createCateg(categ) {

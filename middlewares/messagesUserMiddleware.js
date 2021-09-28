@@ -1,6 +1,6 @@
 const { sequelize } = require('../configurations/dbConfig')
 
-const messagesFunctionals = require('../models/functionals/messages_functionals')
+const messagesFunctionals = require('../models/functionals/messagesFunctionals')
 const messageFunctionals = new messagesFunctionals.methods()
 
 const { getUserMessagesById } = require('./utilities/queries')
@@ -33,7 +33,10 @@ const postMessagesByConvIdPage = (req, res, next) => {
     data.conversationId = message.id
 
     messageFunctionals.createMessage(data)
-        .then(() => es.redirect(`/user/messages/${message.id}`))
+        .then(() => {
+            req.flash('success_msg', 'Message sent successfully.')
+            res.json({ message: 'Message sent successfully' })
+        })
         .catch(next)
 }
 

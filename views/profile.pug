@@ -99,3 +99,24 @@ body(style="text-align:center;")
 
     div(style="margin-top: 50px")
         a(href='/delete/account') Delete the account
+
+    script.
+        const url = $(location).attr('pathname')
+        $(document).ready(() => {
+            $('form').submit(function(e) {
+                e.preventDefault()
+                const formAction = $(this).attr('action')
+                const formData = $(this).serialize()
+                $.ajax({
+                    url: formAction,
+                    data: formData,
+                    type: 'POST',
+                    success: () => {  
+                        window.location.pathname = '/account'
+                    },
+                    error: (xhr, textStatus, errorThrown) => {
+                        window.location.pathname = formAction
+                    }
+                })
+            })
+        })

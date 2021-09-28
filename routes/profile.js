@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
-const validationMiddlware = require('../middlewares/validation_middleware')
-const profileMiddlwares = require('../middlewares/profile_middleware')
+const validationMiddlware = require('../middlewares/validationMiddleware')
+const profileMiddlwares = require('../middlewares/profileMiddleware')
 
 router.get('/',
     profileMiddlwares.getProfilePage)

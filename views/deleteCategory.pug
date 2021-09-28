@@ -53,7 +53,7 @@ body(style="text-align:center;")
     
     nav
         a(href='/logout' style="margin-right: 20px") Logout
-        a(href='/account' style="margin-left: 20px") Back
+        a(href='/ad' style="margin-left: 20px") Back
         
     hr
 
@@ -79,7 +79,7 @@ body(style="text-align:center;")
                         window.location.pathname = '/ad'
                     },
                     error: (xhr, textStatus, errorThrown) => {
-                        console.log('Error in Operation')
+                        window.location.pathname = '/ad'
                     }
                 })
             })

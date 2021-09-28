@@ -1,28 +1,13 @@
 const fs = require('fs/promises')
 const Promise = require('bluebird')
 
-const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
+const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
 const adImagesFunctionals = new adsImagesFunctionals.methods()
 
 const removeImage = (image, cb) => {
     fs.unlink(image)
         .then(cb)
         .catch(cb)
-}
-
-const removeAdImage = (req, res, next) => {
-    const image = req.image.path
-    removeImage(image, next)
-}
-
-const removeAdImages = (req, res, next) => {
-    const ad = req.ad
-    adImagesFunctionals.findImagesByAdId(ad.id)
-        .then(images => {
-            return Promise.each(images, el => fs.unlink(el.path) )
-        })
-        .then(() => next())
-        .catch(() => next())
 }
 
 const removeProfilePicture = (req, res, next) => {
@@ -33,8 +18,36 @@ const removeProfilePicture = (req, res, next) => {
     removeImage(image, next)
 }
 
+
+const removeAdImage = (req, res, next) => {
+    const image = req.image.path
+    removeImage(image, next)
+}
+
+const removeAdImages = (req, res, next) => {
+    const ad = req.ad
+    adImagesFunctionals.findImagesByAdId(ad.id)
+        .then(images => {
+            return Promise.map(images, el => fs.unlink(el.path) )
+        })
+        .then(() => next())
+        .catch(() => next())
+}
+
+
+const removeUploadedFiles = (err, req, res, next) => {
+    if(!req.files || req.files.length === 0) {
+        return next(err)
+    }
+    return Promise.map(req.files, el => fs.unlink(el.path) )
+        .then(() => next(err))
+        .catch(next)
+}
+
+
 module.exports = {
+    removeProfilePicture,
     removeAdImage,
     removeAdImages,
-    removeProfilePicture
+    removeUploadedFiles
 }

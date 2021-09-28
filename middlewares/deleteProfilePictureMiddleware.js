@@ -1,4 +1,4 @@
-const usersFunctionals = require('../models/functionals/users_functionals')
+const usersFunctionals = require('../models/functionals/usersFunctionals')
 const userFunctionals = new usersFunctionals.methods()
 
 const getDeleteProfilePicturePage = (req, res, next) => {

@@ -69,11 +69,7 @@ html
         button(type="button" id="deleteImage" class="btn btn-success") Delete the image
 
         script.
-            //- const url = document.location.href
             const url = $(location).attr('pathname')
-            //- const splittedUrl = url.split("/")
-            //- const id = splittedUrl[splittedUrl.length - 1]
-            //- console.log(${ad})
             $(document).ready(() => {
                 $('#deleteImage').on('click', e => {
                     e.preventDefault()

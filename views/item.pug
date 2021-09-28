@@ -84,6 +84,8 @@ html
 
         hr
         
+        - if(messages.error_msg)
+            p.message= messages.error_msg
         - if(messages.success_msg)
             p.message= messages.success_msg
         - if(messages.error)

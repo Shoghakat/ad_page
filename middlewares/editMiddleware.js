@@ -1,5 +1,5 @@
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
+const adsFunctionals = require('../models/functionals/adsFunctionals')
+const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
 
 const adFunctionals = new adsFunctionals.methods()
 const adImagesFunctionals = new adsImagesFunctionals.methods()

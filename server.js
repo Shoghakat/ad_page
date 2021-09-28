@@ -8,6 +8,8 @@ const createError = require('http-errors')
 
 const { RedisStore, redisClient } = require('./configurations/redisConfig')
 
+const { removeUploadedFiles } = require('./middlewares/removeFiles')
+
 const app = express()
 
 app.set('view engine', 'pug')
@@ -61,9 +63,19 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
+    return removeUploadedFiles(err, req, res, next)
+})
+
+app.use((err, req, res, next) => {
     const errStatus = err.status || 500
     res.status(errStatus)
-    res.send(`${errStatus} Error: ${err.message}`)
+    if(err.status === 401) {
+        return res.render('login')
+    }
+    if(err.status === 403 || err.status === 404) {
+        return res.render('error')
+    }
+    return res.json({ message: `${errStatus} Error: ${err.message}` })
 })
 
 

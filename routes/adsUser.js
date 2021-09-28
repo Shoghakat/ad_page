@@ -1,8 +1,7 @@
 const router = require('express').Router()
 
-const check = require('../middlewares/check')
-const validationMiddlware = require('../middlewares/validation_middleware')
-const adsUserMiddlwares = require('../middlewares/adsUser_middleware')
+const validationMiddlware = require('../middlewares/validationMiddleware')
+const adsUserMiddlwares = require('../middlewares/adsUserMiddleware')
 
 router.get('/:id',
     validationMiddlware.paramValidation,

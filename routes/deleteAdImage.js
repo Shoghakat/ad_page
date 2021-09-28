@@ -1,8 +1,8 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const validationMiddlware = require('../middlewares/validation_middleware')
-const deleteAdImageMiddlwares = require('../middlewares/deleteAdImage_middleware')
+const validationMiddlware = require('../middlewares/validationMiddleware')
+const deleteAdImageMiddlwares = require('../middlewares/deleteAdImageMiddleware')
 const removeFiles = require('../middlewares/removeFiles')
 
 router.get('/:id',

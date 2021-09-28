@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const deleteAccountMiddlwares = require('../middlewares/deleteAccount_middleware')
+const deleteAccountMiddlwares = require('../middlewares/deleteaccountMiddleware')
 const removeFiles = require('../middlewares/removeFiles')
 
 router.get('/',

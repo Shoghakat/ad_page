@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const loginMiddlwares = require('../middlewares/login_middleware')
+const loginMiddlwares = require('../middlewares/loginMiddleware')
 
 router.get('/',
     check.checkNotAuthenticated,

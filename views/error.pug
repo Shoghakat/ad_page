@@ -49,5 +49,10 @@ body(style="text-align:center;")
 
     hr
 
-    -if(err)
+    - if(messages.error_msg)
+        p= messages.error_msg
+    - if(messages.error)
+        p= messages.error
+
+    - if(err)
         h2= err

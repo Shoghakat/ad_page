@@ -1,4 +1,4 @@
-const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
+const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
 const adImagesFunctionals = new adsImagesFunctionals.methods()
 
 const getDeleteAdImagePage = (req, res, next) => {

@@ -1,13 +1,15 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const addCategoryMiddlwares = require('../middlewares/addCategory_middleware')
+const validationMiddlware = require('../middlewares/validationMiddleware')
+const addCategoryMiddlwares = require('../middlewares/addcategoryMiddleware')
 
 router.get('/',
     addCategoryMiddlwares.getCreateCategoryPage)
 
 router.post('/',
     check.checkNotCateg,
+    validationMiddlware.categValidation,
     addCategoryMiddlwares.createCategory,
     addCategoryMiddlwares.completeCreateCateg)
 

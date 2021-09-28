@@ -1,4 +1,4 @@
-const categsFunctionals = require('../models/functionals/categories_functionals')
+const categsFunctionals = require('../models/functionals/categoriesFunctionals')
 const categFunctionals = new categsFunctionals.methods()
 
 const getCreateCategoryPage = (req, res, next) => {
@@ -12,8 +12,8 @@ const createCategory = (req, res, next) => {
         name: req.body.name,
         parentId: null
     }
-    if(req.body.categId !== 'None') {
-        data.parentId = req.body.categId
+    if(req.body.categ !== 'None') {
+        data.parentId = req.body.categ
     }
     categFunctionals.createCateg(data)
         .then(() => next())
@@ -22,7 +22,7 @@ const createCategory = (req, res, next) => {
 
 const completeCreateCateg = (req, res, next) => {
     req.flash('success_msg', 'Category added successfully.')
-    return res.redirect('/ad')
+    return res.json({ message: 'Category added successfully' })
 }
 
 module.exports = {

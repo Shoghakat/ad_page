@@ -1,4 +1,4 @@
-const homeMiddlwares = require('../middlewares/home_middleware')
+const homeMiddlwares = require('../middlewares/homeMiddleware')
 
 const router = require('express').Router()
 

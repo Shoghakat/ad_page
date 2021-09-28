@@ -1,4 +1,4 @@
-const messagesFunctionals = require('../models/functionals/messages_functionals')
+const messagesFunctionals = require('../models/functionals/messagesFunctionals')
 const messageFunctionals = new messagesFunctionals.methods()
 
 const getMessagePage = (req, res, next) => {
@@ -16,7 +16,7 @@ const postMessagePage = (req, res, next) => {
     messageFunctionals.createMessage(data)
         .then(() => {
             req.flash('success_msg', 'Message sent successfully.')
-            return res.redirect(`/item/${ad.id}`)
+            return res.json({ message: 'Message sent successfully' })
         })
         .catch(next)
 }

@@ -33,6 +33,7 @@ head
         }
     title= register
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
+    script(type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js")
 
 body(style="text-align:center;")
     h1 Register Page
@@ -78,3 +79,24 @@ body(style="text-align:center;")
                 option(value="Yerevan") Yerevan
         div
             input(type='submit' value='Register')
+
+    script.
+        const url = $(location).attr('pathname')
+        $(document).ready(() => {
+            $('form').submit(function(e) {
+                e.preventDefault()
+                const formAction = $(this).attr('action')
+                const formData = $(this).serialize()
+                $.ajax({
+                    url: formAction,
+                    data: formData,
+                    type: 'POST',
+                    success: () => {  
+                        window.location.pathname = '/login'
+                    },
+                    error: (xhr, textStatus, errorThrown) => {
+                        window.location.pathname = formAction
+                    }
+                })
+            })
+        })

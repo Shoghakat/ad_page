@@ -1,8 +1,8 @@
 const Promise = require('bluebird')
 
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const adsImagesFunctionals = require('../models/functionals/adsImages_functionals')
-const categsFunctionals = require('../models/functionals/categories_functionals')
+const adsFunctionals = require('../models/functionals/adsFunctionals')
+const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
+const categsFunctionals = require('../models/functionals/categoriesFunctionals')
 
 const adFunctionals = new adsFunctionals.methods()
 const adImagesFunctionals = new adsImagesFunctionals.methods()
@@ -37,32 +37,32 @@ const createAd = (req, res, next) => {
     adFunctionals.createAd(data)
         .then(ad => {
             req.adId = ad.id
-            next()
+            return next()
         })
         .catch(next)
 }
 
 const createImagesByAdId = (req, res, next) => {
+    console.log(req.files)
     if(req.files.length === 0) {
         return next()
     }
-
     return Promise.each(req.files, el => {
         const newImage = {
             filename: el.filename,
             path: el.path,
             adId: req.adId
         }
-
-        adImagesFunctionals.createImage(newImage)
-            .then(() => next())
+        return adImagesFunctionals.createImage(newImage)
     })
+    .then(() => next())
     .catch(next)
 }
 
 const completeCreateAd = (req, res, next) => {
     req.flash('success_msg', 'Post published successfully.')
     return res.redirect('/account')
+    // return res.json({ message: 'Post published successfully' })
 }
 
 module.exports = {

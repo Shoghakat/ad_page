@@ -1,6 +1,6 @@
-const usersFunctionals = require('../models/functionals/users_functionals')
-const adsFunctionals = require('../models/functionals/ads_functionals')
-const messagesFunctionals = require('../models/functionals/messages_functionals')
+const usersFunctionals = require('../models/functionals/usersFunctionals')
+const adsFunctionals = require('../models/functionals/adsFunctionals')
+const messagesFunctionals = require('../models/functionals/messagesFunctionals')
 
 const userFunctionals = new usersFunctionals.methods()
 const adFunctionals = new adsFunctionals.methods()

@@ -131,10 +131,25 @@ const getSubcategoryByCategId = (id) => {
 }
 
 
+const getNumberOfAdImages = (id) => {
+    return sequelize.query(`
+        SELECT COUNT(*)
+        FROM test_2.ads_images
+        GROUP BY "adId"
+        HAVING "adId" = :ad_id`,
+        {
+            replacements: { ad_id: id },
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+}
+
+
 module.exports = {
     getUserAdsAndImageById,
     getUserAdsById,
     getAdsByCategId,
     getUserMessagesById,
-    getSubcategoryByCategId
+    getSubcategoryByCategId,
+    getNumberOfAdImages
 }

@@ -30,35 +30,36 @@ const fileStorageEngine = multer.diskStorage({
 })
 
 
-const upload = multer({
-    storage: fileStorageEngine,
-    limits: { fileSize: 5 * 1024 * 1024 },
-    fileFilter: (_req, file, cb) => checkFileType(file, cb)
-}).single('image')
-
 const uploadFile = (req, res, next) => {
+    const upload = multer({
+        storage: fileStorageEngine,
+        limits: { fileSize: 5 * 1024 * 1024 },
+        fileFilter: (_req, file, cb) => checkFileType(file, cb)
+    }).single('image')
+
     upload(req, res, err => {
         if (err) {
-            return res.render('error', { err: err })
+            return next(err)
         }
         return next()
     })
 }
 
 
-const uploads = multer({
-    storage: fileStorageEngine,
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-        files: 5
-    },
-    fileFilter: (_req, file, cb) => checkFileType(file, cb)
-}).array('image')
-
 const uploadFiles = (req, res, next) => {
+    const uploads = multer({
+        storage: fileStorageEngine,
+        limits: {
+            fileSize: 5 * 1024 * 1024,
+            files: 5
+        },
+        fileFilter: (_req, file, cb) => checkFileType(file, cb)
+    }).array('image')
+
     uploads(req, res, err => {
         if (err) {
-            return res.render('error', { err: err })
+            return next(err)
+            // return res.render('error', { err: err })
         }
         return next()
     })

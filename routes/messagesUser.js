@@ -1,8 +1,8 @@
 const router = require('express').Router()
 
 const check = require('../middlewares/check')
-const validationMiddlware = require('../middlewares/validation_middleware')
-const messagesUserMiddlwares = require('../middlewares/messagesUser_middleware')
+const validationMiddlware = require('../middlewares/validationMiddleware')
+const messagesUserMiddlwares = require('../middlewares/messagesUserMiddleware')
 
 router.get('/',
     messagesUserMiddlwares.getUserMessagesPage)
