@@ -38,9 +38,14 @@ const uploadFile = (req, res, next) => {
     }).single('image')
 
     upload(req, res, err => {
-        if (err) {
+        // if (err instanceof multer.MulterError) {
+        //     // A multer error occurred when uploading.
+        // } else if (err) {
+        //     // An unknown error occurred when uploading.
+        // }
+        if(err) {
             return next(err)
-        }
+        }        
         return next()
     })
 }

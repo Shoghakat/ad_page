@@ -1,6 +1,5 @@
 const localStrategy = require('passport-local').Strategy
 
-const users = require('../models/models/modelsConfig').users
 const usersFunctionals = require('../models/functionals/usersFunctionals')
 const userFunctionals = new usersFunctionals.methods()
 
@@ -8,7 +7,7 @@ const hashPassword = require('./passwordConfig').hashPassword
 
 const initialize = (passport) => {
     const authenticateUser = (email, password, done) => {
-        users.findOne({ where: { email: email } })
+        userFunctionals.findOneUserByEmail(email)
             .then(user => {
                 if(!user) {
                     return done(null, false, { message: 'Email is not registered' })                
