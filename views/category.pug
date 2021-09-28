@@ -28,6 +28,23 @@ head
             vertical-align: top;
             width: 320px
         }
+        .pagination {
+            display: inline-block;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {background-color: #ddd;}
     title= category
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
 
@@ -67,3 +84,8 @@ body(style="text-align:center;")
     - else
         p
             i No ads are available in this category
+
+    footer
+        div.pagination
+            - for (let n=1; n<6; n++)
+                a(href=`/category/${categ.id}?page=${n}`) #{n}

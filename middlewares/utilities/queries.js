@@ -55,10 +55,10 @@ const getUserAdsById = (id) => {
 }
 
 
-const getAdsByCategId = (id) => {
+const getAdsByCategId = (id, limit, offset) => {
     return sequelize.query(`
         SELECT a.id "adId", a.title "adTitle",
-        i.id "imgId", i.filename, i.path
+            i.id "imgId", i.filename, i.path
         FROM test_2.ads a
         INNER JOIN test_2.categories c
         ON (a."categoryId" = c.id)
@@ -72,7 +72,9 @@ const getAdsByCategId = (id) => {
             )
         ) i
         ON (i."adId" = a.id)
-        WHERE c."parentId" = :c_id`,
+        WHERE c."parentId" = :c_id
+        LIMIT ${limit}
+        OFFSET ${offset}`,
         {
             replacements: {
                 c_id: id
