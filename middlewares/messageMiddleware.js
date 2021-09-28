@@ -1,4 +1,4 @@
-const messagesFunctionals = require('../models/functionals/messagesFunctionals')
+const { messagesFunctionals } = require('../models/functionals/functionals')
 const messageFunctionals = new messagesFunctionals.methods()
 
 const getMessagePage = (req, res, next) => {

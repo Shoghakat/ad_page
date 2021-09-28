@@ -1,8 +1,8 @@
 const Promise = require('bluebird')
 
-const adsFunctionals = require('../models/functionals/adsFunctionals')
-const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
-const categsFunctionals = require('../models/functionals/categoriesFunctionals')
+const { adsFunctionals,
+    adsImagesFunctionals,
+    categsFunctionals } = require('../models/functionals/functionals')
 
 const adFunctionals = new adsFunctionals.methods()
 const adImagesFunctionals = new adsImagesFunctionals.methods()

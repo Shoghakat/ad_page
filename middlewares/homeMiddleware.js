@@ -1,4 +1,4 @@
-const categsFunctionals = require('../models/functionals/categoriesFunctionals')
+const { categsFunctionals } = require('../models/functionals/functionals')
 const categFunctionals = new categsFunctionals.methods()
 
 const { getParentAndChildCategs } = require('./utilities/utilities')

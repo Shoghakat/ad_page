@@ -1,4 +1,5 @@
-const categsFunctionals = require('../models/functionals/categoriesFunctionals')
+const { categsFunctionals } = require('../models/functionals/functionals')
+
 const categFunctionals = new categsFunctionals.methods()
 
 const getCreateCategoryPage = (req, res, next) => {

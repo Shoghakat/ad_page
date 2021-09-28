@@ -1,4 +1,4 @@
-const usersFunctionals = require('../models/functionals/usersFunctionals')
+const { usersFunctionals } = require('../models/functionals/functionals')
 const userFunctionals = new usersFunctionals.methods()
 
 const { generateSalt, hashPassword } = require('../configurations/passwordConfig')

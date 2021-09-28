@@ -1,7 +1,7 @@
 const fs = require('fs/promises')
 const Promise = require('bluebird')
 
-const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
+const { adsImagesFunctionals } = require('../models/functionals/functionals')
 const adImagesFunctionals = new adsImagesFunctionals.methods()
 
 const removeImage = (image, cb) => {

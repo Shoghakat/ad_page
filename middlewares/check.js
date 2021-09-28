@@ -1,10 +1,10 @@
 const passport = require('passport')
 
-const usersFunctionals = require('../models/functionals/usersFunctionals')
-const adsFunctionals = require('../models/functionals/adsFunctionals')
-const adsImagesFunctionals = require('../models/functionals/adsImagesFunctionals')
-const categsFunctionals = require('../models/functionals/categoriesFunctionals')
-const messagesFunctionals = require('../models/functionals/messagesFunctionals')
+const { usersFunctionals,
+    adsFunctionals,
+    adsImagesFunctionals,
+    categsFunctionals,
+    messagesFunctionals } = require('../models/functionals/functionals')
 
 const adFunctionals = new adsFunctionals.methods()
 const adImagesFunctionals = new adsImagesFunctionals.methods()
